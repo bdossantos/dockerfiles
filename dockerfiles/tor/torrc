@@ -1,0 +1,16 @@
+AutomapHostsOnResolve 1
+AutomapHostsSuffixes .exit,.onion
+AvoidDiskWrites 1
+ClientOnly 1
+DNSPort 0.0.0.0:9053
+DataDirectory /tmp/.tor
+ExitNodes {fr},{ch},{de},{nl},{se},{no},{fi},{es},{cz}
+FascistFirewall 1
+HardwareAccel 1
+Log notice stdout
+NumCPUs 2
+ReachableAddresses *:80,*:443
+RunAsDaemon 0
+SafeLogging 1
+SocksPort 0.0.0.0:9050
+StrictNodes 1
