@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+echo '--> dockerfile-lint ALL THE THINGS!!'
+
+fail=0
+FILES=$(find "$(dirname "$0")/../dockerfiles" \
+  -type f -name 'Dockerfile' \
+  -print
+)
+
+for file in $FILES; do
+  if lint_outpout=$(docker run \
+    --rm -i hadolint/hadolint:v1.2.4 \
+    hadolint --ignore DL3006 --ignore DL3007 - < "$file" 2>&1); then
+    status='[OK]'
+  else
+    status='[FAIL]'
+    fail=1
+  fi
+
+  echo "${status} ${file}"
+  [[ ! -z $lint_outpout ]] && echo "$lint_outpout"
+done
+
+if [[ $fail -ne 0 ]]; then
+  exit 1
+fi
