@@ -1,0 +1,56 @@
+block_ipv6 = false
+cache = true
+cache_max_ttl = 86400
+cache_min_ttl = 600
+cache_neg_ttl = 60
+cache_size = 16000
+cert_refresh_delay = 240
+daemonize = false
+dnscrypt_servers = true
+doh_servers = true
+fallback_resolver = '1.1.1.1:53'
+force_tcp = false
+ignore_system_dns = true
+ipv4_servers = true
+ipv6_servers = false
+keepalive = 5
+lb_strategy = 'p2'
+listen_addresses = ['0.0.0.0:53']
+max_clients = 100
+require_dnssec = false
+require_nofilter = true
+require_nolog = true
+timeout = 3000
+
+[query_log]
+  file = "/dev/null"
+  format = "tsv"
+
+[blacklist]
+  blacklist_file = '/etc/dnscrypt-proxy-blacklist.txt'
+  log_file = '/dev/null'
+
+[sources]
+  [sources.'public-resolvers']
+  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']
+  cache_file = '/tmp/public-resolvers.md'
+  format = 'v2'
+  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+  refresh_delay = 72
+  prefix = ''
+
+[schedules]
+  [schedules.'time-to-sleep']
+  mon = [{after='23:00', before='7:00'}]
+  tue = [{after='23:00', before='7:00'}]
+  wed = [{after='23:00', before='7:00'}]
+  thu = [{after='23:00', before='7:00'}]
+  fri = [{after='00:00', before='7:00'}]
+  sat = [{after='00:00', before='7:00'}]
+  sun = [{after='23:00', before='7:00'}]
+  [schedules.'work']
+  mon = [{after='9:00', before='18:00'}]
+  tue = [{after='9:00', before='18:00'}]
+  wed = [{after='9:00', before='18:00'}]
+  thu = [{after='9:00', before='18:00'}]
+  fri = [{after='9:00', before='17:00'}]
