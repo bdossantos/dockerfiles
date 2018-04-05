@@ -17,8 +17,7 @@ bundle-install: ## Install ruby dependencies
 
 docker-build: ## Build all Dockerfiles
 	$(info --> Run docker-build)
-	@find $(CWD)/dockerfiles/ -type f -name 'Dockerfile' \
-		| xargs -I % -n 1 -P 1 $(CWD)/scripts/docker-build %
+	@docker-compose build --force-rm
 
 dockerfile-lint: ## Run hadolint on Dockerfile(s)
 	$(info --> Run dockerfile-lint)
