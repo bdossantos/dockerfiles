@@ -75,6 +75,7 @@ describe 'Dockerfile' do
   describe file('/etc/tor/torrc') do
     it { should be_file }
     it { should be_owned_by 'root' }
+    it { should be_mode 444 }
     its(:sha256sum) {
       should eq \
         '4ff1320f38b552b654ad5cf63cefc2d8c1aecbdd1abe5659cdbfa115973121be'
