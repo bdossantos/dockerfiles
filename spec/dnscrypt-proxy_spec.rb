@@ -93,6 +93,8 @@ describe 'Dockerfile' do
     its(:exit_status) { should eq 0 }
     its(:stdout) {
       should contain('status: NXDOMAIN')
+    }
+    its(:stdout) {
       should contain('QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1')
     }
   end
@@ -101,6 +103,8 @@ describe 'Dockerfile' do
     its(:exit_status) { should eq 0 }
     its(:stdout) {
       should contain('status: REFUSED')
+    }
+    its(:stdout) {
       should contain('QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0')
     }
   end
