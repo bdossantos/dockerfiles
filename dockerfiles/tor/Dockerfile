@@ -66,8 +66,6 @@ RUN set -x \
     /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb \
     /var/cache/apt/*.bin
 
-COPY ./torrc /etc/tor/torrc
-
 EXPOSE 9050/tcp 9053/udp
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
