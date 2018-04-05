@@ -63,6 +63,15 @@ describe 'Dockerfile' do
     its(:exit_status) { should eq 0 }
   end
 
+  describe file('/usr/local/etc/tor/torrc.sample') do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    its(:sha256sum) {
+      should eq \
+        'ea316c4b7b04cfb0c1292e8b325dfa96ffd1fe6d196a63f577f8110c62af20e4'
+    }
+  end
+
   describe file('/etc/tor/torrc') do
     it { should be_file }
     it { should be_owned_by 'root' }
