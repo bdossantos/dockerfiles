@@ -68,14 +68,14 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '7a8ad1374e752015ab8a46bf7fd9ed231e1245873d53fde75e8bd4a918c59baa'
+        '4ff1320f38b552b654ad5cf63cefc2d8c1aecbdd1abe5659cdbfa115973121be'
     }
     it { should contain('AutomapHostsOnResolve 1') }
     it { should contain('AutomapHostsSuffixes .exit,.onion') }
     it { should contain('AvoidDiskWrites 1') }
     it { should contain('ClientOnly 1') }
     it { should contain('DNSPort 0.0.0.0:9053') }
-    it { should contain('DataDirectory /tmp/.tor') }
+    it { should contain('DataDirectory /dev/shm/.tor') }
     it {
       should contain('ExitNodes {fr},{ch},{de},{nl},{se},{no},{fi},{es},{cz}')
     }
