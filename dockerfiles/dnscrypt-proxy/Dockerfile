@@ -4,7 +4,9 @@ FROM golang:1.10 as builder
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
 WORKDIR /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
-RUN env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w'
+RUN set -x \
+  && git checkout tags/2.0.8 \
+  && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w'
 
 WORKDIR /tmp
 COPY domains-blacklist-local-additions.txt .
