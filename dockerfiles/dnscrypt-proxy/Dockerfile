@@ -44,7 +44,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
 
 USER nobody
 
-EXPOSE 53/tcp 53/udp
+EXPOSE 53/udp
 
 ENTRYPOINT ["/usr/local/bin/dnscrypt-proxy"]
 CMD ["-config", "/etc/dnscrypt-proxy.toml"]

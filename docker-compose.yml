@@ -9,7 +9,7 @@ services:
     read_only: true
     shm_size: 32M
     ports:
-      - 127.0.0.1:5300:53/udp
+      - 127.0.0.1:53:53/udp
   tor:
     build: dockerfiles/tor
     image: bdossantos/tor
