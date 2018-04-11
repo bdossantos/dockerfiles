@@ -35,7 +35,8 @@ pre-commit: ## Run pre-commit tests
 
 serverspec: ## Run serverspec
 	$(info --> Run serverspec)
-	@find . -type f -name '*_spec.rb' | xargs -n 1 -P 1 bundle exec rspec
+	@find . -type f -name '*_spec.rb' \
+		| xargs -n 1 -P 1 -I % bundle exec rspec %
 
 shellcheck: ## Run shellcheck on /scripts directory
 	$(info --> Run shellsheck)
