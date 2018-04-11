@@ -5,7 +5,7 @@ RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
 WORKDIR /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 RUN set -x \
-  && git checkout tags/2.0.8 \
+  && git checkout tags/2.0.9b2 \
   && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w'
 
 WORKDIR /tmp
