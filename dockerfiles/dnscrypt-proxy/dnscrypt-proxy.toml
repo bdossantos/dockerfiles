@@ -6,6 +6,7 @@ cache_neg_ttl = 60
 cache_size = 16000
 cert_refresh_delay = 240
 daemonize = false
+dnscrypt_ephemeral_keys = false
 dnscrypt_servers = true
 doh_servers = true
 fallback_resolver = '1.1.1.1:53'
