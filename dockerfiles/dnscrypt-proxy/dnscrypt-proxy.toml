@@ -22,6 +22,8 @@ require_dnssec = false
 require_nofilter = true
 require_nolog = true
 timeout = 3000
+tls_cipher_suite = [52392, 49199]
+tls_disable_session_tickets = false
 
 [query_log]
   file = "/dev/null"
