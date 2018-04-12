@@ -16,4 +16,5 @@ before_script:
   - rvm install "$(cat .ruby-version)"
   - export PATH=$HOME/.local/bin:/usr/sbin:$PATH
 script:
+  - docker-compose build
   - make install test
