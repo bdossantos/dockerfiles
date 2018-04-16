@@ -12,6 +12,15 @@ services:
       - 127.0.0.1:53:53/tcp
       - 127.0.0.1:53:53/udp
     restart: always
+  privoxy:
+    build: dockerfiles/privoxy
+    image: bdossantos/privoxy
+    container_name: privoxy
+    read_only: true
+    shm_size: 32M
+    ports:
+      - 127.0.0.1:8118:8118/tcp
+    restart: always
   tor:
     build: dockerfiles/tor
     image: bdossantos/tor
