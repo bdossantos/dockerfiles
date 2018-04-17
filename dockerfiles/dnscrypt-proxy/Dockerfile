@@ -19,7 +19,7 @@ COPY domains-whitelist.txt .
 
 RUN set -x \
   && python /go/src/github.com/jedisct1/dnscrypt-proxy/utils/generate-domains-blacklists/generate-domains-blacklist.py \
-    --timeout 60 > /etc/dnscrypt-proxy-blacklist.txt \
+    --timeout 120 > /etc/dnscrypt-proxy-blacklist.txt \
   && wget -q https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts \
     -O /etc/hosts
 
