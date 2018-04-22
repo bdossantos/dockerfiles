@@ -11,6 +11,7 @@ services:
     ports:
       - 127.0.0.1:53:53/tcp
       - 127.0.0.1:53:53/udp
+    restart: always
   tor:
     build: dockerfiles/tor
     image: bdossantos/tor
@@ -20,6 +21,7 @@ services:
     ports:
       - 127.0.0.1:9050:9050/tcp
       - 127.0.0.1:9053:9053/udp
+    restart: always
 
 networks:
   default:
