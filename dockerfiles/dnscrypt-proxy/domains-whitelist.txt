@@ -1,0 +1,10 @@
+elasticbeanstalk.com
+github.com
+github.io
+home
+local
+localdomain
+ovh.net
+spotify.com
+tagcommander.com
+tracker.debian.org
