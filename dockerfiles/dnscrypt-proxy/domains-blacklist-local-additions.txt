@@ -1,33 +1,19 @@
-# Local set of patterns to block
-
+*.lan
+*.local
+*.localdomain
+*.workgroup
+*.youtube.*  @time-to-sleep
 ad.*
 ads.*
 banner.*
 banners.*
 creatives.*
+eth0.me
+facebook.com @time-to-sleep
+facebook.com @work
 oas.*
 oascentral.*
 stats.*
 tag.*
 telemetry.*
 tracker.*
-
-# My Macbook constantly sends a lot of useless queries to *.local,
-# so I block them. *.lan is apparently another common one, and
-# *.localdomain and *.workgroup are common on Windows.
-
-*.lan
-*.local
-*.localdomain
-*.workgroup
-
-# eth0.me is hardcoded in tools such as Archey, but is not available any
-# more, causing issues such as terminal sessions taking a long time to
-# start.
-
-eth0.me
-
-# Time-based rules
-*.youtube.*  @time-to-sleep
-facebook.com @time-to-sleep
-facebook.com @work

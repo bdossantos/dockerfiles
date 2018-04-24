@@ -1,8 +1,3 @@
-## Rules to be applied at specific times
-##
-## This requires a time schedule to be defined in the
-## dnscrypt-proxy.toml configuration file.
-
 *.netflix.*       @time-to-sleep
 *.youtube.*       @time-to-sleep
 facebook.com      @work
