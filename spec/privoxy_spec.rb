@@ -59,7 +59,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '888037f06aaa547b57423267471eff16967c4054979048d2284868875993f73a'
+        '543f7edfb340ab56190109e99e22cb6b6038fd8e183fc9c6fc8547de677fb1be'
     }
   end
 
