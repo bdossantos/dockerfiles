@@ -31,7 +31,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        'd3b0c834b1596159c1b0d0c47fd38493c936ce364dc2be0468d013ae63321d51'
+        '04756224ba477243ac489ab65e135b51237ab388a04c3a6b6f42d7e7c7a25d50'
     }
     it { should contain('block_ipv6 = false') }
     it { should contain('cache = true') }
