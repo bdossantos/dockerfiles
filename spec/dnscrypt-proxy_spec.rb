@@ -31,7 +31,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '04756224ba477243ac489ab65e135b51237ab388a04c3a6b6f42d7e7c7a25d50'
+        '55c0c2ddbb6f4592dacb7ad82ce2297d2731404e96b742082401fa6de0edf51e'
     }
     it { should contain('block_ipv6 = false') }
     it { should contain('cache = true') }
@@ -43,7 +43,7 @@ describe 'Dockerfile' do
     it { should contain('daemonize = false') }
     it { should contain('dnscrypt_servers = true') }
     it { should contain('doh_servers = true') }
-    it { should contain("fallback_resolver = '1.1.1.1:53'") }
+    it { should contain("fallback_resolver = '1.0.0.1:53'") }
     it { should contain('force_tcp = false') }
     it { should contain('ignore_system_dns = true') }
     it { should contain('ipv4_servers = true') }
