@@ -8,7 +8,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20161130+nmu1 \
-    curl=7.52.1-5+deb9u5 \
+    curl=7.52.1-5+deb9u6 \
     net-tools=1.60+git20161116.90da8a0-1 \
     privoxy=3.0.26-3 \
   && apt-get clean \
