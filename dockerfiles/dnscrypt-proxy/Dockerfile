@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.10 as builder
 
-ENV DNSCRYPT_PROXY_VERSION=2.0.13
+ENV DNSCRYPT_PROXY_VERSION=2.0.14
 
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
