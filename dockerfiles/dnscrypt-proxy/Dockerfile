@@ -21,7 +21,7 @@ RUN set -x \
   && python /go/src/github.com/jedisct1/dnscrypt-proxy/utils/generate-domains-blacklists/generate-domains-blacklist.py \
     --timeout 120 > /etc/dnscrypt-proxy-blacklist.txt \
   && wget -q https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts \
-    -O /etc/hosts
+    -O /etc/hosts.tmp
 
 # Run
 FROM alpine:3.3
@@ -36,7 +36,7 @@ COPY --from=builder \
   /etc/dnscrypt-proxy-blacklist.txt \
   /etc/dnscrypt-proxy-blacklist.txt
 COPY --from=builder \
-  /etc/hosts \
+  /etc/hosts.tmp \
   /etc/hosts
 COPY dnscrypt-proxy.toml /etc/dnscrypt-proxy.toml
 
