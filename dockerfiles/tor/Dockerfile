@@ -13,7 +13,7 @@ RUN set -x \
     build-essential=12.3 \
     ca-certificates=20161130+nmu1 \
     dirmngr=2.1.18-8~deb9u1 \
-    gnupg=2.1.18-8~deb9u1 \
+    gnupg=2.1.18-8~deb9u2 \
     libevent-dev=2.0.21-stable-3 \
     libssl-dev=1.1.0f-3+deb9u2 \
     libtool=2.4.6-2 \
