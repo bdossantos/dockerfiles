@@ -24,10 +24,10 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM alpine:3.3
+FROM alpine:3.7
 
 RUN set -x \
-  && apk --no-cache add ca-certificates=20161130-r0 bind-tools=9.10.4_p8-r1
+  && apk --no-cache add ca-certificates=20171114-r0 bind-tools=9.11.3-r0
 
 COPY --from=builder \
   /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy \
@@ -41,13 +41,10 @@ COPY --from=builder \
 COPY dnscrypt-proxy.toml /etc/dnscrypt-proxy.toml
 
 RUN set -x \
-  && setcap cap_net_bind_service=+pe /usr/local/bin/dnscrypt-proxy \
   && chmod 0444 /etc/dnscrypt-proxy.toml /etc/dnscrypt-proxy-blacklist.txt
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
   CMD dig +time=5 +tries=1 @127.0.0.1 -p 53 localhost
-
-USER nobody
 
 EXPOSE 53/tcp 53/udp
 

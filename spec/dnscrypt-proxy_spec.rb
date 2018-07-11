@@ -31,7 +31,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '55c0c2ddbb6f4592dacb7ad82ce2297d2731404e96b742082401fa6de0edf51e'
+        '8464dbd0b4cff0d5f6263f787cbfb4eeea19f034732dc363c593543151ef6045'
     }
     it { should contain('block_ipv6 = false') }
     it { should contain('cache = true') }
@@ -56,6 +56,9 @@ describe 'Dockerfile' do
     it { should contain('require_nofilter = true') }
     it { should contain('require_nolog = true') }
     it { should contain('timeout = 3000') }
+    it { should contain('tls_cipher_suite = [52392, 49199]') }
+    it { should contain('tls_disable_session_tickets = false') }
+    it { should contain("user_name = 'nobody'") }
     it { should contain("blacklist_file = '/etc/dnscrypt-proxy-blacklist.txt'") }
     it { should contain("urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']") }
     it { should contain("cache_file = '/dev/shm/public-resolvers.md'") }
