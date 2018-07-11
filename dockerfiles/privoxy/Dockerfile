@@ -1,8 +1,6 @@
 FROM debian:stretch-slim
 
-ENV \
-  DEBIAN_FRONTEND=noninteractive \
-  PRIVOXY_VERSION=3.0.26-3
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
@@ -18,6 +16,10 @@ RUN set -x \
 
 COPY ./config /etc/privoxy/config
 COPY ./user.action /etc/privoxy/user.action
+
+RUN set -x \
+  && chmod 0755 /etc/privoxy \
+  && chmod 0444 /etc/privoxy/config /etc/privoxy/user.action
 
 EXPOSE 8118/tcp
 
