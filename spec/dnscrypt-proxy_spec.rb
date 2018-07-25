@@ -31,7 +31,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '8464dbd0b4cff0d5f6263f787cbfb4eeea19f034732dc363c593543151ef6045'
+        '56c1b0274f3a5afcc62ab5aaf2778a1c836fdacccc9a09336af39a3726988b59'
     }
     it { should contain('block_ipv6 = false') }
     it { should contain('cache = true') }
@@ -51,7 +51,7 @@ describe 'Dockerfile' do
     it { should contain('keepalive = 20') }
     it { should contain("lb_strategy = 'p2'") }
     it { should contain("listen_addresses = ['0.0.0.0:53']") }
-    it { should contain('max_clients = 100') }
+    it { should contain('max_clients = 1024') }
     it { should contain('require_dnssec = false') }
     it { should contain('require_nofilter = true') }
     it { should contain('require_nolog = true') }
