@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.3.3.8 \
+  TOR_VERSION=0.3.3.9 \
   TORSOCKS_VERSION=2.2.0
 
 RUN set -x \
@@ -11,7 +11,7 @@ RUN set -x \
     autoconf=2.69-10 \
     automake=1:1.15-6 \
     build-essential=12.3 \
-    ca-certificates=20161130+nmu1 \
+    ca-certificates=20161130+nmu1+deb9u1 \
     dirmngr=2.1.18-8~deb9u2 \
     gnupg=2.1.18-8~deb9u2 \
     libevent-dev=2.0.21-stable-3 \
@@ -21,7 +21,7 @@ RUN set -x \
     net-tools=1.60+git20161116.90da8a0-1 \
     openssl=1.1.0f-3+deb9u2 \
     pwgen=2.07-1.1+b1 \
-    wget=1.18-5+deb9u1 \
+    wget=1.18-5+deb9u2 \
     zlib1g=1:1.2.8.dfsg-5 \
     zlib1g-dev=1:1.2.8.dfsg-5 \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
