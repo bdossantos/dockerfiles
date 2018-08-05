@@ -24,10 +24,10 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM alpine:3.7
+FROM alpine:3.8
 
 RUN set -x \
-  && apk --no-cache add ca-certificates=20171114-r0 bind-tools=9.11.3-r0
+  && apk --no-cache add ca-certificates=20171114-r3 bind-tools=9.12.1_p2-r0
 
 COPY --from=builder \
   /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy \
