@@ -12,3 +12,15 @@ services:
     ports:
       - 0.0.0.0:9050:9050/tcp
       - 0.0.0.0:9053:9053/udp
+  radicale:
+    build: dockerfiles/radicale
+    image: bdossantos/radicale
+    container_name: radicale
+    volumes:
+      - /volume1/docker/radicale/data:/data
+      - /volume1/docker/radicale/users:/config/users:ro
+    shm_size: 8M
+    ports:
+      - 192.168.1.250:5232:5232/tcp
+    network_mode: host
+    restart: always
