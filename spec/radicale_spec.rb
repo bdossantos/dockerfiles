@@ -25,14 +25,14 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '14c662e27dbb6ff6604d2a59ead9cfb6688122578ec00e75aaa42fd6f345b10f'
+        '27fbf61f7e144f41e7811fbc6442f2db3b04b7703428ffc5683efaaa35e738b7'
     }
     it { should contain('hosts = 0.0.0.0:5232, [::]:5232') }
     it { should contain('daemon = False') }
     it { should contain('pid =') }
     it { should contain('max_connections = 20') }
     it { should contain('max_content_length = 100000000') }
-    it { should contain('timeout = 10') }
+    it { should contain('timeout = 30') }
     it { should contain('dns_lookup = True') }
     it { should contain('type = htpasswd') }
     it { should contain('htpasswd_filename = /config/users') }
