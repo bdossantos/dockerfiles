@@ -12,7 +12,7 @@ RUN apk add --no-cache --virtual=build-dependencies \
     python3=3.6.4-r1 \
     shadow=4.5-r0 \
     su-exec=0.2-r0 \
-  && python3 -m pip install radicale==2.1.9 passlib[bcrypt] \
+  && python3 -m pip install radicale==2.1.10 passlib[bcrypt] \
   && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
   && apk del --purge build-dependencies \
   && mkdir -p /config /data
