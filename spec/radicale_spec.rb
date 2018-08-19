@@ -25,7 +25,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '27fbf61f7e144f41e7811fbc6442f2db3b04b7703428ffc5683efaaa35e738b7'
+        '557b2bd1c728719ad86e5aa2fc6e8de1803ea7f193f7bb1f0f9e571ad611bb9d'
     }
     it { should contain('hosts = 0.0.0.0:5232, [::]:5232') }
     it { should contain('daemon = False') }
