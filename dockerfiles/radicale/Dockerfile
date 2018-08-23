@@ -1,5 +1,9 @@
 FROM alpine:3.8
 
+ENV \
+  GIT_COMMITTER_NAME=Radicale \
+  GIT_COMMITTER_EMAIL=radicale@localhost
+
 # hadolint ignore=DL3013
 RUN apk add --no-cache --virtual=build-dependencies \
     gcc=6.4.0-r8 \
