@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.10 as builder
+FROM golang:1.10-stretch as builder
 
 ENV DNSCRYPT_PROXY_VERSION=2.0.16
 
@@ -24,10 +24,17 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM alpine:3.8
+FROM debian:stretch-slim
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
-  && apk --no-cache add ca-certificates=20171114-r3 bind-tools=9.12.1_p2-r0
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    ca-certificates=20161130+nmu1+deb9u1 \
+    dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder \
   /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy \
