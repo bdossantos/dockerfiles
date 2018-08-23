@@ -28,8 +28,8 @@ RUN chmod 0750 /data /config \
 
 VOLUME /data
 
-HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
-  CMD curl --fail http://127.0.0.1:5232 || exit 1
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
+  CMD curl -s --fail http://127.0.0.1:5232/.web/ &>/dev/null || exit 1
 
 EXPOSE 5232/tcp
 
