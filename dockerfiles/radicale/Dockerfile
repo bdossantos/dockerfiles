@@ -1,25 +1,18 @@
-FROM alpine:3.8
+FROM python:3.5.6-stretch
 
 ENV \
   GIT_COMMITTER_NAME=Radicale \
   GIT_COMMITTER_EMAIL=radicale@localhost
 
-# hadolint ignore=DL3013
-RUN apk add --no-cache --virtual=build-dependencies \
-    gcc=6.4.0-r8 \
-    libffi-dev=3.2.1-r4 \
-    musl-dev=1.1.19-r10 \
-    python3-dev=3.6.4-r1 \
-  && apk add --no-cache \
-    curl=7.61.0-r0 \
-    git=2.18.0-r0 \
-    python3=3.6.4-r1 \
-    shadow=4.5-r0 \
-    su-exec=0.2-r0 \
+RUN set -x \
+  && apt-get update \
   && python3 -m pip install radicale==2.1.10 passlib[bcrypt] \
   && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
-  && apk del --purge build-dependencies \
-  && mkdir -p /config /data
+  && mkdir -p /config /data \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb \
+    /var/cache/apt/*.bin
 
 COPY radicale.cfg /config/radicale.cfg
 COPY entrypoint.sh /entrypoint.sh
@@ -37,5 +30,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 
 EXPOSE 5232/tcp
 
+USER nobody
+
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["radicale", "--config", "/config/radicale.cfg"]
+CMD ["/usr/local/bin/radicale", "--config", "/config/radicale.cfg"]
