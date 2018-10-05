@@ -4,15 +4,11 @@ ENV \
   GIT_COMMITTER_NAME=Radicale \
   GIT_COMMITTER_EMAIL=radicale@localhost
 
+# hadolint ignore=DL3013
 RUN set -x \
-  && apt-get update \
   && python3 -m pip install radicale==2.1.10 passlib[bcrypt] \
   && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
-  && mkdir -p /config /data \
-  && apt-get clean \
-  && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-    /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb \
-    /var/cache/apt/*.bin
+  && mkdir -p /config /data
 
 COPY radicale.cfg /config/radicale.cfg
 COPY entrypoint.sh /entrypoint.sh
