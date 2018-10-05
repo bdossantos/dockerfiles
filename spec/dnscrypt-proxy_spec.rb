@@ -68,14 +68,6 @@ describe 'Dockerfile' do
     it { should contain("prefix = ''") }
   end
 
-  describe port(53) do
-    it { should be_listening.with('tcp') }
-  end
-
-  describe port(53) do
-    it { should be_listening.with('udp') }
-  end
-
   describe command('dig +time=5 +tries=1 @127.0.0.1 -p 53 localhost') do
     its(:exit_status) { should eq 0 }
     its(:stdout) {
