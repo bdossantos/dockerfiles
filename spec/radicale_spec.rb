@@ -10,19 +10,19 @@ describe 'Dockerfile' do
   set :backend, :docker
   set :docker_image, image.id
 
-  describe file('/usr/bin/radicale') do
+  describe file('/usr/local/bin/radicale') do
     it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '408c1fdebf8060d5e1ff13c4e1125ab918dfc614dda8c1daa8915a76fedc8e4b'
+        '6432bbe2cc66a77fd749e6971852c4ca8f4ef12f57428e0396a4b37234f0238c'
     }
   end
 
   describe file('/config/radicale.cfg') do
     it { should be_file }
-    it { should be_owned_by 'root' }
+    it { should be_owned_by 'nobody' }
     its(:sha256sum) {
       should eq \
         '557b2bd1c728719ad86e5aa2fc6e8de1803ea7f193f7bb1f0f9e571ad611bb9d'
@@ -46,9 +46,5 @@ describe 'Dockerfile' do
 
   describe command('curl --fail -s http://127.0.0.1:5232/.web') do
     its(:exit_status) { should eq 0 }
-  end
-
-  describe port(5232) do
-    it { should be_listening.with('tcp') }
   end
 end
