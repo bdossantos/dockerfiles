@@ -11,10 +11,8 @@ RUN set -x \
   && mkdir -p /config /data
 
 COPY radicale.cfg /config/radicale.cfg
-COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod 0750 /data /config \
-  && chmod 0755 /entrypoint.sh \
   && chmod 0444 /config/radicale.cfg \
   && touch /config/users \
   && chown -R nobody.nogroup /config /data
@@ -28,5 +26,5 @@ EXPOSE 5232/tcp
 
 USER nobody
 
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/local/bin/radicale", "--config", "/config/radicale.cfg"]
+ENTRYPOINT ["/usr/local/bin/radicale"]
+CMD ["--config", "/config/radicale.cfg"]
