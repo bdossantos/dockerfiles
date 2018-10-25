@@ -1,0 +1,163 @@
+#
+# Pre-compiled Node
+#
+FROM node:8.12.0-stretch as node
+
+#
+# Composer
+#
+FROM composer:1.7.2 as composer
+
+#
+# Foundation
+#
+FROM php:7.2.11-fpm-stretch as foundation
+
+ENV \
+  APP_DIR=/usr/src/app \
+  NGINX_VERSION=1.14.0
+
+WORKDIR /usr/src/app
+
+# hadolint ignore=DL3003,DL3008
+RUN set -eux \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    acl \
+    automake \
+    build-essential \
+    bzip2 \
+    cmake \
+    git \
+    libbz2-dev \
+    libfontconfig \
+    libgeoip-dev \
+    libgmp-dev \
+    libicu-dev \
+    libaio1 \
+    libjpeg-dev \
+    libjpeg-turbo-progs \
+    libodbc1 \
+    libpcre3-dev \
+    libpq-dev \
+    libpq5 \
+    libpng-dev \
+    libssl-dev \
+    libtool \
+    libuv1-dev \
+    libtidy-dev \
+    libxml2-dev \
+    libmemcached-dev \
+    locales \
+    supervisor \
+    unzip \
+    zlib1g-dev \
+  && mkdir -p /var/lib/php/session \
+  && chown -R www-data.www-data /var/lib/php/session \
+  && pecl install geoip-1.1.1 \
+  && pecl install memcached-3.0.4 \
+  && pecl install redis-4.1.1 \
+  && docker-php-ext-install \
+    bcmath \
+    exif \
+    gd \
+    iconv \
+    intl \
+    mbstring \
+    opcache \
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql \
+    phar \
+    posix \
+    simplexml \
+    soap \
+    sockets \
+    tidy \
+    zip \
+  && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+  && docker-php-ext-enable \
+    geoip \
+    memcached \
+    redis \
+  && curl -L -o "nginx-${NGINX_VERSION}.tar.gz" \
+    "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
+  && tar xzf nginx-${NGINX_VERSION}.tar.gz \
+  && cd nginx-${NGINX_VERSION} \
+  && ./configure \
+    --conf-path=/etc/nginx/nginx.conf \
+    --error-log-path=/var/log/nginx/error.log \
+    --group=www-data \
+    --http-client-body-temp-path=/var/cache/nginx/client_temp \
+    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+    --http-log-path=/var/log/nginx/access.log \
+    --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+    --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    --lock-path=/var/run/nginx.lock \
+    --pid-path=/var/run/nginx.pid \
+    --prefix=/etc/nginx \
+    --sbin-path=/usr/sbin/nginx \
+    --user=www-data \
+    --with-file-aio \
+    --with-http_addition_module \
+    --with-http_auth_request_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_random_index_module \
+    --with-http_realip_module \
+    --with-http_secure_link_module \
+    --with-http_slice_module \
+    --with-http_ssl_module \
+    --with-http_stub_status_module \
+    --with-http_sub_module \
+    --with-http_v2_module \
+    --with-stream \
+    --with-stream_realip_module \
+    --with-stream_ssl_module \
+    --with-threads \
+  && make \
+  && make install \
+  && mkdir -p /var/cache/nginx \
+  && chown -R www-data.www-data /var/cache/nginx \
+  && rm -rf "nginx-${NGINX_VERSION}.tar.gz" "nginx-${NGINX_VERSION}" \
+  && chsh -s /usr/sbin/nologin www-data \
+  && apt-get purge -y \
+    gcc \
+    g++ \
+  && docker-php-source delete \
+  && apt-get clean \
+  && rm -rf /tmp/pear \
+  && rm -rf /var/lib/apt/lists/* /usr/src/php*
+
+VOLUME /etc/nginx/conf.d
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=node /usr/local/ /usr/local/
+COPY entrypoint.sh /entrypoint.sh
+COPY mime.types /etc/nginx/mime.types
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY supervisord.conf /etc/supervisord.conf
+COPY zzz-opcache.ini /usr/local/etc/php/conf.d/zzz-opcache.ini
+COPY zzz-php-fpm-tuning.conf /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
+COPY zzz-php-hardening.ini /usr/local/etc/php/conf.d/zzz-php-hardening.ini
+
+RUN chmod 0444 \
+  /etc/nginx/mime.types \
+  /etc/nginx/nginx.conf \
+  /etc/supervisord.conf \
+  /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf \
+  /usr/local/etc/php/conf.d/zzz-opcache.ini \
+  /usr/local/etc/php/conf.d/zzz-php-hardening.ini \
+  /usr/local/etc/php/php.ini
+
+#
+# Run
+#
+FROM foundation as run
+
+WORKDIR /usr/src/app
+
+EXPOSE 80 443
+
+ENTRYPOINT ["/entrypoint.sh"]
