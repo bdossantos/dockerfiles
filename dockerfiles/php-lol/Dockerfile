@@ -28,6 +28,7 @@ RUN set -eux \
     build-essential \
     bzip2 \
     cmake \
+    geoip-database \
     git \
     libbz2-dev \
     libfontconfig \
@@ -102,6 +103,7 @@ RUN set -eux \
     --with-file-aio \
     --with-http_addition_module \
     --with-http_auth_request_module \
+    --with-http_geoip_module \
     --with-http_gunzip_module \
     --with-http_gzip_static_module \
     --with-http_random_index_module \
@@ -122,13 +124,21 @@ RUN set -eux \
   && chown -R www-data.www-data /var/cache/nginx \
   && rm -rf "nginx-${NGINX_VERSION}.tar.gz" "nginx-${NGINX_VERSION}" \
   && chsh -s /usr/sbin/nologin www-data \
+  && mkdir -p /usr/share/GeoIP/ \
+  && chmod 0755 /usr/share/GeoIP/ \
+  && curl -L -o /usr/share/GeoIP/GeoIP.dat.gz \
+    http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz \
+  && curl -L -o /usr/share/GeoIP/GeoLiteCity.dat.gz \
+    http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz \
+  && curl -L -o /usr/share/GeoIP/GeoLite2-City.mmdb.gz \
+    http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz \
+  && gunzip -f /usr/share/GeoIP/*.gz \
   && apt-get purge -y \
     gcc \
     g++ \
   && docker-php-source delete \
   && apt-get clean \
-  && rm -rf /tmp/pear \
-  && rm -rf /var/lib/apt/lists/* /usr/src/php*
+  && rm -rf /tmp/pear /var/lib/apt/lists/* /usr/src/php* /usr/share/GeoIP/*.gz
 
 VOLUME /etc/nginx/conf.d
 
