@@ -15,7 +15,7 @@ FROM php:7.2.11-fpm-stretch as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
-  NGINX_VERSION=1.14.0
+  NGINX_VERSION=1.14.1
 
 WORKDIR /usr/src/app
 
