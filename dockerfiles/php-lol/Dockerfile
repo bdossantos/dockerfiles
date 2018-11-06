@@ -122,7 +122,6 @@ RUN set -eux \
   && make install \
   && mkdir -p /var/cache/nginx \
   && chown -R www-data.www-data /var/cache/nginx \
-  && rm -rf "nginx-${NGINX_VERSION}.tar.gz" "nginx-${NGINX_VERSION}" \
   && chsh -s /usr/sbin/nologin www-data \
   && mkdir -p /usr/share/GeoIP/ \
   && chmod 0755 /usr/share/GeoIP/ \
@@ -138,7 +137,7 @@ RUN set -eux \
     g++ \
   && docker-php-source delete \
   && apt-get clean \
-  && rm -rf /tmp/pear /var/lib/apt/lists/* /usr/src/php* /usr/share/GeoIP/*.gz
+  && rm -rf /tmp/pear /var/lib/apt/lists/* /usr/src/* /usr/share/GeoIP/*.gz
 
 VOLUME /etc/nginx/conf.d
 
