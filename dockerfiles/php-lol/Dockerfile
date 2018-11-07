@@ -167,6 +167,6 @@ FROM foundation as run
 
 WORKDIR /usr/src/app
 
-EXPOSE 80 443
+EXPOSE 80/tcp 443/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
