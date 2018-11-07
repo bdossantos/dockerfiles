@@ -1,0 +1,15 @@
+redis:
+  listen: 127.0.0.1:6379
+  hash: fnv1a_64
+  distribution: random
+  preconnect: true
+  auto_eject_hosts: true
+  server_retry_timeout: 30000
+  server_failure_limit: 3
+  server_connections: 4
+  timeout: 2000
+  backlog: 2048
+  redis: true
+  servers:
+    - 127.0.0.2:6379:1 mem01
+    - 127.0.0.3:6379:1 mem02
