@@ -58,7 +58,7 @@ RUN curl -Ls "https://github.com/facebookincubator/fizz/archive/${FIZZ_VERSION}.
 
 WORKDIR /usr/src/wangle
 
-RUN curl -Ls https://github.com/facebook/wangle/archive/${WANGLE_VERSION}.tar.gz \
+RUN curl -Ls "https://github.com/facebook/wangle/archive/${WANGLE_VERSION}.tar.gz" \
   | tar xvzf - --strip-components=1 \
   && cmake configure wangle \
   && make \
@@ -66,12 +66,12 @@ RUN curl -Ls https://github.com/facebook/wangle/archive/${WANGLE_VERSION}.tar.gz
 
 WORKDIR /usr/src/mcrouter
 
-RUN curl -Ls https://github.com/facebook/mcrouter/archive/${MCROUTER_VERSION}.tar.gz \
+RUN curl -Ls "https://github.com/facebook/mcrouter/archive/${MCROUTER_VERSION}.tar.gz" \
   | tar xvzf - --strip-components=1 \
   && cd mcrouter \
   && autoreconf --install \
   && ./configure \
-  && make VERBOSE=1 \
+  && make \
   && rm -rf /usr/src/*
 
 # run
