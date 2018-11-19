@@ -11,7 +11,7 @@ FROM composer:1.7.2 as composer
 #
 # Foundation
 #
-FROM php:7.2.11-fpm-stretch as foundation
+FROM php:7.2.12-fpm-stretch as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
