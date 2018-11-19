@@ -2,7 +2,7 @@ FROM debian:stretch-slim
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.3.4.8 \
+  TOR_VERSION=0.3.4.9 \
   TORSOCKS_VERSION=2.2.0
 
 RUN set -x \
