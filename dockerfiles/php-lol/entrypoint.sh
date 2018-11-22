@@ -6,4 +6,4 @@ set -o nounset
 
 cd /
 
-exec /usr/bin/supervisord -c /etc/supervisord.conf
+exec "$@"

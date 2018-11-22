@@ -170,3 +170,4 @@ WORKDIR /usr/src/app
 EXPOSE 80/tcp 443/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
