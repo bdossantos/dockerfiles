@@ -15,7 +15,7 @@ RUN set -x \
     dirmngr=2.1.18-8~deb9u3 \
     gnupg=2.1.18-8~deb9u3 \
     libevent-dev=2.0.21-stable-3 \
-    libssl-dev=1.1.0f-3+deb9u2 \
+    libssl-dev=1.1.0j-1~deb9u1 \
     libtool=2.4.6-2 \
     make=4.1-9.1 \
     net-tools=1.60+git20161116.90da8a0-1 \
