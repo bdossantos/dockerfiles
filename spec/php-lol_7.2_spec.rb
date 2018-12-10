@@ -4,8 +4,11 @@ require 'spec_helper'
 require 'securerandom'
 
 describe 'Dockerfile' do
-  dockerfile_dir = File.basename(__FILE__)[/(.*)_spec.rb/, 1]
-  image = Docker::Image.build_from_dir("#{DOCKERFILES}/#{dockerfile_dir}/")
+  PHP_VERSION = File.basename(__FILE__)[/php-lol_(.*)_spec.rb/, 1]
+  image = Docker::Image.build_from_dir(
+    "#{DOCKERFILES}/php-lol/",
+    'dockerfile' => "Dockerfile.#{PHP_VERSION}"
+  )
 
   set :os, family: :debian
   set :backend, :docker
