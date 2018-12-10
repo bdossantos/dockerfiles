@@ -110,4 +110,31 @@ describe 'Dockerfile' do
         '7019a3bcf3b0d3eeab2239f2a694848188933bd89994f55a3d225c027d4c9804'
     }
   end
+
+  %w[
+    bcmath
+    exif
+    gd
+    geoip
+    iconv
+    intl
+    mbstring
+    memcached
+    pdo_mysql
+    pdo_pgsql
+    pgsql
+    posix
+    redis
+    soap
+    sockets
+    tidy
+    zip
+  ].each do |extension|
+    describe command("php -m | grep -i #{extension}") do
+      its(:exit_status) { should eq 0 }
+      its(:stdout) {
+        should contain(extension)
+      }
+    end
+  end
 end
