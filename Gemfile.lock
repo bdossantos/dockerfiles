@@ -9,35 +9,35 @@ GEM
     multi_json (1.13.1)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
-    net-ssh (4.2.0)
+    net-ssh (5.0.2)
     net-telnet (0.1.1)
-    rake (12.3.1)
-    rspec (3.7.0)
-      rspec-core (~> 3.7.0)
-      rspec-expectations (~> 3.7.0)
-      rspec-mocks (~> 3.7.0)
-    rspec-core (3.7.1)
-      rspec-support (~> 3.7.0)
-    rspec-expectations (3.7.0)
+    rake (12.3.2)
+    rspec (3.8.0)
+      rspec-core (~> 3.8.0)
+      rspec-expectations (~> 3.8.0)
+      rspec-mocks (~> 3.8.0)
+    rspec-core (3.8.0)
+      rspec-support (~> 3.8.0)
+    rspec-expectations (3.8.2)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
+      rspec-support (~> 3.8.0)
     rspec-its (1.2.0)
       rspec-core (>= 3.0.0)
       rspec-expectations (>= 3.0.0)
-    rspec-mocks (3.7.0)
+    rspec-mocks (3.8.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.7.0)
-    rspec-support (3.7.1)
+      rspec-support (~> 3.8.0)
+    rspec-support (3.8.0)
     serverspec (2.41.3)
       multi_json
       rspec (~> 3.0)
       rspec-its
       specinfra (~> 2.72)
     sfl (2.3)
-    specinfra (2.73.2)
+    specinfra (2.76.5)
       net-scp
-      net-ssh (>= 2.7, < 5.0)
-      net-telnet
+      net-ssh (>= 2.7)
+      net-telnet (= 0.1.1)
       sfl
 
 PLATFORMS
@@ -49,4 +49,4 @@ DEPENDENCIES
   serverspec
 
 BUNDLED WITH
-   1.16.1
+   1.17.1
