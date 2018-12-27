@@ -25,7 +25,6 @@ require_nolog = true
 timeout = 3000
 tls_cipher_suite = [52392, 49199]
 tls_disable_session_tickets = false
-user_name = 'nobody'
 
 [query_log]
   file = "/dev/null"
