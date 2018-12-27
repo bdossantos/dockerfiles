@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.10-stretch as builder
 
-ENV DNSCRYPT_PROXY_VERSION=2.0.16
+ENV DNSCRYPT_PROXY_VERSION=2.0.19
 
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
@@ -9,7 +9,7 @@ WORKDIR /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 RUN set -x \
   && git pull --quiet \
   && git checkout "tags/${DNSCRYPT_PROXY_VERSION}" \
-  && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w'
+  && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w -extldflags "-static"'
 
 WORKDIR /tmp
 COPY domains-blacklist-local-additions.txt .
