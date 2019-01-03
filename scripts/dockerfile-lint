@@ -11,7 +11,7 @@ echo '--> dockerfile-lint ALL THE THINGS!!'
 
 fail=0
 FILES=$(find "$(dirname "$0")/../dockerfiles" \
-  -type f -name 'Dockerfile' \
+  -type f -name 'Dockerfile*' \
   -print
 )
 
