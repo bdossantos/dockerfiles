@@ -15,7 +15,32 @@ FROM php:7.2.13-fpm-stretch as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
-  NGINX_VERSION=1.14.2
+  LIBMAXMINDDB_VERSION=1.3.2 \
+  NGINX_VERSION=1.14.2 \
+  NGX_HTTP_GEOIP2_MODULE_VERSION=3.2
+
+ENV BUILD_DEPENDENCIES \
+  automake \
+  build-essential \
+  bzip2 \
+  cmake \
+  curl \
+  libbz2-dev \
+  libgeoip-dev \
+  libgmp-dev \
+  libicu-dev \
+  libjpeg-dev \
+  libmemcached-dev \
+  libpcre3-dev \
+  libpng-dev \
+  libpq-dev \
+  libssl-dev \
+  libtidy-dev \
+  libuv1-dev \
+  libxml2-dev \
+  zlib1g-dev
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 WORKDIR /usr/src/app
 
@@ -24,35 +49,18 @@ RUN set -eux \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     acl \
-    automake \
-    build-essential \
-    bzip2 \
-    cmake \
     geoip-database \
     git \
-    libbz2-dev \
     libfontconfig \
-    libgeoip-dev \
-    libgmp-dev \
-    libicu-dev \
     libaio1 \
-    libjpeg-dev \
     libjpeg-turbo-progs \
     libodbc1 \
-    libpcre3-dev \
-    libpq-dev \
     libpq5 \
-    libpng-dev \
-    libssl-dev \
     libtool \
-    libuv1-dev \
-    libtidy-dev \
-    libxml2-dev \
-    libmemcached-dev \
     locales \
     supervisor \
     unzip \
-    zlib1g-dev \
+    $BUILD_DEPENDENCIES \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
   && pecl install geoip-1.1.1 \
@@ -81,11 +89,24 @@ RUN set -eux \
     geoip \
     memcached \
     redis \
-  && curl -L -o "nginx-${NGINX_VERSION}.tar.gz" \
-    "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
-  && tar xzf nginx-${NGINX_VERSION}.tar.gz \
-  && cd nginx-${NGINX_VERSION} \
+  && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
+    https://github.com/leev/ngx_http_geoip2_module.git \
+    /usr/src/ngx_http_geoip2_module \
+  && mkdir -p /usr/src/libmaxminddb \
+  && curl -sSL "https://github.com/maxmind/libmaxminddb/releases/download/${LIBMAXMINDDB_VERSION}/libmaxminddb-${LIBMAXMINDDB_VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/src/libmaxminddb \
+  && cd /usr/src/libmaxminddb \
   && ./configure \
+  && make \
+  && make check \
+  && make install \
+  && ldconfig \
+  && mkdir -p /usr/src/nginx \
+  && curl -sSL "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/src/nginx \
+  && cd /usr/src/nginx \
+  && ./configure \
+    --add-module=/usr/src/ngx_http_geoip2_module \
     --conf-path=/etc/nginx/nginx.conf \
     --error-log-path=/var/log/nginx/error.log \
     --group=www-data \
@@ -101,9 +122,10 @@ RUN set -eux \
     --sbin-path=/usr/sbin/nginx \
     --user=www-data \
     --with-file-aio \
+    --with-http_mp4_module \
     --with-http_addition_module \
     --with-http_auth_request_module \
-    --with-http_geoip_module \
+    --with-http_flv_module \
     --with-http_gunzip_module \
     --with-http_gzip_static_module \
     --with-http_random_index_module \
@@ -125,16 +147,13 @@ RUN set -eux \
   && chsh -s /usr/sbin/nologin www-data \
   && mkdir -p /usr/share/GeoIP/ \
   && chmod 0755 /usr/share/GeoIP/ \
-  && curl -L -o /usr/share/GeoIP/GeoIP.dat.gz \
-    http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz \
-  && curl -L -o /usr/share/GeoIP/GeoLiteCity.dat.gz \
-    http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz \
-  && curl -L -o /usr/share/GeoIP/GeoLite2-City.mmdb.gz \
-    http://geolite.maxmind.com/download/geoip/database/GeoLite2-City.mmdb.gz \
-  && gunzip -f /usr/share/GeoIP/*.gz \
-  && apt-get purge -y \
-    gcc \
-    g++ \
+  && curl -sSL https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz \
+    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
+  && curl -sSL https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz \
+    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
+  && curl -sSL http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz \
+    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
+  && apt-get purge -y $BUILD_DEPENDENCIES \
   && docker-php-source delete \
   && apt-get clean \
   && rm -rf /tmp/pear /var/lib/apt/lists/* /usr/src/* /usr/share/GeoIP/*.gz
