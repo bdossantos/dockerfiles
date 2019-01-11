@@ -1,29 +1,35 @@
-FROM debian:stretch-slim
+FROM debian:9.6-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   TOR_VERSION=0.3.5.7 \
   TORSOCKS_VERSION=2.3.0
 
+ENV BUILD_DEPENDENCIES \
+  autoconf=2.69-10 \
+  automake=1:1.15-6 \
+  build-essential=12.3 \
+  libevent-dev=2.0.21-stable-3 \
+  libssl-dev=1.1.0j-1~deb9u1 \
+  make=4.1-9.1 \
+  zlib1g-dev=1:1.2.8.dfsg-5
+
+# hadolint ignore=DL3008
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    autoconf=2.69-10 \
-    automake=1:1.15-6 \
-    build-essential=12.3 \
     ca-certificates=20161130+nmu1+deb9u1 \
     dirmngr=2.1.18-8~deb9u3 \
     gnupg=2.1.18-8~deb9u3 \
-    libevent-dev=2.0.21-stable-3 \
-    libssl-dev=1.1.0j-1~deb9u1 \
+    libevent-2.0-5=2.0.21-stable-3 \
+    libssl1.1=1.1.0j-1~deb9u1 \
     libtool=2.4.6-2 \
-    make=4.1-9.1 \
     net-tools=1.60+git20161116.90da8a0-1 \
     openssl=1.1.0f-3+deb9u2 \
     pwgen=2.07-1.1+b1 \
     wget=1.18-5+deb9u2 \
     zlib1g=1:1.2.8.dfsg-5 \
-    zlib1g-dev=1:1.2.8.dfsg-5 \
+    $BUILD_DEPENDENCIES \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
   && apt-get autoremove -y \
   && apt-get clean \
@@ -62,6 +68,10 @@ RUN set -x \
 WORKDIR /
 
 RUN set -x \
+  && apt-get purge -y $BUILD_DEPENDENCIES \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && apt-get autoclean \
   && rm -rf /tmp/* /var/tmp/* /var/lib/apt/lists/* \
     /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb \
     /var/cache/apt/*.bin

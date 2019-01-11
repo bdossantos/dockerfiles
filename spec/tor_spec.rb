@@ -11,22 +11,15 @@ describe 'Dockerfile' do
   set :docker_image, image.id
 
   %w[
-    autoconf
-    automake
-    build-essential
     ca-certificates
     dirmngr
     gnupg
-    libevent-dev
-    libssl-dev
     libtool
-    make
     net-tools
     openssl
     pwgen
     wget
     zlib1g
-    zlib1g-dev
   ].each do |p|
     describe package(p) do
       it { should be_installed }
