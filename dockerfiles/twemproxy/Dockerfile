@@ -1,4 +1,4 @@
-FROM debian:9.5-slim as build
+FROM debian:9.6-slim as build
 
 ENV TWEMPROXY_VESRION 0.4.1
 
@@ -41,7 +41,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # run
-FROM debian:9.5-slim
+FROM debian:9.6-slim
 
 COPY --from=build /usr/local/sbin/nutcracker /usr/local/sbin/nutcracker
 COPY ./nutcracker.yml /etc/nutcracker.yml
