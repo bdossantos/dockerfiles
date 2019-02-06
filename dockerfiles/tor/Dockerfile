@@ -1,4 +1,4 @@
-FROM debian:9.6-slim as build
+FROM debian:9.7-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
