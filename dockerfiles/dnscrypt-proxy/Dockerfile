@@ -27,7 +27,7 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:9.6-slim
+FROM debian:9.7-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
