@@ -110,7 +110,17 @@ describe 'Dockerfile' do
     it { should be_mode 444 }
     its(:sha256sum) {
       should eq \
-        '7019a3bcf3b0d3eeab2239f2a694848188933bd89994f55a3d225c027d4c9804'
+        '05cb70c7ecd2b75dce241d5cc0b1174fa5121b52fd8ba5f6134c5b1bc9fcf8bc'
+    }
+  end
+
+  describe file('/etc/supervisor/conf.d/app.conf') do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    it { should be_mode 444 }
+    its(:sha256sum) {
+      should eq \
+        'be6a906880879641e05c8719e9d1f7f7daeb7556ab37a7bae3eae4b118506b0f'
     }
   end
 
