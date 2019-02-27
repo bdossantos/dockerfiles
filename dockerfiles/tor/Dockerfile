@@ -19,13 +19,13 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20161130+nmu1+deb9u1 \
-    dirmngr=2.1.18-8~deb9u3 \
-    gnupg=2.1.18-8~deb9u3 \
+    dirmngr=2.1.18-8~deb9u4 \
+    gnupg=2.1.18-8~deb9u4 \
     libevent-2.0-5=2.0.21-stable-3 \
     libssl1.1=1.1.0j-1~deb9u1 \
     libtool=2.4.6-2 \
     net-tools=1.60+git20161116.90da8a0-1 \
-    openssl=1.1.0f-3+deb9u2 \
+    openssl=1.1.0j-1~deb9u1 \
     pwgen=2.07-1.1+b1 \
     wget=1.18-5+deb9u2 \
     zlib1g=1:1.2.8.dfsg-5 \
