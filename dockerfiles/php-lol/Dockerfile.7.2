@@ -108,16 +108,16 @@ RUN set -eux \
   && ./configure \
     --add-module=/usr/src/ngx_http_geoip2_module \
     --conf-path=/etc/nginx/nginx.conf \
-    --error-log-path=/var/log/nginx/error.log \
+    --error-log-path=/dev/stderr \
     --group=www-data \
-    --http-client-body-temp-path=/var/cache/nginx/client_temp \
-    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-    --http-log-path=/var/log/nginx/access.log \
-    --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-    --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    --http-client-body-temp-path=/dev/shm/nginx/client_temp \
+    --http-fastcgi-temp-path=/dev/shm/nginx/fastcgi_temp \
+    --http-log-path=/dev/stdout \
+    --http-proxy-temp-path=/dev/shm/nginx/proxy_temp \
+    --http-scgi-temp-path=/dev/shm/nginx/scgi_temp \
+    --http-uwsgi-temp-path=/dev/shm/nginx/uwsgi_temp \
     --lock-path=/var/run/nginx.lock \
-    --pid-path=/var/run/nginx.pid \
+    --pid-path=/dev/shm/nginx.pid \
     --prefix=/etc/nginx \
     --sbin-path=/usr/sbin/nginx \
     --user=www-data \
