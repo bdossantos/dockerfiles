@@ -13,7 +13,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/local/bin/dnscrypt-proxy -version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should eq "2.0.19\n" }
+    its(:stdout) { should eq "2.0.21\n" }
   end
 
   describe file('/usr/local/bin/dnscrypt-proxy') do
@@ -22,7 +22,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        'f6b536c2318c558e72cb9d2dea749a45fff7c97976d9a5903eb80f190cc4d054'
+        'a1d8de0de3ae15f258de8c63929c6e0386ff6f2e0be8d8ed6508f90412af6fda'
     }
   end
 
@@ -96,10 +96,13 @@ describe 'Dockerfile' do
   describe command('dig +time=5 +tries=1 @127.0.0.1 -p 53 $(shuf -n 1 /etc/dnscrypt-proxy-blacklist.txt)') do
     its(:exit_status) { should eq 0 }
     its(:stdout) {
-      should contain('status: REFUSED')
+      should contain('status: NOERROR')
     }
     its(:stdout) {
-      should contain('QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 0')
+      should contain('QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0')
+    }
+    its(:stdout) {
+      should contain('This query has been locally blocked" "by dnscrypt-proxy')
     }
   end
 end
