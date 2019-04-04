@@ -7,16 +7,21 @@ services:
     ports:
       - 192.168.1.250:53:53/tcp
       - 192.168.1.250:53:53/udp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
   tor:
     network_mode: host
     ports:
       - 192.168.1.250:9050:9050/tcp
       - 192.168.1.250:9053:9053/udp
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
   radicale:
     build: dockerfiles/radicale
     image: bdossantos/radicale
     container_name: radicale
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - /volume1/docker/radicale/data:/data
       - /volume1/docker/radicale/users:/config/users:ro
     shm_size: 8M
