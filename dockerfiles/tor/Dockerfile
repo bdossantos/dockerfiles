@@ -1,8 +1,8 @@
-FROM debian:9.7-slim as build
+FROM debian:9.8-slim
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.3.5.7 \
+  TOR_VERSION=0.3.5.8 \
   TORSOCKS_VERSION=2.3.0
 
 ENV BUILD_DEPENDENCIES \
