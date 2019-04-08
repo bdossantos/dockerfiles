@@ -1,5 +1,12 @@
 *.netflix.*       @time-to-sleep
+*.netflix.*       @work
 *.youtube.*       @time-to-sleep
+*.youtube.*       @work
+facebook.com      @time-to-sleep
 facebook.com      @work
+instagram.com     @time-to-sleep
 instagram.com     @work
+strava.com        @time-to-sleep
+strava.com        @work
+twitter.com       @time-to-sleep
 twitter.com       @work
