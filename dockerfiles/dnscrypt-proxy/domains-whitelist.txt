@@ -1,10 +1,13 @@
+amazon.com
 elasticbeanstalk.com
 github.com
 github.io
 home
+lan
 local
 localdomain
 ovh.net
+spotify.com
 spotify.com
 tagcommander.com
 tracker.debian.org
