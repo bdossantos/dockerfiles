@@ -2,15 +2,15 @@
 *.local
 *.localdomain
 *.workgroup
-*.youtube.*  @time-to-sleep
 ad.*
 ads.*
 banner.*
 banners.*
 creatives.*
 eth0.me
-facebook.com @time-to-sleep
-facebook.com @work
+eth0.me
+ibpxl.com
+internetbrands.com
 oas.*
 oascentral.*
 stats.*
