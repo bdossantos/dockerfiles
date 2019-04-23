@@ -42,8 +42,6 @@ ENV BUILD_DEPENDENCIES \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
-WORKDIR /usr/src/app
-
 # hadolint ignore=DL3003,DL3008
 RUN set -eux \
   && apt-get update \
