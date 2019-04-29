@@ -27,7 +27,7 @@ RUN set -x \
     net-tools=1.60+git20161116.90da8a0-1 \
     openssl=1.1.0j-1~deb9u1 \
     pwgen=2.07-1.1+b1 \
-    wget=1.18-5+deb9u2 \
+    wget=1.18-5+deb9u3 \
     zlib1g=1:1.2.8.dfsg-5 \
     $BUILD_DEPENDENCIES \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
