@@ -63,7 +63,7 @@ RUN set -eux \
   && chown -R www-data.www-data /var/lib/php/session \
   && pecl install igbinary-3.0.1 \
   && pecl install geoip-1.1.1 \
-  && pecl install memcached-3.1.3 \
+  && pecl install --nobuild memcached-3.1.3 \
   && pecl install redis-4.2.0 \
   && docker-php-ext-install \
     bcmath \
@@ -83,6 +83,12 @@ RUN set -eux \
     sockets \
     tidy \
     zip \
+  && cd "$(pecl config-get temp_dir)/memcached" \
+  && phpize \
+  && ./configure --enable-memcached-igbinary \
+  && make \
+  && make install \
+  && cd - \
   && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
   && docker-php-ext-enable \
     igbinary \
