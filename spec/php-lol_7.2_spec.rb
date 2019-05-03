@@ -130,6 +130,7 @@ describe 'Dockerfile' do
     gd
     geoip
     iconv
+    igbinary
     intl
     mbstring
     memcached

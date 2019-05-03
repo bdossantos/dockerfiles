@@ -61,6 +61,7 @@ RUN set -eux \
     $BUILD_DEPENDENCIES \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
+  && pecl install igbinary-3.0.1 \
   && pecl install geoip-1.1.1 \
   && pecl install memcached-3.1.3 \
   && pecl install redis-4.2.0 \
@@ -84,6 +85,7 @@ RUN set -eux \
     zip \
   && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
   && docker-php-ext-enable \
+    igbinary \
     geoip \
     memcached \
     redis \
@@ -153,6 +155,7 @@ RUN set -eux \
     | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
   && apt-get purge -y $BUILD_DEPENDENCIES \
   && docker-php-source delete \
+  && pecl clear-cache \
   && apt-get clean \
   && rm -rf /tmp/pear /var/lib/apt/lists/* /usr/src/* /usr/share/GeoIP/*.gz
 
