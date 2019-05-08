@@ -34,13 +34,23 @@ describe 'Dockerfile' do
     }
   end
 
+  describe file('/usr/local/bin/php') do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    it { should be_mode 755 }
+    its(:sha256sum) {
+      should eq \
+        '5cbc87e0d60e9f18938b914fdf5a14acae13b3ef08eca3010ae5557351609ba2'
+    }
+  end
+
   describe file('/usr/local/sbin/php-fpm') do
     it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '030459a4cc15461ddb653904a4d16b980154ffd23b97943028580a6ec9873f8c'
+        'd791ac294cf79d7e35c5fb79355a46d12619dd4da10c75410beb3af47951a96a'
     }
   end
 
@@ -50,7 +60,7 @@ describe 'Dockerfile' do
     it { should be_mode 444 }
     its(:sha256sum) {
       should eq \
-        '53c934df92e85bacad234fa8c7eef170ede5f18b71144bb7a29da74122ae54fc'
+        'ca1b41da9c03a2230cfde8557773c66247d82caa717cb692553c1a67e45dc10b'
     }
   end
 
