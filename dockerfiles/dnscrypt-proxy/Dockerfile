@@ -35,7 +35,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20161130+nmu1+deb9u1 \
-    dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u4 \
+    dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u5 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
