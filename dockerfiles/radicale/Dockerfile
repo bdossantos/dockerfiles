@@ -1,4 +1,4 @@
-FROM python:3.5.6-stretch
+FROM python:3.7.3-stretch
 
 ENV \
   GIT_COMMITTER_NAME=Radicale \
