@@ -30,7 +30,7 @@ services:
     image: bdossantos/tor
     container_name: tor
     read_only: true
-    shm_size: 8M
+    shm_size: 16M
     environment:
       - TZ=Europe/Paris
     ports:
