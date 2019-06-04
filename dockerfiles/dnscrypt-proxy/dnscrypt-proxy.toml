@@ -18,6 +18,7 @@ keepalive = 20
 lb_strategy = 'p2'
 listen_addresses = ['0.0.0.0:53']
 max_clients = 1024
+netprobe_address = '1.1.1.1:53'
 netprobe_timeout = 30
 require_dnssec = false
 require_nofilter = true
