@@ -40,7 +40,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '89e30653884683c8bb7dd8cdc4eb4817884b5dee19529112f8a0a6adb14b9dd3'
+        'e4548e5e7d0ebe74c06f9ed7afe697a1a4484995e3eae6bd101a0885268d6ac0'
     }
   end
 
@@ -50,7 +50,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '4b4de79e39f317024649ad4b7f6f921567f9ddd7afe329c7e6dc1de580e4707e'
+        'a162064f5496a4cb30547892246d11e13b21546228ce8f080dccc9cdead1b371'
     }
   end
 
@@ -114,13 +114,13 @@ describe 'Dockerfile' do
     }
   end
 
-  describe file('/etc/supervisord.conf') do
+  describe file('/etc/supervisor/supervisord.conf') do
     it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_mode 444 }
     its(:sha256sum) {
       should eq \
-        '05cb70c7ecd2b75dce241d5cc0b1174fa5121b52fd8ba5f6134c5b1bc9fcf8bc'
+        '09c212cf4d63c17845b7d626a4ddfe8462207e8e056c893fb357a8284c64f21d'
     }
   end
 
