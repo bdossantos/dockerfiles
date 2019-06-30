@@ -13,6 +13,7 @@ describe 'Dockerfile' do
   %w[
     ca-certificates
     ffmpeg
+    gifsicle
     graphicsmagick
     libjpeg-turbo-progs
     webp
