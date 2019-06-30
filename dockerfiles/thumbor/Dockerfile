@@ -53,6 +53,7 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20190110 \
     ffmpeg=7:4.1.3-1 \
+    gifsicle=1.91-5 \
     graphicsmagick=1.4~hg15978-1 \
     libjpeg-turbo-progs=1:1.5.2-2+b1 \
     webp=0.6.1-2 \
