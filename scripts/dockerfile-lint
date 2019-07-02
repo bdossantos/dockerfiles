@@ -26,7 +26,7 @@ for file in $FILES; do
   fi
 
   echo "${status} ${file}"
-  [[ ! -z $lint_outpout ]] && echo "$lint_outpout"
+  [[ -n $lint_outpout ]] && echo "$lint_outpout"
 done
 
 if [[ $fail -ne 0 ]]; then
