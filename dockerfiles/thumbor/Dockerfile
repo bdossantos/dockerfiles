@@ -24,11 +24,13 @@ RUN set -x \
     libssl-dev=1.1.0j-1~deb9u1 \
     libtiff5-dev=4.0.8-2+deb9u4 \
     webp=0.5.2-1 \
+  && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
-    --install-option="--prefix=${PYTHONUSERBASE}" \
+    --prefix="${PYTHONUSERBASE}" \
       graphicsmagick-engine==0.1.1 \
       opencv-engine==1.0.1 \
+      opencv-python-headless==4.1.0.25 \
       remotecv==2.2.2 \
       thumbor-plugins==0.2.2 \
       thumbor=="${THUMBOR_VERSION}" \
