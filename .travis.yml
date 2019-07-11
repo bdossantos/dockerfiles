@@ -18,6 +18,6 @@ before_script:
   - export PATH=$HOME/.local/bin:/usr/sbin:$PATH
 script:
   - docker system prune --all --force --volumes
-  - docker-compose -f docker-compose.yml -f docker-compose.synology.override.yml pull
-  - docker-compose -f docker-compose.yml -f docker-compose.synology.override.yml build
+  - docker-compose -f docker-compose.yml -f docker-compose.ci.yml pull
+  - docker-compose -f docker-compose.yml -f docker-compose.ci.yml build
   - make install test

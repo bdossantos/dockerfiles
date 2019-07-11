@@ -1,0 +1,32 @@
+---
+
+version: '3'
+services:
+  dnscrypt-proxy:
+    build: dockerfiles/dnscrypt-proxy
+    image: bdossantos/dnscrypt-proxy
+    container_name: dnscrypt-proxy
+  php-lol:
+    build: dockerfiles/dnscrypt-proxy
+    image: bdossantos/php-lol
+    container_name: php-lol
+  privoxy:
+    build: dockerfiles/privoxy
+    image: bdossantos/privoxy
+    container_name: privoxy
+  radicale:
+    build: dockerfiles/radicale
+    image: bdossantos/radicale
+    container_name: radicale
+  thumbor:
+    build: dockerfiles/thumbor
+    image: bdossantos/thumbor
+    container_name: thumbor
+  tor:
+    build: dockerfiles/tor
+    image: bdossantos/tor
+    container_name: tor
+  twemproxy:
+    build: dockerfiles/twemproxy
+    image: bdossantos/twemproxy
+    container_name: twemproxy
