@@ -15,6 +15,11 @@ bundle-install: ## Install ruby dependencies
 	$(info --> Run `bundle install`)
 	@bundle install
 
+dive: ## Run dive
+	$(info --> Run `dive`)
+	@awk '/image:/ { print $$2 }' docker-compose.ci.yml \
+		| xargs -I % -n 1 -P 1 env CI=true dive %
+
 docker-build: ## Build all Dockerfiles
 	$(info --> Run docker-build)
 	@docker-compose build --force-rm
