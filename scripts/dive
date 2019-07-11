@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+CI=${CI:=true}
+
+# shellcheck disable=SC2145
+echo "--> dive $@"
+
+# shellcheck disable=SC2046
+docker run --network host --rm --name "dive_$(date +'%Y%m%d%H%M%S')" \
+  -t \
+  -v "${PWD}:/app" \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -w '/app' \
+  -e "CI=${CI}" \
+  -t $(tty &>/dev/null && echo '-i') \
+  wagoodman/dive:latest \
+  "$@"
