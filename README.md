@@ -6,7 +6,9 @@ Some Dockerfiles.
 
 ## Requirements
 
-* hadolint
+* docker
+  * hadolint
+  * dive
 * pre-commit
 * shellcheck
 * ruby
