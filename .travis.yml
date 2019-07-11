@@ -14,6 +14,7 @@ before_script:
   - wget -qO- 'https://storage.googleapis.com/shellcheck/shellcheck-v0.6.0.linux.x86_64.tar.xz' | tar -xJv
   - mv 'shellcheck-v0.6.0/shellcheck' "$HOME/bin/shellcheck"
   - chmod +x "$HOME/bin/shellcheck"
+  - cp -f scripts/dive "$HOME/bin/dive"
   - rvm install "$(cat .ruby-version)"
   - export PATH=$HOME/.local/bin:/usr/sbin:$PATH
 script:
