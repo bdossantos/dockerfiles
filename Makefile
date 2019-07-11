@@ -48,4 +48,4 @@ shellcheck: ## Run shellcheck on /scripts directory
 	@find scripts/ -type f | xargs -n 1 shellcheck
 
 test: ## Run tests suite
-	@$(MAKE) pre-commit shellcheck dockerfile-lint serverspec
+	@$(MAKE) pre-commit shellcheck dockerfile-lint serverspec dive
