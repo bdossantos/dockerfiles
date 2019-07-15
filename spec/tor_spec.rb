@@ -12,12 +12,7 @@ describe 'Dockerfile' do
 
   %w[
     ca-certificates
-    dirmngr
-    gnupg
-    libtool
-    net-tools
     openssl
-    pwgen
     wget
     zlib1g
   ].each do |p|
@@ -71,7 +66,7 @@ describe 'Dockerfile' do
     it { should be_mode 444 }
     its(:sha256sum) {
       should eq \
-        '4ff1320f38b552b654ad5cf63cefc2d8c1aecbdd1abe5659cdbfa115973121be'
+        'c782708c8c9f4f92404d67f9442290442582b8ed7a66d8cfabf64c246bfd4df2'
     }
     it { should contain('AutomapHostsOnResolve 1') }
     it { should contain('AutomapHostsSuffixes .exit,.onion') }
@@ -90,13 +85,5 @@ describe 'Dockerfile' do
     it { should contain('SafeLogging 1') }
     it { should contain('SocksPort 0.0.0.0:9050') }
     it { should contain('StrictNodes 1') }
-  end
-
-  describe port(9050) do
-    it { should be_listening.with('tcp') }
-  end
-
-  describe port(9053) do
-    it { should be_listening.with('udp') }
   end
 end
