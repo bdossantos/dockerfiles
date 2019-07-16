@@ -1,5 +1,5 @@
 # Build
-FROM python:2.7.16-slim-stretch as build
+FROM python:2.7.16-slim-buster as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -11,19 +11,19 @@ RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    build-essential=12.3 \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    ffmpeg=7:3.2.14-1~deb9u1 \
-    graphicsmagick=1.3.30+hg15796-1~deb9u2 \
-    libboost-python-dev=1.62.0.1 \
-    libcurl4-openssl-dev=7.52.1-5+deb9u9 \
-    libgraphicsmagick++1-dev=1.3.30+hg15796-1~deb9u2 \
-    libjpeg-dev=1:1.5.1-2 \
-    libopencv-dev=2.4.9.1+dfsg1-2 \
-    libpng-dev=1.6.28-1+deb9u1 \
-    libssl-dev=1.1.0j-1~deb9u1 \
-    libtiff5-dev=4.0.8-2+deb9u4 \
-    webp=0.5.2-1 \
+    build-essential=12.6 \
+    ca-certificates=20190110 \
+    ffmpeg=7:4.1.3-1 \
+    graphicsmagick=1.4~hg15978-1 \
+    libboost-python-dev=1.67.0.1 \
+    libcurl4-openssl-dev=7.64.0-4 \
+    libgraphicsmagick++1-dev=1.4~hg15978-1 \
+    libjpeg-dev=1:1.5.2-2 \
+    libopencv-dev=3.2.0+dfsg-6 \
+    libpng-dev=1.6.36-6 \
+    libssl-dev=1.1.1c-1 \
+    libtiff5-dev=4.0.10-4 \
+    webp=0.6.1-2 \
   && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
@@ -41,7 +41,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:2.7.16-slim-stretch
+FROM python:2.7.16-slim-buster
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -51,11 +51,11 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    ffmpeg=7:3.2.14-1~deb9u1 \
-    graphicsmagick=1.3.30+hg15796-1~deb9u2 \
-    libjpeg-turbo-progs=1:1.5.1-2 \
-    webp=0.5.2-1 \
+    ca-certificates=20190110 \
+    ffmpeg=7:4.1.3-1 \
+    graphicsmagick=1.4~hg15978-1 \
+    libjpeg-turbo-progs=1:1.5.2-2+b1 \
+    webp=0.6.1-2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
