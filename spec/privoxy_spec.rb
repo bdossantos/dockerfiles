@@ -20,7 +20,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/sbin/privoxy --version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should eq "Privoxy version 3.0.26 (https://www.privoxy.org/)\n" }
+    its(:stdout) { should eq "Privoxy version 3.0.28 (https://www.privoxy.org/)\n" }
   end
 
   describe file('/usr/sbin/privoxy') do
@@ -29,7 +29,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '4bd56895ec800b9905f4f75e67b94843cf9bd2d476b9f7820eef92a212bcb22d'
+        '0d816d34612a58b4ac5d19d5d33c1547b76a21852ec58fec680030336dfea0c0'
     }
   end
 

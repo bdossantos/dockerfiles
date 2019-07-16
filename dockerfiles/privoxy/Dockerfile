@@ -1,14 +1,14 @@
-FROM debian:9.9-slim
+FROM debian:10.0-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    curl=7.52.1-5+deb9u9 \
-    net-tools=1.60+git20161116.90da8a0-1 \
-    privoxy=3.0.26-3 \
+    ca-certificates=20190110 \
+    curl=7.64.0-4 \
+    net-tools=1.60+git20180626.aebd88e-1 \
+    privoxy=3.0.28-2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
     /var/cache/apt/archives/*.deb /var/cache/apt/archives/partial/*.deb \
