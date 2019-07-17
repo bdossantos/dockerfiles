@@ -15,6 +15,10 @@ bundle-install: ## Install ruby dependencies
 	$(info --> Run `bundle install`)
 	@bundle install
 
+changelog: ## Generate CHANGELOG.md
+	$(info --> Generate CHANGELOG.md)
+	@$(CWD)/scripts/changelog
+
 dive: ## Run dive
 	$(info --> Run `dive`)
 	@awk '/image:/ { print $$2 }' docker-compose.ci.yml \

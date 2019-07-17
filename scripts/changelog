@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+CHANGELOG_GITHUB_TOKEN=${CHANGELOG_GITHUB_TOKEN:-}
+
+if [[ -z $CHANGELOG_GITHUB_TOKEN ]]; then
+  echo >&2 'CHANGELOG_GITHUB_TOKEN env variable is required'
+  exit 1
+fi
+
+docker run \
+  -it --rm -e CHANGELOG_GITHUB_TOKEN="$CHANGELOG_GITHUB_TOKEN" \
+  -v "$(pwd)":/usr/local/src/your-app \
+  ferrarimarco/github-changelog-generator \
+  -u bdossantos -p dockerfiles --no-unreleased
