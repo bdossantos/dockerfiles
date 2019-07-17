@@ -1,5 +1,5 @@
 # Build
-FROM debian:9.9-slim as build
+FROM debian:10.0-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -10,24 +10,23 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    autoconf=2.69-10 \
-    automake=1:1.15-6 \
-    build-essential=12.3 \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    dirmngr=2.1.18-8~deb9u4 \
-    gnupg=2.1.18-8~deb9u4 \
-    libevent-2.0-5=2.0.21-stable-3 \
-    libevent-dev=2.0.21-stable-3 \
-    libssl-dev=1.1.0j-1~deb9u1 \
-    libssl1.1=1.1.0j-1~deb9u1 \
-    libtool=2.4.6-2 \
-    make=4.1-9.1 \
-    net-tools=1.60+git20161116.90da8a0-1 \
-    openssl=1.1.0j-1~deb9u1 \
-    pwgen=2.07-1.1+b1 \
-    wget=1.18-5+deb9u3 \
-    zlib1g-dev=1:1.2.8.dfsg-5 \
-    zlib1g=1:1.2.8.dfsg-5 \
+    autoconf=2.69-11 \
+    automake=1:1.16.1-4 \
+    build-essential=12.6 \
+    ca-certificates=20190110 \
+    dirmngr=2.2.12-1 \
+    gnupg=2.2.12-1 \
+    libevent-2.1-6=2.1.8-stable-4 \
+    libevent-dev=2.1.8-stable-4 \
+    libssl-dev=1.1.1c-1 \
+    libtool=2.4.6-9 \
+    make=4.2.1-1.2 \
+    net-tools=1.60+git20180626.aebd88e-1 \
+    openssl=1.1.1c-1 \
+    pwgen=2.08-1 \
+    wget=1.20.1-1.1 \
+    zlib1g-dev=1:1.2.11.dfsg-1 \
+    zlib1g=1:1.2.11.dfsg-1 \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
   && apt-get autoremove -y \
   && apt-get clean \
@@ -74,30 +73,30 @@ RUN set -x \
     /var/cache/apt/*.bin
 
 # Geoip
-FROM debian:9.9-slim as geoip
+FROM debian:10.0-slim as geoip
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.2.9.16-1 \
+    tor-geoipdb=0.3.5.8-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM debian:9.9-slim
+FROM debian:10.0-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    libevent-2.0-5=2.0.21-stable-3 \
-    libssl1.1=1.1.0j-1~deb9u1 \
-    openssl=1.1.0j-1~deb9u1 \
-    wget=1.18-5+deb9u3 \
+    ca-certificates=20190110 \
+    libevent-2.1-6=2.1.8-stable-4 \
+    libssl1.1=1.1.1c-1 \
+    openssl=1.1.1c-1 \
+    wget=1.20.1-1.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
