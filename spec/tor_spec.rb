@@ -66,7 +66,7 @@ describe 'Dockerfile' do
     it { should be_mode 444 }
     its(:sha256sum) {
       should eq \
-        'c782708c8c9f4f92404d67f9442290442582b8ed7a66d8cfabf64c246bfd4df2'
+        'd869589e8c7c49972c445f40a7f14c2c6b32ad17055160052ce75fa79c95349e'
     }
     it { should contain('AutomapHostsOnResolve 1') }
     it { should contain('AutomapHostsSuffixes .exit,.onion') }
@@ -75,7 +75,10 @@ describe 'Dockerfile' do
     it { should contain('DNSPort 0.0.0.0:9053') }
     it { should contain('DataDirectory /dev/shm/.tor') }
     it {
-      should contain('ExitNodes {fr},{ch},{de},{nl},{se},{no},{fi},{es},{cz}')
+      should contain('ExcludeNodes {au},{ca},{cn},{cu},{fr},{gb},{hk},{ir},{iq},{kr},{kp},{nz},{ro},{ru},{sy},{tr},{us}')
+    }
+    it {
+      should contain('ExitNodes {be},{ch},{de},{es},{gr},{is},{it},{nl},{se},{no},{fi},{es},{pt}')
     }
     it { should contain('FascistFirewall 1') }
     it { should contain('Log notice stdout') }
