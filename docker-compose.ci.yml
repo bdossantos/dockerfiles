@@ -1,6 +1,5 @@
 ---
-
-version: '3'
+version: "3"
 services:
   dnscrypt-proxy:
     build: dockerfiles/dnscrypt-proxy
@@ -30,3 +29,7 @@ services:
     build: dockerfiles/twemproxy
     image: bdossantos/twemproxy
     container_name: twemproxy
+  python-github-backup:
+    build: dockerfiles/python-github-backup
+    image: bdossantos/python-github-backup
+    container_name: python-github-backup
