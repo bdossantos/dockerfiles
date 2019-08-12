@@ -1,20 +1,18 @@
 # Change Log
 
-## [php-lol-7.2.20](https://github.com/bdossantos/dockerfiles/tree/php-lol-7.2.20) (2019-07-25)
+## [php-lol-7.2.21](https://github.com/bdossantos/dockerfiles/tree/php-lol-7.2.21) (2019-08-12)
 
-[Full Changelog](https://github.com/bdossantos/dockerfiles/compare/tor-0.4.0.5...php-lol-7.2.20)
+[Full Changelog](https://github.com/bdossantos/dockerfiles/compare/tor-0.4.0.5...php-lol-7.2.21)
 
-**Merged pull requests:**
-
-- refactor: upgrade to `python:3.7.4-buster` [\#47](https://github.com/bdossantos/dockerfiles/pull/47) ([bdossantos](https://github.com/bdossantos))
-- chore\(tor\): upgrade to debian buster [\#45](https://github.com/bdossantos/dockerfiles/pull/45) ([bdossantos](https://github.com/bdossantos))
-
-## [tor-0.4.0.5](https://github.com/bdossantos/dockerfiles/tree/tor-0.4.0.5) (2019-07-17)
+## [tor-0.4.0.5](https://github.com/bdossantos/dockerfiles/tree/tor-0.4.0.5) (2019-07-27)
 
 [Full Changelog](https://github.com/bdossantos/dockerfiles/compare/thumbor-6.7.0...tor-0.4.0.5)
 
 **Merged pull requests:**
 
+- chore: upgrade php-redis to 5.0.1 [\#48](https://github.com/bdossantos/dockerfiles/pull/48) ([bdossantos](https://github.com/bdossantos))
+- refactor: upgrade to `python:3.7.4-buster` [\#47](https://github.com/bdossantos/dockerfiles/pull/47) ([bdossantos](https://github.com/bdossantos))
+- chore\(tor\): upgrade to debian buster [\#45](https://github.com/bdossantos/dockerfiles/pull/45) ([bdossantos](https://github.com/bdossantos))
 - chore\(thumbor\): upgrade to debian buster [\#43](https://github.com/bdossantos/dockerfiles/pull/43) ([bdossantos](https://github.com/bdossantos))
 
 ## [thumbor-6.7.0](https://github.com/bdossantos/dockerfiles/tree/thumbor-6.7.0) (2019-07-16)
@@ -27,11 +25,18 @@
 
 ## [privoxy-3.0.28](https://github.com/bdossantos/dockerfiles/tree/privoxy-3.0.28) (2019-07-16)
 
-[Full Changelog](https://github.com/bdossantos/dockerfiles/compare/php-lol-7.2.19...privoxy-3.0.28)
+[Full Changelog](https://github.com/bdossantos/dockerfiles/compare/php-lol-7.2.20...privoxy-3.0.28)
 
 **Merged pull requests:**
 
 - chore: upgrade to php 7.2.20 and Debian buster [\#42](https://github.com/bdossantos/dockerfiles/pull/42) ([bdossantos](https://github.com/bdossantos))
+
+## [php-lol-7.2.20](https://github.com/bdossantos/dockerfiles/tree/php-lol-7.2.20) (2019-07-16)
+
+[Full Changelog](https://github.com/bdossantos/dockerfiles/compare/php-lol-7.2.19...php-lol-7.2.20)
+
+**Merged pull requests:**
+
 - refactor\(tor\): multi-stage image [\#41](https://github.com/bdossantos/dockerfiles/pull/41) ([bdossantos](https://github.com/bdossantos))
 - chore: install `opencv-python-headless==4.1.0.25` [\#39](https://github.com/bdossantos/dockerfiles/pull/39) ([bdossantos](https://github.com/bdossantos))
 - chore: dive [\#38](https://github.com/bdossantos/dockerfiles/pull/38) ([bdossantos](https://github.com/bdossantos))
