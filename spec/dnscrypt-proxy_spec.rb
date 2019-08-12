@@ -22,7 +22,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '025257108d847de9ea8d5038460838024d1c81220f3fc182b5cf1b0f9f8a2539'
+        '6a0b4588dd509bc1e9dccf279f63ed386bf9fdc5d0d49390d692d5763ba60e8e'
     }
   end
 
