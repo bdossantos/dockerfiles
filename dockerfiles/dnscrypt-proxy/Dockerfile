@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.10-stretch as builder
+FROM golang:1.12.7-buster as builder
 
 ENV DNSCRYPT_PROXY_VERSION=2.0.25
 
@@ -27,15 +27,15 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:9.9-slim
+FROM debian:10.0-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20161130+nmu1+deb9u1 \
-    dnsutils=1:9.10.3.dfsg.P4-12.3+deb9u5 \
+    ca-certificates=20190110 \
+    dnsutils=1:9.11.5.P4+dfsg-5.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
