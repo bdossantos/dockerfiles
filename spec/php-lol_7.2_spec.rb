@@ -174,4 +174,70 @@ describe 'Dockerfile' do
       it { should be_mode 644 }
     end
   end
+
+  describe 'PHP config parameters' do
+    context php_config('display_errors', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 0 }
+    end
+
+    context php_config('display_startup_errors', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 0 }
+    end
+
+    context php_config('error_reporting', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 'E_ALL' }
+    end
+
+    context php_config('log_errors', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 1 }
+    end
+
+    context php_config('error_log', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq '/proc/self/fd/2' }
+    end
+
+    context php_config('expose_php', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 0 }
+    end
+
+    context php_config('memory_limit', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq '256M' }
+    end
+
+    context php_config('allow_url_include', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 0 }
+    end
+
+    context php_config('allow_url_fopen', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq '' }
+    end
+
+    context php_config('short_open_tag', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 1 }
+    end
+
+    context php_config('asp_tags', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 0 }
+    end
+
+    context php_config('max_execution_time', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 60 }
+    end
+
+    context php_config('always_populate_raw_post_data', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq '-1' }
+    end
+
+    context php_config('date.timezone', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 'UTC' }
+    end
+
+    context php_config('session.save_path', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq '/var/lib/php/session' }
+    end
+
+    context php_config('session.serialize_handler', {:ini => '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'}) do
+      its(:value) { should eq 'igbinary' }
+    end
+  end
 end
