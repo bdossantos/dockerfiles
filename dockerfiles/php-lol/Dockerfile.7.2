@@ -168,7 +168,13 @@ RUN set -eux \
   && docker-php-source delete \
   && pecl clear-cache \
   && apt-get clean \
-  && rm -rf /tmp/pear /var/lib/apt/lists/* /usr/src/* /usr/share/GeoIP/*.gz
+  && rm -rf \
+    /tmp/* \
+    /usr/share/GeoIP/*.gz \
+    /usr/src/* \
+    /usr/src/php.tar.xz \
+    /var/cache/debconf \
+    /var/lib/apt/lists/*
 
 VOLUME /etc/nginx/conf.d
 
