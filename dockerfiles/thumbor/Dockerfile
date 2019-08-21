@@ -13,7 +13,7 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     build-essential=12.6 \
     ca-certificates=20190110 \
-    ffmpeg=7:4.1.3-1 \
+    ffmpeg=7:4.1.4-1~deb10u1 \
     graphicsmagick=1.4~hg15978-1 \
     libboost-python-dev=1.67.0.1 \
     libcurl4-openssl-dev=7.64.0-4 \
@@ -52,7 +52,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20190110 \
-    ffmpeg=7:4.1.3-1 \
+    ffmpeg=7:4.1.4-1~deb10u1 \
     gifsicle=1.91-5 \
     graphicsmagick=1.4~hg15978-1 \
     libjpeg-turbo-progs=1:1.5.2-2+b1 \
