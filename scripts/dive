@@ -20,5 +20,5 @@ docker run --network host --rm --name "dive_$(date +'%Y%m%d%H%M%S')" \
   -w '/app' \
   -e "CI=${CI}" \
   -t $(tty &>/dev/null && echo '-i') \
-  wagoodman/dive:latest \
+  wagoodman/dive:v0.7 \
   "$@"
