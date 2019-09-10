@@ -3,7 +3,7 @@ FROM debian:10.0-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.4.0.5 \
+  TOR_VERSION=0.4.1.5 \
   TORSOCKS_VERSION=2.3.0
 
 # hadolint ignore=DL3008
@@ -14,8 +14,8 @@ RUN set -x \
     automake=1:1.16.1-4 \
     build-essential=12.6 \
     ca-certificates=20190110 \
-    dirmngr=2.2.12-1 \
-    gnupg=2.2.12-1 \
+    dirmngr=2.2.12-1+deb10u1 \
+    gnupg=2.2.12-1+deb10u1 \
     libevent-2.1-6=2.1.8-stable-4 \
     libevent-dev=2.1.8-stable-4 \
     libssl-dev=1.1.1c-1 \
