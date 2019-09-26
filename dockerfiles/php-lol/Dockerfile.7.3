@@ -1,0 +1,214 @@
+#
+# Pre-compiled Node
+#
+FROM node:10.16.0-stretch-slim as node
+
+#
+# Composer
+#
+FROM composer:1.9.0 as composer
+
+#
+# Foundation
+#
+FROM php:7.3.9-fpm-buster as foundation
+
+ENV \
+  APP_DIR=/usr/src/app \
+  LIBMAXMINDDB_VERSION=1.3.2 \
+  NGINX_VERSION=1.16.1 \
+  NGX_HTTP_GEOIP2_MODULE_VERSION=3.2
+
+ENV BUILD_DEPENDENCIES \
+  automake \
+  build-essential \
+  bzip2 \
+  cmake \
+  curl \
+  libbz2-dev \
+  libgeoip-dev \
+  libgmp-dev \
+  libicu-dev \
+  libjpeg-dev \
+  libmemcached-dev \
+  libpcre3-dev \
+  libpng-dev \
+  libpq-dev \
+  libssl-dev \
+  libtidy-dev \
+  libuv1-dev \
+  libzip-dev \
+  libxml2-dev \
+  zlib1g-dev
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# hadolint ignore=DL3003,DL3008
+RUN set -eux \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    acl \
+    geoip-database \
+    git \
+    libfontconfig \
+    libaio1 \
+    libjpeg-turbo-progs \
+    libodbc1 \
+    libpq5 \
+    libtool \
+    locales \
+    supervisor \
+    unzip \
+    $BUILD_DEPENDENCIES \
+  && mkdir -p /var/lib/php/session \
+  && chown -R www-data.www-data /var/lib/php/session \
+  && pecl install igbinary-3.0.1 \
+  && pecl install geoip-1.1.1 \
+  && pecl install --nobuild memcached-3.1.3 \
+  && pecl install --nobuild redis-5.0.1 \
+  && docker-php-ext-install \
+    bcmath \
+    exif \
+    gd \
+    iconv \
+    intl \
+    mbstring \
+    opcache \
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql \
+    phar \
+    posix \
+    simplexml \
+    soap \
+    sockets \
+    tidy \
+    zip \
+  && cd "$(pecl config-get temp_dir)/memcached" \
+  && phpize \
+  && ./configure --enable-memcached-igbinary \
+  && make \
+  && make install \
+  && cd "$(pecl config-get temp_dir)/redis" \
+  && phpize \
+  && ./configure --enable-redis-igbinary \
+  && make \
+  && make install \
+  && cd - \
+  && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+  && docker-php-ext-enable \
+    igbinary \
+    geoip \
+    memcached \
+    redis \
+  && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
+    https://github.com/leev/ngx_http_geoip2_module.git \
+    /usr/src/ngx_http_geoip2_module \
+  && mkdir -p /usr/src/libmaxminddb \
+  && curl -sSL "https://github.com/maxmind/libmaxminddb/releases/download/${LIBMAXMINDDB_VERSION}/libmaxminddb-${LIBMAXMINDDB_VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/src/libmaxminddb \
+  && cd /usr/src/libmaxminddb \
+  && ./configure \
+  && make \
+  && make check \
+  && make install \
+  && ldconfig \
+  && mkdir -p /usr/src/nginx \
+  && curl -sSL "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/src/nginx \
+  && cd /usr/src/nginx \
+  && ./configure \
+    --add-module=/usr/src/ngx_http_geoip2_module \
+    --conf-path=/etc/nginx/nginx.conf \
+    --error-log-path=/var/log/nginx/error.log \
+    --group=www-data \
+    --http-client-body-temp-path=/var/cache/nginx/client_temp \
+    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+    --http-log-path=/var/log/nginx/access.log \
+    --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+    --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    --lock-path=/var/run/nginx.lock \
+    --pid-path=/var/run/nginx.pid \
+    --prefix=/etc/nginx \
+    --sbin-path=/usr/sbin/nginx \
+    --user=www-data \
+    --with-file-aio \
+    --with-http_mp4_module \
+    --with-http_addition_module \
+    --with-http_auth_request_module \
+    --with-http_flv_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_random_index_module \
+    --with-http_realip_module \
+    --with-http_secure_link_module \
+    --with-http_slice_module \
+    --with-http_ssl_module \
+    --with-http_stub_status_module \
+    --with-http_sub_module \
+    --with-http_v2_module \
+    --with-stream \
+    --with-stream_realip_module \
+    --with-stream_ssl_module \
+    --with-threads \
+  && make \
+  && make install \
+  && mkdir -p /var/cache/nginx \
+  && chown -R www-data.www-data /var/cache/nginx \
+  && chsh -s /usr/sbin/nologin www-data \
+  && mkdir -p /usr/share/GeoIP/ \
+  && chmod 0755 /usr/share/GeoIP/ \
+  && curl -sSL https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz \
+    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
+  && curl -sSL https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz \
+    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
+  && curl -sSL http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz \
+    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
+  && apt-get purge -y $BUILD_DEPENDENCIES \
+  && docker-php-source delete \
+  && pecl clear-cache \
+  && apt-get clean \
+  && rm -rf \
+    /tmp/* \
+    /usr/share/GeoIP/*.gz \
+    /usr/src/* \
+    /var/cache/debconf \
+    /var/lib/apt/lists/* \
+  && find /var/log -type f -print0 \
+    | xargs -0 rm -f
+
+VOLUME /etc/nginx/conf.d
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY --from=node /usr/local/ /usr/local/
+COPY app.conf /etc/supervisor/conf.d/app.conf
+COPY entrypoint.sh /entrypoint.sh
+COPY mime.types /etc/nginx/mime.types
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY zzz-opcache.ini /usr/local/etc/php/conf.d/zzz-opcache.ini
+COPY zzz-php-fpm-tuning.conf /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
+COPY zzz-php-hardening.ini /usr/local/etc/php/conf.d/zzz-php-hardening.ini
+
+RUN chmod 0444 \
+  /etc/nginx/mime.types \
+  /etc/nginx/nginx.conf \
+  /etc/supervisor/conf.d/app.conf \
+  /etc/supervisor/supervisord.conf \
+  /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf \
+  /usr/local/etc/php/conf.d/zzz-opcache.ini \
+  /usr/local/etc/php/conf.d/zzz-php-hardening.ini \
+  /usr/local/etc/php/php.ini
+
+#
+# Run
+#
+FROM foundation as run
+
+WORKDIR /usr/src/app
+
+EXPOSE 80/tcp 443/tcp
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
