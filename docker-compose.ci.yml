@@ -5,10 +5,18 @@ services:
     build: dockerfiles/dnscrypt-proxy
     image: bdossantos/dnscrypt-proxy
     container_name: dnscrypt-proxy
-  php-lol:
-    build: dockerfiles/dnscrypt-proxy
+  php-lol72:
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.7.2
     image: bdossantos/php-lol
-    container_name: php-lol
+    container_name: php-lol72
+  php-lol73:
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.7.3
+    image: bdossantos/php-lol
+    container_name: php-lol73
   privoxy:
     build: dockerfiles/privoxy
     image: bdossantos/privoxy
