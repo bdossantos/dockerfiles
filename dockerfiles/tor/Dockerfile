@@ -18,11 +18,11 @@ RUN set -x \
     gnupg=2.2.12-1+deb10u1 \
     libevent-2.1-6=2.1.8-stable-4 \
     libevent-dev=2.1.8-stable-4 \
-    libssl-dev=1.1.1c-1 \
+    libssl-dev=1.1.1d-0+deb10u1 \
     libtool=2.4.6-9 \
     make=4.2.1-1.2 \
     net-tools=1.60+git20180626.aebd88e-1 \
-    openssl=1.1.1c-1 \
+    openssl=1.1.1d-0+deb10u1 \
     pwgen=2.08-1 \
     wget=1.20.1-1.1 \
     zlib1g-dev=1:1.2.11.dfsg-1 \
@@ -94,8 +94,8 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20190110 \
     libevent-2.1-6=2.1.8-stable-4 \
-    libssl1.1=1.1.1c-1 \
-    openssl=1.1.1c-1 \
+    libssl1.1=1.1.1d-0+deb10u1 \
+    openssl=1.1.1d-0+deb10u1 \
     wget=1.20.1-1.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
