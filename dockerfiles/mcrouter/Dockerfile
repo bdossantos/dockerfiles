@@ -28,7 +28,7 @@ RUN apt-get update \
     gnutls-bin=3.6.7-4 \
     libboost-all-dev=1.67.0.1 \
     libboost-context-dev=1.67.0.1 \
-    libbz2-dev=1.0.6-9.1 \
+    libbz2-dev=1.0.6-9.2~deb10u1 \
     libdouble-conversion-dev=3.1.0-3 \
     libevent-dev=2.1.8-stable-4 \
     libgflags-dev=2.2.2-1 \
