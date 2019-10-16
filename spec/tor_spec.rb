@@ -23,7 +23,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/local/bin/tor --version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should eq "Tor version 0.4.1.5.\n" }
+    its(:stdout) { should eq "Tor version 0.4.1.6.\n" }
   end
 
   describe file('/usr/local/bin/tor') do
@@ -32,7 +32,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '25b8b540e4d6c6e56ce4b72469c476a2a2cf82e27e474a458647224b4efbdf98'
+        'c2af2aeac975ae3bde0bcaa4f5fd548e73ace57460941b2b247b8e4d627156e7'
     }
   end
 
