@@ -1,7 +1,7 @@
 block_ipv6 = false
 cache = true
 cache_max_ttl = 86400
-cache_min_ttl = 600
+cache_min_ttl = 3600
 cache_neg_ttl = 60
 cache_size = 16000
 cert_refresh_delay = 240

@@ -31,12 +31,12 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        'a73920044b2cace083c6837dc52d2d9de65a21c4f5eb229293f8afe77ad453a5'
+        '75cd3f7447be1f863283149fc909ac25c8758b9fda9c900b594802b1625250ad'
     }
     it { should contain('block_ipv6 = false') }
     it { should contain('cache = true') }
     it { should contain('cache_max_ttl = 86400') }
-    it { should contain('cache_min_ttl = 600') }
+    it { should contain('cache_min_ttl = 3600') }
     it { should contain('cache_neg_ttl = 60') }
     it { should contain('cache_size = 16000') }
     it { should contain('cert_refresh_delay = 240') }
