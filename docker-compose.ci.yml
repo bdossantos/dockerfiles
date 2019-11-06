@@ -41,3 +41,7 @@ services:
     build: dockerfiles/python-github-backup
     image: bdossantos/python-github-backup
     container_name: python-github-backup
+  gcsfuse:
+    build: dockerfiles/gcsfuse
+    image: bdossantos/gcsfuse
+    container_name: gcsfuse
