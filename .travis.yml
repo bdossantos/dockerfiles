@@ -1,11 +1,12 @@
 ---
-
 language: minimal
 services:
   - docker
 cache:
   - bundler
   - pip
+env:
+  - DOCKER_BUILDKIT=1
 before_script:
   - mkdir -p "$HOME/bin" "$HOME/.local/bin"
   - wget -qO- 'https://storage.googleapis.com/shellcheck/shellcheck-v0.6.0.linux.x86_64.tar.xz' | tar -xJv
