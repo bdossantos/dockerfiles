@@ -1,14 +1,4 @@
 #
-# Pre-compiled Node
-#
-FROM node:10.16.0-stretch-slim as node
-
-#
-# Composer
-#
-FROM composer:1.9.0 as composer
-
-#
 # Foundation
 #
 FROM php:7.3.10-fpm-buster as foundation
@@ -180,8 +170,10 @@ RUN set -eux \
 
 VOLUME /etc/nginx/conf.d
 
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY --from=node /usr/local/ /usr/local/
+# hadolint ignore=DL3022
+COPY --from=composer:1.9.0 /usr/bin/composer /usr/bin/composer
+# hadolint ignore=DL3022
+COPY --from=node:10.16.0-stretch-slim /usr/local/ /usr/local/
 COPY app.conf /etc/supervisor/conf.d/app.conf
 COPY entrypoint.sh /entrypoint.sh
 COPY mime.types /etc/nginx/mime.types
