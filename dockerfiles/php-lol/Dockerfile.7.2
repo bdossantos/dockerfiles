@@ -181,6 +181,7 @@ COPY entrypoint.sh /entrypoint.sh
 COPY mime.types /etc/nginx/mime.types
 COPY nginx.conf /etc/nginx/nginx.conf
 COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY zzz-apcu.ini /usr/local/etc/php/conf.d/zzz-apcu.ini
 COPY zzz-opcache.ini /usr/local/etc/php/conf.d/zzz-opcache.ini
 COPY zzz-php-fpm-tuning.conf /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
 COPY zzz-php-hardening.ini /usr/local/etc/php/conf.d/zzz-php-hardening.ini
@@ -191,6 +192,7 @@ RUN chmod 0444 \
   /etc/supervisor/conf.d/app.conf \
   /etc/supervisor/supervisord.conf \
   /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf \
+  /usr/local/etc/php/conf.d/zzz-apcu.ini \
   /usr/local/etc/php/conf.d/zzz-opcache.ini \
   /usr/local/etc/php/conf.d/zzz-php-hardening.ini \
   /usr/local/etc/php/php.ini

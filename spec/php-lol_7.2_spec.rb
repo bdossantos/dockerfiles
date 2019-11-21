@@ -64,6 +64,16 @@ describe 'Dockerfile' do
     }
   end
 
+  describe file('/usr/local/etc/php/conf.d/zzz-apcu.ini') do
+    it { should be_file }
+    it { should be_owned_by 'root' }
+    it { should be_mode 444 }
+    its(:sha256sum) {
+      should eq \
+        'd89f0a34e79a7389c2522b77d5200e88262d1c5ccb926062cb56924520d4cc60'
+    }
+  end
+
   describe file('/usr/local/etc/php/conf.d/zzz-opcache.ini') do
     it { should be_file }
     it { should be_owned_by 'root' }
