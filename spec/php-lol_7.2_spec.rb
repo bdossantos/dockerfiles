@@ -135,6 +135,7 @@ describe 'Dockerfile' do
   end
 
   %w[
+    apcu
     bcmath
     exif
     gd
