@@ -24,11 +24,12 @@ ENV BUILD_DEPENDENCIES \
   libpcre3-dev \
   libpng-dev \
   libpq-dev \
+  libsodium-dev \
   libssl-dev \
   libtidy-dev \
   libuv1-dev \
-  libzip-dev \
   libxml2-dev \
+  libzip-dev \
   zlib1g-dev
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -73,6 +74,7 @@ RUN set -eux \
     simplexml \
     soap \
     sockets \
+    sodium \
     tidy \
     zip \
   && cd "$(pecl config-get temp_dir)/memcached" \

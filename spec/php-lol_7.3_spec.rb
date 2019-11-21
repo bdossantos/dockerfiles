@@ -162,6 +162,7 @@ describe 'Dockerfile' do
     redis
     soap
     sockets
+    sodium
     tidy
     zip
   ].each do |extension|
