@@ -147,6 +147,7 @@ describe 'Dockerfile' do
   %w[
     apcu
     bcmath
+    bz2
     exif
     gd
     geoip

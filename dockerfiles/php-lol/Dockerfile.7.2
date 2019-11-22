@@ -60,6 +60,7 @@ RUN set -eux \
   && pecl install --nobuild redis-5.1.1 \
   && docker-php-ext-install \
     bcmath \
+    bz2 \
     exif \
     gd \
     iconv \
