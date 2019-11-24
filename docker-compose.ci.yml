@@ -45,3 +45,7 @@ services:
     build: dockerfiles/gcsfuse
     image: bdossantos/gcsfuse
     container_name: gcsfuse
+  dnsmasq_exporter:
+    build: dockerfiles/dnsmasq_exporter
+    image: bdossantos/dnsmasq_exporter
+    container_name: dnsmasq_exporter
