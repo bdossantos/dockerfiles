@@ -175,8 +175,6 @@ VOLUME /etc/nginx/conf.d
 
 # hadolint ignore=DL3022
 COPY --from=composer:1.9.0 /usr/bin/composer /usr/bin/composer
-# hadolint ignore=DL3022
-COPY --from=node:10.16.0-stretch-slim /usr/local/ /usr/local/
 COPY app.conf /etc/supervisor/conf.d/app.conf
 COPY entrypoint.sh /entrypoint.sh
 COPY mime.types /etc/nginx/mime.types
