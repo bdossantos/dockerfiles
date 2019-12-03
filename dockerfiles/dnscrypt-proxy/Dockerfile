@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.12.7-buster as builder
 
-ENV DNSCRYPT_PROXY_VERSION=2.0.31
+ENV DNSCRYPT_PROXY_VERSION=2.0.34
 
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
@@ -27,7 +27,7 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:10.0-slim
+FROM debian:10.1-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
