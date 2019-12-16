@@ -1,4 +1,5 @@
 block_ipv6 = false
+block_unqualified = true
 cache = true
 cache_max_ttl = 86400
 cache_min_ttl = 3600
@@ -39,10 +40,25 @@ tls_disable_session_tickets = false
   [sources.'public-resolvers']
   urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']
   cache_file = '/dev/shm/public-resolvers.md'
-  format = 'v2'
+  minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
+  prefix = ''
+
+  [sources.'relays']
+  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/relays.md', 'https://download.dnscrypt.info/resolvers-list/v2/relays.md']
+  cache_file = '/dev/shm/relays.md'
   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
   refresh_delay = 72
   prefix = ''
+
+[broken_implementations]
+
+# Cisco servers currently cannot handle queries larger than 1472 bytes, and don't
+# truncate reponses larger than questions as expected by the DNSCrypt protocol.
+# This prevents large responses from being received, and breaks relaying.
+# A workaround for the first issue will be applied to servers in list below.
+# Do not change that list until the bugs are fixed server-side.
+
+broken_query_padding = ['cisco', 'cisco-ipv6', 'cisco-familyshield']
 
 [schedules]
   [schedules.'time-to-sleep']
