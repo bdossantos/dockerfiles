@@ -1,5 +1,5 @@
 # Build
-FROM python:2.7.16-slim-buster as build
+FROM python:2.7.17-slim-buster as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -42,7 +42,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:2.7.16-slim-buster
+FROM python:2.7.17-slim-buster
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
