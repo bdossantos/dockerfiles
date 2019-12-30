@@ -32,6 +32,7 @@ RUN set -x \
       opencv-engine==1.0.1 \
       opencv-python-headless==4.1.0.25 \
       remotecv==2.2.2 \
+      tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.2 \
       thumbor=="${THUMBOR_VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
@@ -65,6 +66,6 @@ COPY --from=build /etc/thumbor/thumbor.conf /etc/thumbor/thumbor.conf
 
 USER nobody
 
-EXPOSE 8888/tcp
+EXPOSE 8000/tcp 8888/tcp
 
 ENTRYPOINT ["thumbor"]
