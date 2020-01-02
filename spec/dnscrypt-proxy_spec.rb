@@ -13,7 +13,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/local/bin/dnscrypt-proxy -version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should eq "2.0.35\n" }
+    its(:stdout) { should eq "2.0.36\n" }
   end
 
   describe file('/usr/local/bin/dnscrypt-proxy') do
@@ -22,7 +22,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '80d01623576fd6ea14fa72d399de5119422c524e08427d3f448859bd5c39f4d7'
+        'e0ef645c1794b6a106e9cc748c0e9dee4705ffe4d6a1bcb39c200ced532e724a'
     }
   end
 
@@ -31,7 +31,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '75cd3f7447be1f863283149fc909ac25c8758b9fda9c900b594802b1625250ad'
+        '25aabdbb538d6b0f802bc8faea3a7601702404880904a740fa8e0c03d792640a'
     }
     it { should contain('block_ipv6 = false') }
     it { should contain('cache = true') }
@@ -61,7 +61,6 @@ describe 'Dockerfile' do
     it { should contain("blacklist_file = '/etc/dnscrypt-proxy-blacklist.txt'") }
     it { should contain("urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']") }
     it { should contain("cache_file = '/dev/shm/public-resolvers.md'") }
-    it { should contain("format = 'v2'") }
     it { should contain("minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'") }
     it { should contain('refresh_delay = 72') }
     it { should contain("prefix = ''") }
@@ -70,8 +69,7 @@ describe 'Dockerfile' do
   describe command('dig +time=5 +tries=1 @127.0.0.1 -p 53 localhost') do
     its(:exit_status) { should eq 0 }
     its(:stdout) {
-      should contain('status: NOERROR')
-      should contain('QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1')
+      should contain('QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1')
     }
   end
 
@@ -89,7 +87,7 @@ describe 'Dockerfile' do
       should contain('status: NXDOMAIN')
     }
     its(:stdout) {
-      should contain('QUERY: 1, ANSWER: 0, AUTHORITY: 1, ADDITIONAL: 1')
+      should contain('QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1')
     }
   end
 
@@ -99,7 +97,7 @@ describe 'Dockerfile' do
       should contain('status: NOERROR')
     }
     its(:stdout) {
-      should contain('QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0')
+      should contain('QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1')
     }
     its(:stdout) {
       should contain('This query has been locally blocked" "by dnscrypt-proxy')
