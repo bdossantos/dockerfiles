@@ -11,6 +11,7 @@ eth0.me
 eth0.me
 ibpxl.com
 internetbrands.com
+motd.ubuntu.com
 oas.*
 oascentral.*
 stats.*
