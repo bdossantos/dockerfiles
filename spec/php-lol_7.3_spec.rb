@@ -178,9 +178,6 @@ describe 'Dockerfile' do
   %w[
     GeoIP.dat
     GeoIPv6.dat
-    GeoLite2-ASN.mmdb
-    GeoLite2-City.mmdb
-    GeoLite2-Country.mmdb
   ].each do |geoip|
     describe file("/usr/share/GeoIP/#{geoip}") do
       it { should be_file }
