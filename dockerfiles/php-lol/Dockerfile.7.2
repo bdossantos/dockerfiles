@@ -152,21 +152,12 @@ RUN set -eux \
   && mkdir -p /var/cache/nginx \
   && chown -R www-data.www-data /var/cache/nginx \
   && chsh -s /usr/sbin/nologin www-data \
-  && mkdir -p /usr/share/GeoIP/ \
-  && chmod 0755 /usr/share/GeoIP/ \
-  && curl -sSL https://geolite.maxmind.com/download/geoip/database/GeoLite2-City.tar.gz \
-    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
-  && curl -sSL https://geolite.maxmind.com/download/geoip/database/GeoLite2-Country.tar.gz \
-    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
-  && curl -sSL http://geolite.maxmind.com/download/geoip/database/GeoLite2-ASN.tar.gz \
-    | tar -xzf - --strip-components 1 -C /usr/share/GeoIP \
   && apt-get purge -y $BUILD_DEPENDENCIES \
   && docker-php-source delete \
   && pecl clear-cache \
   && apt-get clean \
   && rm -rf \
     /tmp/* \
-    /usr/share/GeoIP/*.gz \
     /usr/src/* \
     /var/cache/debconf \
     /var/lib/apt/lists/* \
