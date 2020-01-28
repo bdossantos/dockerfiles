@@ -153,6 +153,7 @@ describe 'Dockerfile' do
     geoip
     iconv
     igbinary
+    imap
     intl
     mbstring
     memcached
