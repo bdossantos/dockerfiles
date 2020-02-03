@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  THUMBOR_VERSION=6.7.0
+  THUMBOR_VERSION=6.7.1
 
 RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
