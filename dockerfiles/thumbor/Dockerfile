@@ -16,13 +16,13 @@ RUN set -x \
     ffmpeg=7:4.1.4-1~deb10u1 \
     graphicsmagick=1.4~hg15978-1 \
     libboost-python-dev=1.67.0.1 \
-    libcurl4-openssl-dev=7.64.0-4 \
+    libcurl4-openssl-dev=7.64.0-4+deb10u1 \
     libgraphicsmagick++1-dev=1.4~hg15978-1 \
     libjpeg-dev=1:1.5.2-2 \
     libopencv-dev=3.2.0+dfsg-6 \
     libpng-dev=1.6.36-6 \
     libssl-dev=1.1.1d-0+deb10u2 \
-    libtiff5-dev=4.0.10-4 \
+    libtiff5-dev=4.1.0+git191117-2~deb10u1 \
     webp=0.6.1-2 \
   && python -m pip install --upgrade pip \
   && pip install \
