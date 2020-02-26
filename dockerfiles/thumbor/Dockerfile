@@ -30,7 +30,7 @@ RUN set -x \
     --prefix="${PYTHONUSERBASE}" \
       graphicsmagick-engine==0.1.1 \
       opencv-engine==1.0.1 \
-      opencv-python-headless==4.1.0.25 \
+      opencv-python-headless==4.2.0.32 \
       remotecv==2.2.2 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.2 \
