@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  THUMBOR_VERSION=6.7.1
+  THUMBOR_VERSION=7.0.0a2
 
 RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
@@ -30,7 +30,9 @@ RUN set -x \
     --prefix="${PYTHONUSERBASE}" \
       graphicsmagick-engine==0.1.1 \
       opencv-engine==1.0.1 \
-      opencv-python==4.2.0.32 \
+      opencv-python-headless==4.2.0.32 \
+      pillow==7.0.0 \
+      pycurl==7.43.0.5 \
       remotecv==2.2.2 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.2 \
@@ -57,6 +59,7 @@ RUN set -x \
     gifsicle=1.91-5 \
     graphicsmagick=1.4~hg15978-1 \
     libjpeg-turbo-progs=1:1.5.2-2+b1 \
+    libcurl4=7.64.0-4+deb10u1 \
     webp=0.6.1-2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
