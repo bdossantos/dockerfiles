@@ -11,7 +11,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20190110 \
-    curl=7.64.0-4 \
+    curl=7.64.0-4+deb10u1 \
     gnupg=2.2.12-1+deb10u1 \
   && echo "deb http://packages.cloud.google.com/apt gcsfuse-stretch main" \
     | tee /etc/apt/sources.list.d/gcsfuse.list \
