@@ -3,7 +3,7 @@ FROM debian:10.3-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.4.1.6 \
+  TOR_VERSION=0.4.2.7 \
   TORSOCKS_VERSION=2.3.0
 
 # hadolint ignore=DL3008
