@@ -33,7 +33,7 @@ RUN set -x \
       opencv-python-headless==4.2.0.32 \
       pillow==7.0.0 \
       pycurl==7.43.0.5 \
-      remotecv==2.2.2 \
+      remotecv==3.0.0 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.2 \
       thumbor=="${THUMBOR_VERSION}" \
