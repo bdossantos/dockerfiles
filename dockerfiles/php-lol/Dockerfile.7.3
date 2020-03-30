@@ -59,7 +59,7 @@ RUN set -eux \
   && pecl install igbinary-3.0.1 \
   && pecl install --nobuild memcached-3.1.4 \
   && pecl install --nobuild redis-5.2.1 \
-  && docker-php-ext-configure \
+  && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \
     bcmath \
