@@ -13,7 +13,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/local/bin/dnscrypt-proxy -version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should eq "2.0.40\n" }
+    its(:stdout) { should eq "2.0.42\n" }
   end
 
   describe file('/usr/local/bin/dnscrypt-proxy') do
@@ -22,7 +22,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '8a8a54a5cb92fdb44a6d50a42956275384eacd3527b5c02f734ca17e958a7268'
+        'a5957b6d9ab4341329e845c12029f24d00ed378386fde646de969fccb49ab61b'
     }
   end
 
