@@ -14,7 +14,6 @@ internetbrands.com
 motd.ubuntu.com
 oas.*
 oascentral.*
-stats.*
 tag.*
 telemetry.*
 tracker.*
