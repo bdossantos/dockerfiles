@@ -26,7 +26,7 @@ dive: ## Run dive
 
 docker-build: ## Build all Dockerfiles
 	$(info --> Run docker-build)
-	@docker-compose build --force-rm
+	@docker-compose build --parallel --force-rm
 
 dockerfile-lint: ## Run hadolint on Dockerfile(s)
 	$(info --> Run dockerfile-lint)
