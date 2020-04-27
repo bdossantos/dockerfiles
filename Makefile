@@ -52,4 +52,12 @@ shellcheck: ## Run shellcheck on /scripts directory
 	@find scripts/ -type f | xargs -n 1 shellcheck
 
 test: ## Run tests suite
-	@$(MAKE) pre-commit shellcheck dockerfile-lint serverspec dive
+	@$(MAKE) pre-commit shellcheck dockerfile-lint serverspec dive trivy
+
+trivy: ## Run trivy, a simple Vulnerability Scanner for Containers
+	$(info --> Run `trivy`)
+	@awk '/image:/ { print $$2 }' docker-compose.ci.yml \
+		| xargs -I % -n 1 -P 1 trivy \
+			--exit-code 1 \
+			--no-progress \
+			--severity HIGH,CRITICAL %

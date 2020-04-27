@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+GITHUB_TOKEN=${GITHUB_TOKEN:=''}
+TRIVY_TIMEOUT_SEC=${TRIVY_TIMEOUT_SEC:='360s'}
+
+export TRIVY_TIMEOUT_SEC
+
+# shellcheck disable=SC2145
+echo "--> trivy $@"
+
+# shellcheck disable=SC2046
+docker run --network host --rm --name "trivy_$(date +'%Y%m%d%H%M%S')" \
+  -e GITHUB_TOKEN="${GITHUB_TOKEN}" \
+  -v $(pwd)/.cache:/root/.cache/ \
+  -v ~/.docker/config.json:/root/.docker/config.json:ro \
+  -v /var/run/docker.sock:/var/run/docker.sock:ro \
+  -t $(tty &>/dev/null && echo '-i') \
+  aquasec/trivy:0.6.0 \
+  "$@"
