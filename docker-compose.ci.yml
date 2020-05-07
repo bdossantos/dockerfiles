@@ -11,6 +11,12 @@ services:
       dockerfile: Dockerfile.7.3
     image: bdossantos/php-lol
     container_name: php-lol73
+  php-lol74:
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.7.4
+    image: bdossantos/php-lol
+    container_name: php-lol74
   privoxy:
     build: dockerfiles/privoxy
     image: bdossantos/privoxy
