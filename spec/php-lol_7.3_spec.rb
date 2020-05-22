@@ -30,7 +30,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '69c06be89faf60ac8a39549b7d5c2b6dbef5a919ce4ba4b63c462c801afa9af7'
+        'e7ece087f8ecd18ac44ff5c770ed0d1abb3df9fafa5d710ae720221d29111ff6'
     }
   end
 
@@ -40,7 +40,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '612d3bd6188ca570715fae37c4b1a6d5ac5718366424b016706fa806a88eefbb'
+        '517fd1a5dd256889128c76035d53b39c48d1ab0222bd1489614b7565c37275c7'
     }
   end
 
@@ -50,7 +50,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        'cdf9342cbcc097ba7466e35e0ff73b8eadcd0e17695746cebfa49f290443b804'
+        '46d9d4e7cc992b89426c3e3cc8fcb511b4283d678b1c42045b50dd479ca04658'
     }
   end
 
