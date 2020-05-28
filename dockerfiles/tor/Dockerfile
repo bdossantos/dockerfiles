@@ -3,7 +3,7 @@ FROM debian:10.4-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.4.2.7 \
+  TOR_VERSION=0.4.3.5 \
   TORSOCKS_VERSION=2.3.0
 
 # hadolint ignore=DL3008
@@ -80,7 +80,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.3.5.8-1 \
+    tor-geoipdb=0.3.5.10-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
