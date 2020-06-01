@@ -15,6 +15,7 @@ before_script:
   - mv 'shellcheck-v0.6.0/shellcheck' "$HOME/bin/shellcheck"
   - chmod +x "$HOME/bin/shellcheck"
   - cp -f scripts/dive "$HOME/bin/dive"
+  - cp -f scripts/trivy "$HOME/bin/dive"
   - rvm install "$(cat .ruby-version)"
   - export PATH=$HOME/.local/bin:/usr/sbin:$PATH
 script:
