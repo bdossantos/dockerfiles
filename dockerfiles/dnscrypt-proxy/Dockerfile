@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.12.7-buster as builder
 
-ENV DNSCRYPT_PROXY_VERSION=2.0.42
+ENV DNSCRYPT_PROXY_VERSION=2.0.43
 
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
@@ -35,7 +35,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20190110 \
-    dnsutils=1:9.11.5.P4+dfsg-5.1 \
+    dnsutils=1:9.11.5.P4+dfsg-5.1+deb10u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

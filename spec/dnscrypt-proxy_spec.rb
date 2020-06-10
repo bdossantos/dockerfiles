@@ -13,7 +13,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/local/bin/dnscrypt-proxy -version') do
     its(:exit_status) { should eq 0 }
-    its(:stdout) { should eq "2.0.42\n" }
+    its(:stdout) { should eq "2.0.43\n" }
   end
 
   describe file('/usr/local/bin/dnscrypt-proxy') do
@@ -22,7 +22,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        'a5957b6d9ab4341329e845c12029f24d00ed378386fde646de969fccb49ab61b'
+        '79605619cd2e7134d9578058be39ff1fe951b6aae00992e2fb81475eae129237'
     }
   end
 
@@ -31,39 +31,8 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '25aabdbb538d6b0f802bc8faea3a7601702404880904a740fa8e0c03d792640a'
+        '3b3fd25e88b379f139b031740c5dd759a8b7ad05763473208dafbfd582222145'
     }
-    it { should contain('block_ipv6 = false') }
-    it { should contain('cache = true') }
-    it { should contain('cache_max_ttl = 86400') }
-    it { should contain('cache_min_ttl = 3600') }
-    it { should contain('cache_neg_ttl = 60') }
-    it { should contain('cache_size = 16000') }
-    it { should contain('cert_refresh_delay = 240') }
-    it { should contain('daemonize = false') }
-    it { should contain('dnscrypt_servers = true') }
-    it { should contain('doh_servers = true') }
-    it { should contain("fallback_resolver = '1.0.0.1:53'") }
-    it { should contain('force_tcp = false') }
-    it { should contain('ignore_system_dns = true') }
-    it { should contain('ipv4_servers = true') }
-    it { should contain('ipv6_servers = false') }
-    it { should contain('keepalive = 20') }
-    it { should contain("lb_strategy = 'p2'") }
-    it { should contain("listen_addresses = ['0.0.0.0:53']") }
-    it { should contain('max_clients = 1024') }
-    it { should contain('require_dnssec = false') }
-    it { should contain('require_nofilter = true') }
-    it { should contain('require_nolog = true') }
-    it { should contain('timeout = 3000') }
-    it { should contain('tls_cipher_suite = [52392, 49199]') }
-    it { should contain('tls_disable_session_tickets = false') }
-    it { should contain("blacklist_file = '/etc/dnscrypt-proxy-blacklist.txt'") }
-    it { should contain("urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']") }
-    it { should contain("cache_file = '/dev/shm/public-resolvers.md'") }
-    it { should contain("minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'") }
-    it { should contain('refresh_delay = 72') }
-    it { should contain("prefix = ''") }
   end
 
   describe command('dig +time=5 +tries=1 @127.0.0.1 -p 53 localhost') do
