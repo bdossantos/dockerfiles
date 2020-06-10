@@ -6,6 +6,7 @@ home
 lan
 local
 localdomain
+my.pingdom.com
 ovh.net
 spotify.com
 tagcommander.com
