@@ -8,6 +8,5 @@ local
 localdomain
 ovh.net
 spotify.com
-spotify.com
 tagcommander.com
 tracker.debian.org
