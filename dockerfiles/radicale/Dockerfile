@@ -1,4 +1,4 @@
-FROM python:3.7.7-buster
+FROM python:3.8-buster
 
 ENV \
   GIT_COMMITTER_NAME=Radicale \
@@ -6,7 +6,7 @@ ENV \
 
 # hadolint ignore=DL3013
 RUN set -x \
-  && python3 -m pip install radicale==2.1.11 passlib[bcrypt] \
+  && python3 -m pip install radicale==3.0.3 passlib[bcrypt] \
   && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
   && mkdir -p /config /data
 
