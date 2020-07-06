@@ -2,7 +2,7 @@ FROM debian:10.4-slim
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  GCSFUSE_VERSION=0.29.0 \
+  GCSFUSE_VERSION=0.30.0 \
   GOOGLE_APPLICATION_CREDENTIALS=/secrets/key.json
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
