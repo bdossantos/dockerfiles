@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.12.7-buster as builder
+FROM golang:1.14-buster as builder
 
 ENV DNSCRYPT_PROXY_VERSION=2.0.44
 
@@ -27,7 +27,7 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:10.4-slim
+FROM debian:10.5-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
