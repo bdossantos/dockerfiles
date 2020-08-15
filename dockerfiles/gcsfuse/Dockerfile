@@ -1,4 +1,4 @@
-FROM debian:10.4-slim
+FROM debian:10.5-slim
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -13,7 +13,8 @@ RUN set -x \
     ca-certificates=20190110 \
     curl=7.64.0-4+deb10u1 \
     gnupg=2.2.12-1+deb10u1 \
-  && echo "deb http://packages.cloud.google.com/apt gcsfuse-stretch main" \
+  # grab package from latest ubuntu lts apt repo cuz debian one is outdated ...
+  && echo "deb http://packages.cloud.google.com/apt gcsfuse-bionic main" \
     | tee /etc/apt/sources.list.d/gcsfuse.list \
   && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
     | apt-key add - \
