@@ -12,8 +12,8 @@ env:
     - COMPOSE_FILE="$(pwd)/docker-compose.yml:$(pwd)/docker-compose.ci.yml"
 before_script:
   - mkdir -p "$HOME/bin" "$HOME/.local/bin"
-  - wget -qO- 'https://storage.googleapis.com/shellcheck/shellcheck-v0.6.0.linux.x86_64.tar.xz' | tar -xJv
-  - mv 'shellcheck-v0.6.0/shellcheck' "$HOME/bin/shellcheck"
+  - wget -qO- https://github.com/koalaman/shellcheck/releases/download/stable/shellcheck-stable.linux.x86_64.tar.xz | tar -xJv
+  - mv 'shellcheck-stable/shellcheck' "$HOME/bin/shellcheck"
   - chmod +x "$HOME/bin/shellcheck"
   - cp -f scripts/dive "$HOME/bin/dive"
   - rvm install "$(cat .ruby-version)"
