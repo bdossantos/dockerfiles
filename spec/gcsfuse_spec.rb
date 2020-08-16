@@ -21,7 +21,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/bin/gcsfuse --version') do
     its(:exit_status) { should eq 0 }
-    its(:stderr) { should eq "gcsfuse version 0.28.1 (Go version go1.9.7)\n" }
+    its(:stderr) { should eq "gcsfuse version 0.30.0 (Go version go1.9.7)\n" }
   end
 
   describe file('/usr/bin/gcsfuse') do
@@ -30,7 +30,7 @@ describe 'Dockerfile' do
     it { should be_mode 775 }
     its(:sha256sum) {
       should eq \
-        'd29ed5f634319d5ab07a646b9e3333171d9b1d93c76c2337c67eb11af921d4c3'
+        'c75980d4d39329318efeaff9f33969a0c249902f2880480656bc1b8e7e960fc3'
     }
   end
 end
