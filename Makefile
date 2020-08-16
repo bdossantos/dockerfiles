@@ -1,6 +1,7 @@
 CWD := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PATH := $(HOME)/.local/bin:$(HOME)/bin:/usr/local/bin:/bin:$(PATH)
 SHELL := /usr/bin/env bash
+VIRTUALENV_DIR := $(CWD)/venv
 
 .DEFAULT_GOAL := help
 
@@ -32,15 +33,20 @@ dockerfile-lint: ## Run hadolint on Dockerfile(s)
 	$(info --> Run dockerfile-lint)
 	@$(CWD)/scripts/dockerfile-lint
 
-install: pip-install bundle-install ## Install all the things
+install: venv pip-install bundle-install ## Install all the things
 
 pip-install: ## Install pip dependencies
 	$(info --> Install ansible via `pip`)
-	@pip3 install --user -r requirements.txt
+	@( \
+		source $(VIRTUALENV_DIR)/bin/activate; \
+		pip3 install wheel; \
+		pip3 install virtualenv --upgrade; \
+		pip3 install -r requirements.txt; \
+	)
 
 pre-commit: ## Run pre-commit tests
 	$(info --> Run pre-commit)
-	@pre-commit run --all-files
+	@source $(VIRTUALENV_DIR)/bin/activate && pre-commit run --all-files
 
 serverspec: ## Run serverspec
 	$(info --> Run serverspec)
@@ -53,3 +59,6 @@ shellcheck: ## Run shellcheck on /scripts directory
 
 test: ## Run tests suite
 	@$(MAKE) pre-commit shellcheck dockerfile-lint serverspec dive
+
+venv: ## Create python virtualenv if not exists
+	@python3 -m venv $(VIRTUALENV_DIR)
