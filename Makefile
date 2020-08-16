@@ -36,7 +36,7 @@ install: pip-install bundle-install ## Install all the things
 
 pip-install: ## Install pip dependencies
 	$(info --> Install ansible via `pip`)
-	@pip install --user -r requirements.txt
+	@pip3 install --user -r requirements.txt
 
 pre-commit: ## Run pre-commit tests
 	$(info --> Run pre-commit)
