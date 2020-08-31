@@ -13,7 +13,7 @@ RUN set -x \
     autoconf=2.69-11 \
     automake=1:1.16.1-4 \
     build-essential=12.6 \
-    ca-certificates=20190110 \
+    ca-certificates=20200601~deb10u1 \
     dirmngr=2.2.12-1+deb10u1 \
     gnupg=2.2.12-1+deb10u1 \
     libevent-2.1-6=2.1.8-stable-4 \
@@ -92,7 +92,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20190110 \
+    ca-certificates=20200601~deb10u1 \
     libevent-2.1-6=2.1.8-stable-4 \
     libssl-dev=1.1.1d-0+deb10u3 \
     openssl=1.1.1d-0+deb10u3 \
