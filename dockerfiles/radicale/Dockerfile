@@ -6,7 +6,7 @@ ENV \
 
 # hadolint ignore=DL3013
 RUN set -x \
-  && python3 -m pip install radicale==3.0.3 passlib[bcrypt] \
+  && python3 -m pip install radicale==3.0.5 passlib[bcrypt] \
   && python3 -m pip install --upgrade git+https://github.com/Unrud/RadicaleInfCloud \
   && mkdir -p /config /data
 
