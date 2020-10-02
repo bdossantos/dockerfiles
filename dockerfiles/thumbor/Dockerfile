@@ -31,11 +31,11 @@ RUN set -x \
       graphicsmagick-engine==0.1.1 \
       opencv-engine==1.0.1 \
       opencv-python-headless==4.4.0.44 \
-      pillow==7.0.0 \
-      pycurl==7.43.0.5 \
+      pillow==7.2.0 \
+      pycurl==7.43.0.6 \
       remotecv==3.0.0 \
       tc_prometheus==0.1.1 \
-      thumbor-plugins==0.2.2 \
+      thumbor-plugins==0.2.4 \
       thumbor=="${THUMBOR_VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
   && chown nobody.nogroup /etc/thumbor/thumbor.conf \
