@@ -1,5 +1,5 @@
 # Build
-FROM python:3.8.5-slim-buster as build
+FROM python:3.8.6-slim-buster as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -30,7 +30,7 @@ RUN set -x \
     --prefix="${PYTHONUSERBASE}" \
       graphicsmagick-engine==0.1.1 \
       opencv-engine==1.0.1 \
-      opencv-python-headless==4.2.0.32 \
+      opencv-python-headless==4.4.0.44 \
       pillow==7.0.0 \
       pycurl==7.43.0.5 \
       remotecv==3.0.0 \
@@ -44,7 +44,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.8.5-slim-buster
+FROM python:3.8.6-slim-buster
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
