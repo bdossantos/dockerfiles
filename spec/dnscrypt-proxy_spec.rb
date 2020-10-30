@@ -22,7 +22,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        'bf84b3493461d28c1a222ce226fd671bbab9638bb7177184b8de055702da573f'
+        '77b6787f37895c08f18dc4ad5b11a2db5c654ace8c63cf0ca4d745c14cba48eb'
     }
   end
 
@@ -31,7 +31,7 @@ describe 'Dockerfile' do
     it { should be_owned_by 'root' }
     its(:sha256sum) {
       should eq \
-        '3b3fd25e88b379f139b031740c5dd759a8b7ad05763473208dafbfd582222145'
+        '5e6f3d0accf199956a1ff2cb6bf80bb97bc8c183b19f3590eadda1b664d2b96f'
     }
   end
 
