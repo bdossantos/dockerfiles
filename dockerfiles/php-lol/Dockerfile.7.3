@@ -58,7 +58,7 @@ RUN set -eux \
   && pecl install apcu-5.1.18 \
   && pecl install geoip-1.1.1 \
   && pecl install igbinary-3.0.1 \
-  && pecl install --nobuild memcached-3.1.4 \
+  && pecl install --nobuild memcached-3.1.5 \
   && pecl install --nobuild redis-5.2.1 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
