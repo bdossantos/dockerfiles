@@ -30,7 +30,7 @@ RUN set -x \
     --prefix="${PYTHONUSERBASE}" \
       graphicsmagick-engine==0.1.1 \
       opencv-engine==1.0.1 \
-      opencv-python-headless==4.4.0.44 \
+      opencv-python-headless==4.4.0.46 \
       pillow==7.2.0 \
       pycurl==7.43.0.6 \
       remotecv==3.0.0 \
