@@ -18,7 +18,7 @@ RUN set -x \
     libboost-python-dev=1.67.0.1 \
     libcurl4-openssl-dev=7.64.0-4+deb10u1 \
     libgraphicsmagick++1-dev=1.4+really1.3.35-1~deb10u1 \
-    libjpeg-dev=1:1.5.2-2 \
+    libjpeg-dev=1:1.5.2-2+deb10u1 \
     libopencv-dev=3.2.0+dfsg-6 \
     libpng-dev=1.6.36-6 \
     libssl-dev=1.1.1d-0+deb10u3 \
