@@ -58,7 +58,7 @@ RUN set -x \
     ffmpeg=7:4.1.6-1~deb10u1 \
     gifsicle=1.91-5 \
     graphicsmagick=1.4+really1.3.35-1~deb10u1 \
-    libjpeg-turbo-progs=1:1.5.2-2+b1 \
+    libjpeg-turbo-progs=1:1.5.2-2+deb10u1 \
     libcurl4=7.64.0-4+deb10u1 \
     webp=0.6.1-2 \
   && apt-get clean \
