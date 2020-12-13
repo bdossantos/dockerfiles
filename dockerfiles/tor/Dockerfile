@@ -73,7 +73,7 @@ RUN set -x \
     /var/cache/apt/*.bin
 
 # Geoip
-FROM debian:10.4-slim as geoip
+FROM debian:10.7-slim as geoip
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -85,7 +85,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM debian:10.4-slim
+FROM debian:10.7-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
