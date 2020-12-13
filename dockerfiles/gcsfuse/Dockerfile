@@ -29,7 +29,7 @@ RUN set -x \
     /var/cache/debconf \
     /var/lib/apt/lists/*
 
-USER nobody
+USER nobody:nogroup
 
 ENTRYPOINT ["/usr/bin/gcsfuse"]
 CMD ["--help"]

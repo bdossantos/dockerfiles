@@ -24,7 +24,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 
 EXPOSE 5232/tcp
 
-USER nobody
+USER nobody:nogroup
 
 ENTRYPOINT ["/usr/local/bin/radicale"]
 CMD ["--config", "/config/radicale.cfg"]

@@ -48,7 +48,7 @@ COPY ./nutcracker.yml /etc/nutcracker.yml
 
 EXPOSE 5000/tcp 22222/tcp
 
-USER nobody
+USER nobody:nogroup
 
 ENTRYPOINT ["/usr/local/sbin/nutcracker"]
 CMD ["-c", "/etc/nutcracker.yml"]

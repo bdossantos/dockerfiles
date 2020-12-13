@@ -26,7 +26,7 @@ EXPOSE 8118/tcp
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
   CMD env ALL_PROXY=http://127.0.0.1:8118 curl -s -I http://p.p/
 
-USER nobody
+USER nobody:nogroup
 
 ENTRYPOINT ["/usr/sbin/privoxy"]
 CMD ["--no-daemon", "/etc/privoxy/config"]

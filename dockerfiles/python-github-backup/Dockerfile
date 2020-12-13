@@ -6,7 +6,7 @@ RUN set -x \
 
 VOLUME /data
 
-USER nobody
+USER nobody:nogroup
 
 ENTRYPOINT ["/usr/local/bin/github-backup"]
 CMD ["--help"]

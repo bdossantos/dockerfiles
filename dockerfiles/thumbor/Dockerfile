@@ -67,7 +67,7 @@ RUN set -x \
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /etc/thumbor/thumbor.conf /etc/thumbor/thumbor.conf
 
-USER nobody
+USER nobody:nogroup
 
 EXPOSE 8000/tcp 8888/tcp
 
