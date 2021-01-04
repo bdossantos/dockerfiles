@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.14-buster as builder
 
-ENV DNSCRYPT_PROXY_VERSION=2.0.44
+ENV DNSCRYPT_PROXY_VERSION=2.0.45
 
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
@@ -12,17 +12,18 @@ RUN set -x \
   && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w -extldflags "-static"'
 
 WORKDIR /tmp
-COPY domains-blacklist-local-additions.txt .
-COPY domains-blacklist.conf .
+COPY domains-blocklist-local-additions.txt .
+COPY domains-blocklist.conf .
 COPY domains-time-restricted.txt .
-COPY domains-whitelist.txt .
+COPY domains-allowlist.txt .
 
 RUN set -x \
-  && python /go/src/github.com/jedisct1/dnscrypt-proxy/utils/generate-domains-blacklists/generate-domains-blacklist.py \
-    --config /tmp/domains-blacklist.conf \
-    --whitelist /tmp/domains-whitelist.txt \
+  && python /go/src/github.com/jedisct1/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py \
+    --config /tmp/domains-blocklist.conf \
+    --allowlist /tmp/domains-allowlist.txt \
     --time-restricted /tmp/domains-time-restricted.txt \
-    --timeout 120 > /etc/dnscrypt-proxy-blacklist.txt \
+    --timeout 120 \
+    --output-file /etc/dnscrypt-proxy-blocklist.txt \
   && wget -q https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts \
     -O /etc/hosts.tmp
 
@@ -43,15 +44,15 @@ COPY --from=builder \
   /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy \
   /usr/local/bin/dnscrypt-proxy
 COPY --from=builder \
-  /etc/dnscrypt-proxy-blacklist.txt \
-  /etc/dnscrypt-proxy-blacklist.txt
+  /etc/dnscrypt-proxy-blocklist.txt \
+  /etc/dnscrypt-proxy-blocklist.txt
 COPY --from=builder \
   /etc/hosts.tmp \
   /etc/hosts
 COPY dnscrypt-proxy.toml /etc/dnscrypt-proxy.toml
 
 RUN set -x \
-  && chmod 0444 /etc/dnscrypt-proxy.toml /etc/dnscrypt-proxy-blacklist.txt
+  && chmod 0444 /etc/dnscrypt-proxy.toml /etc/dnscrypt-proxy-blocklist.txt
 
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
   CMD dig +time=5 +tries=1 @127.0.0.1 -p 53 localhost
