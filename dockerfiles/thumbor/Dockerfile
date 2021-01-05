@@ -1,5 +1,5 @@
 # Build
-FROM python:3.8.6-slim-buster as build
+FROM python:3.9.1-slim-buster as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -21,7 +21,7 @@ RUN set -x \
     libjpeg-dev=1:1.5.2-2+deb10u1 \
     libopencv-dev=3.2.0+dfsg-6 \
     libpng-dev=1.6.36-6 \
-    libssl-dev=1.1.1d-0+deb10u3 \
+    libssl-dev=1.1.1d-0+deb10u4 \
     libtiff5-dev=4.1.0+git191117-2~deb10u1 \
     webp=0.6.1-2 \
   && python -m pip install --upgrade pip \
@@ -44,7 +44,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.8.6-slim-buster
+FROM python:3.9.1-slim-buster
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

@@ -10,13 +10,13 @@ describe 'Dockerfile' do
   set :backend, :docker
   set :docker_image, image.id
 
-  describe file('/usr/local/bin/radicale') do
+  describe file('/app/bin/radicale') do
     it { should be_file }
     it { should be_owned_by 'root' }
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        'c9b2563287518488ad37ef32cb55a9193c58a19f77df81e95113f46119eb3b49'
+        '2456d1e5f6d23920b487c28e366b68addb1ab07b2fad9f44d27779709dacba5b'
     }
   end
 
