@@ -19,6 +19,13 @@ ENV \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app
 
+RUN set -x \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    git-core \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build --chown=nobody:nogroup /data /data
 
