@@ -1,6 +1,5 @@
 ---
-
-version: '3'
+version: "3"
 services:
   dnscrypt-proxy:
     network_mode: host
@@ -28,4 +27,17 @@ services:
     ports:
       - 192.168.1.250:5232:5232/tcp
     network_mode: host
+    restart: always
+  grafana:
+    image: grafana/grafana:7.3.7
+    container_name: grafana
+    volumes:
+      - /volume1/docker/grafana:/var/lib/grafana
+    network_mode: host
+    ports:
+      - 192.168.1.250:3000:3000/tcp
+    environment:
+      - GF_INSTALL_PLUGINS=grafana-strava-datasource,grafana-worldmap-panel
+      - GF_PLUGINS_ENABLE_ALPHA=true
+      - GF_STRAVA_DS_DATA_PATH=/var/lib/grafana/strava
     restart: always
