@@ -31,6 +31,27 @@ RUN chmod 0750 /data /config \
 # Run
 FROM python:3.9.1-slim-buster
 
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="radicale" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="radicale" \
+  org.label-schema.version="$RADICALE_VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.title="radicale" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="radicale" \
+  org.opencontainers.image.version="$RADICALE_VERSION"
+
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   GIT_COMMITTER_EMAIL=radicale@localhost \

@@ -51,6 +51,27 @@ ENV \
   PYTHONUSERBASE=/app \
   PATH=$PATH:/app/bin/
 
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="thumbor" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="thumbor" \
+  org.label-schema.version="$THUMBOR_VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.title="thumbor" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="thumbor" \
+  org.opencontainers.image.version="$THUMBOR_VERSION"
+
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \

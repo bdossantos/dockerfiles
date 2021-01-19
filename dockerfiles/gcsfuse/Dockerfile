@@ -5,6 +5,27 @@ ENV \
   GCSFUSE_VERSION=0.32.0 \
   GOOGLE_APPLICATION_CREDENTIALS=/secrets/key.json
 
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="gcsfuse" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="gcsfuse" \
+  org.label-schema.version="$GCSFUSE_VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.title="gcsfuse" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="gcsfuse" \
+  org.opencontainers.image.version="$GCSFUSE_VERSION"
+
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 RUN set -x \

@@ -1,47 +1,67 @@
 ---
 version: "3"
 services:
-  dnscrypt-proxy:
-    build: dockerfiles/dnscrypt-proxy
+  dnscrypt-proxy: &default
+    build:
+      context: dockerfiles/dnscrypt-proxy
+      args:
+        BUILD_DATE: ${BUILD_DATE}
+        VCS_REF: ${VCS_REF}
     image: bdossantos/dnscrypt-proxy
     container_name: dnscrypt-proxy
   php-lol73:
+    <<: *default
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.7.3
     image: bdossantos/php-lol
     container_name: php-lol73
   php-lol74:
+    <<: *default
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.7.4
     image: bdossantos/php-lol
     container_name: php-lol74
   privoxy:
-    build: dockerfiles/privoxy
+    <<: *default
+    build:
+      context: dockerfiles/privoxy
     image: bdossantos/privoxy
     container_name: privoxy
   radicale:
-    build: dockerfiles/radicale
+    <<: *default
+    build:
+      context: dockerfiles/radicale
     image: bdossantos/radicale
     container_name: radicale
   thumbor:
-    build: dockerfiles/thumbor
+    <<: *default
+    build:
+      context: dockerfiles/thumbor
     image: bdossantos/thumbor
     container_name: thumbor
   tor:
-    build: dockerfiles/tor
+    <<: *default
+    build:
+      context: dockerfiles/tor
     image: bdossantos/tor
     container_name: tor
   twemproxy:
-    build: dockerfiles/twemproxy
+    <<: *default
+    build:
+      context: dockerfiles/twemproxy
     image: bdossantos/twemproxy
     container_name: twemproxy
   python-github-backup:
-    build: dockerfiles/python-github-backup
+    <<: *default
+    build:
+      context: dockerfiles/python-github-backup
     image: bdossantos/python-github-backup
     container_name: python-github-backup
   gcsfuse:
-    build: dockerfiles/gcsfuse
+    <<: *default
+    build:
+      context: dockerfiles/gcsfuse
     image: bdossantos/gcsfuse
     container_name: gcsfuse

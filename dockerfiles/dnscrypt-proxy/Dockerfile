@@ -30,6 +30,27 @@ RUN set -x \
 # Run
 FROM debian:10.7-slim
 
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="dnscrypt-proxy" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/DNSCrypt/dnscrypt-proxy" \
+  org.label-schema.usage="https://github.com/DNSCrypt/dnscrypt-proxy/wiki" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="DNSCrypt" \
+  org.label-schema.version="$DNSCRYPT_PROXY_VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/DNSCrypt/dnscrypt-proxy/wiki" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/DNSCrypt/dnscrypt-proxy" \
+  org.opencontainers.image.title="dnscrypt-proxy" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="DNSCrypt" \
+  org.opencontainers.image.version="$DNSCRYPT_PROXY_VERSION"
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \

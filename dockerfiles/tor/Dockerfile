@@ -89,6 +89,27 @@ FROM debian:10.7-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="tor" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="tor" \
+  org.label-schema.version="$TOR_VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.title="tor" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="tor" \
+  org.opencontainers.image.version="$TOR_VERSION"
+
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
