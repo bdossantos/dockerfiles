@@ -38,6 +38,7 @@ ENV \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app
 
+# hadolint ignore=DL3008
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
