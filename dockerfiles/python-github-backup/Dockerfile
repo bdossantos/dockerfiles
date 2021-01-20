@@ -22,7 +22,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git-core \
+    git=1:2.20.1-2+deb10u3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

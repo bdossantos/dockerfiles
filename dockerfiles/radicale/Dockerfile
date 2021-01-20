@@ -10,7 +10,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git-core \
+    git=1:2.20.1-2+deb10u3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && pip install \
@@ -42,8 +42,8 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl \
-    git-core \
+    curl=7.64.0-4+deb10u1 \
+    git=1:2.20.1-2+deb10u3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
