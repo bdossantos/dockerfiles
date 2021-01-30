@@ -5,7 +5,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20200601~deb10u1 \
+    ca-certificates=20200601~deb10u2 \
     curl=7.64.0-4+deb10u1 \
     net-tools=1.60+git20180626.aebd88e-1 \
     privoxy=3.0.28-2 \

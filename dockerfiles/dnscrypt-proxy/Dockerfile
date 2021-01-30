@@ -56,7 +56,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20200601~deb10u1 \
+    ca-certificates=20200601~deb10u2 \
     dnsutils=1:9.11.5.P4+dfsg-5.1+deb10u2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

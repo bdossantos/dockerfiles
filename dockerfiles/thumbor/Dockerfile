@@ -12,7 +12,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     build-essential=12.6 \
-    ca-certificates=20200601~deb10u1 \
+    ca-certificates=20200601~deb10u2 \
     ffmpeg=7:4.1.6-1~deb10u1 \
     graphicsmagick=1.4+really1.3.35-1~deb10u1 \
     libboost-python-dev=1.67.0.1 \
@@ -75,7 +75,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20200601~deb10u1 \
+    ca-certificates=20200601~deb10u2 \
     ffmpeg=7:4.1.6-1~deb10u1 \
     gifsicle=1.91-5 \
     graphicsmagick=1.4+really1.3.35-1~deb10u1 \
