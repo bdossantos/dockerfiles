@@ -9,13 +9,6 @@ services:
         VCS_REF: ${VCS_REF}
     image: bdossantos/dnscrypt-proxy
     container_name: dnscrypt-proxy
-  php-lol73:
-    <<: *default
-    build:
-      context: dockerfiles/php-lol
-      dockerfile: Dockerfile.7.3
-    image: bdossantos/php-lol
-    container_name: php-lol73
   php-lol74:
     <<: *default
     build:
