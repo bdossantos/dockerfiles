@@ -55,7 +55,7 @@ RUN set -eux \
     $BUILD_DEPENDENCIES \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
-  && pecl install apcu-5.1.18 \
+  && pecl install apcu-5.1.20 \
   && pecl install geoip-1.1.1 \
   && pecl install igbinary-3.1.6 \
   && pecl install --nobuild memcached-3.1.5 \
