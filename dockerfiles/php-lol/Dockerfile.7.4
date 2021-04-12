@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-FROM php:7.4.15-fpm-buster as foundation
+FROM php:7.4.16-fpm-buster as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
@@ -156,7 +156,7 @@ RUN set -eux \
   && mkdir -p /var/cache/nginx \
   && chown -R www-data.www-data /var/cache/nginx \
   && chsh -s /usr/sbin/nologin www-data \
-  && apt-get purge -y $BUILD_DEPENDENCIES \
+  && apt-get purge -y "$BUILD_DEPENDENCIES" \
   && docker-php-source delete \
   && pecl clear-cache \
   && apt-get clean \
