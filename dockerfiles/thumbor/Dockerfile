@@ -7,6 +7,7 @@ ENV \
   PYTHONUSERBASE=/app \
   THUMBOR_VERSION=7.0.0a5
 
+# hadolint ignore=DL3013,DL3042
 RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
   && apt-get update \
