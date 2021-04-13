@@ -38,9 +38,9 @@ COPY ./torrc /etc/tor/torrc
 WORKDIR /tmp/tor
 
 RUN set -x \
-  && wget "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz" \
+  && wget -q "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz" \
     -O "tor-${TOR_VERSION}.tar.gz" \
-  && wget "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz.asc" \
+  && wget -q "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz.asc" \
     -O "tor-${TOR_VERSION}.tar.gz.asc" \
   && tar -zxf "tor-${TOR_VERSION}.tar.gz" --strip-components=1 -C /tmp/tor \
   && ./configure \
@@ -53,7 +53,7 @@ RUN set -x \
 WORKDIR /tmp/torsocks
 
 RUN set -x \
-  && wget "https://github.com/dgoulet/torsocks/archive/v${TORSOCKS_VERSION}.tar.gz" \
+  && wget -q "https://github.com/dgoulet/torsocks/archive/v${TORSOCKS_VERSION}.tar.gz" \
     -O "torsocks-${TORSOCKS_VERSION}.tar.gz" \
   && tar -zxf "torsocks-${TORSOCKS_VERSION}.tar.gz" --strip-components=1 -C \
     '/tmp/torsocks' \
