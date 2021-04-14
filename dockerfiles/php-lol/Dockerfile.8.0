@@ -52,7 +52,7 @@ RUN set -eux \
     locales \
     supervisor \
     unzip \
-    "$BUILD_DEPENDENCIES" \
+    $BUILD_DEPENDENCIES \
   && docker-php-ext-install -j"$(nproc)" zip \
   && curl -L -o /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.2/pickle.phar \
   && chmod +x /usr/local/bin/pickle \
@@ -148,7 +148,7 @@ RUN set -eux \
   && mkdir -p /var/cache/nginx \
   && chown -R www-data.www-data /var/cache/nginx \
   && chsh -s /usr/sbin/nologin www-data \
-  && apt-get purge -y "$BUILD_DEPENDENCIES" \
+  && apt-get purge -y $BUILD_DEPENDENCIES \
   && docker-php-source delete \
   && apt-get clean \
   && rm -rf \
