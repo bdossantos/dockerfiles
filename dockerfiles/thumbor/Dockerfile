@@ -17,7 +17,7 @@ RUN set -x \
     ffmpeg=7:4.1.6-1~deb10u1 \
     graphicsmagick=1.4+really1.3.35-1~deb10u1 \
     libboost-python-dev=1.67.0.1 \
-    libcurl4-openssl-dev=7.64.0-4+deb10u1 \
+    libcurl4-openssl-dev=7.64.0-4+deb10u2 \
     libgraphicsmagick++1-dev=1.4+really1.3.35-1~deb10u1 \
     libjpeg-dev=1:1.5.2-2+deb10u1 \
     libopencv-dev=3.2.0+dfsg-6 \
@@ -81,7 +81,7 @@ RUN set -x \
     gifsicle=1.91-5 \
     graphicsmagick=1.4+really1.3.35-1~deb10u1 \
     libjpeg-turbo-progs=1:1.5.2-2+deb10u1 \
-    libcurl4=7.64.0-4+deb10u1 \
+    libcurl4=7.64.0-4+deb10u2 \
     webp=0.6.1-2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
