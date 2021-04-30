@@ -1,5 +1,5 @@
 # Build
-FROM python:3.9.1-slim-buster as build
+FROM python:3.9.4-slim-buster as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -45,7 +45,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.9.1-slim-buster
+FROM python:3.9.4-slim-buster
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

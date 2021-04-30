@@ -1,5 +1,5 @@
 # build
-FROM python:3.9.1-slim-buster as build
+FROM python:3.9.4-slim-buster as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -29,7 +29,7 @@ RUN chmod 0750 /data /config \
   && chown -R nobody.nogroup /config /data
 
 # Run
-FROM python:3.9.1-slim-buster
+FROM python:3.9.4-slim-buster
 
 ARG BUILD_DATE
 ARG VCS_REF
