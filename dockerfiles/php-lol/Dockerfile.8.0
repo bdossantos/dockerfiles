@@ -43,9 +43,12 @@ RUN set -eux \
     bash \
     geoip-database \
     git \
+    imagemagick \
     libfontconfig \
     libaio1 \
     libjpeg-turbo-progs \
+    libmagickcore-dev \
+    libmagickwand-dev \
     libodbc1 \
     libpq5 \
     libtool \
@@ -86,10 +89,20 @@ RUN set -eux \
     sockets \
     tidy \
     zip \
+  # Temporarily building for PHP 8.0: https://github.com/Imagick/imagick/issues/358
+  && git clone https://github.com/Imagick/imagick \
+  && cd imagick \
+  && phpize \
+  && ./configure \
+  && make \
+  && make install \
+  && cd ../ \
+  && rm -rf imagick \
   && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
   && docker-php-ext-enable \
     apcu \
     igbinary \
+    imagick \
     memcached \
     redis \
   && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
