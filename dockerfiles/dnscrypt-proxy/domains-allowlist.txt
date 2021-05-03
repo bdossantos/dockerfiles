@@ -1,4 +1,5 @@
 amazon.com
+azure.com
 elasticbeanstalk.com
 github.com
 github.io
