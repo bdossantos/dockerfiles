@@ -90,14 +90,13 @@ RUN set -eux \
     tidy \
     zip \
   # Temporarily building for PHP 8.0: https://github.com/Imagick/imagick/issues/358
-  && git clone https://github.com/Imagick/imagick \
-  && cd imagick \
+  && git clone --depth 1 https://github.com/Imagick/imagick /usr/src/imagick \
+  && pushd /usr/src/imagick \
   && phpize \
   && ./configure \
   && make \
   && make install \
-  && cd ../ \
-  && rm -rf imagick \
+  && popd \
   && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
   && docker-php-ext-enable \
     apcu \

@@ -154,6 +154,7 @@ describe 'Dockerfile' do
     iconv
     igbinary
     imap
+    imagick
     intl
     mbstring
     memcached
