@@ -57,7 +57,7 @@ RUN set -eux \
   && chown -R www-data.www-data /var/lib/php/session \
   && pecl install apcu-5.1.20 \
   && pecl install geoip-1.1.1 \
-  && pecl install igbinary-3.2.1 \
+  && pecl install igbinary-3.2.3 \
   && pecl install --nobuild memcached-3.1.5 \
   && pecl install --nobuild redis-5.3.4 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
