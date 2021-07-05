@@ -1,5 +1,5 @@
 # build
-FROM python:3.9.4-slim-buster as build
+FROM python:3.9.6-slim-buster as build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -13,7 +13,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.9.4-slim-buster
+FROM python:3.9.6-slim-buster
 
 ENV \
   PATH=$PATH:/app/bin/ \
