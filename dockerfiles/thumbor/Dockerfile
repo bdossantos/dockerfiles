@@ -20,7 +20,6 @@ RUN set -x \
     libcurl4-openssl-dev=7.64.0-4+deb10u2 \
     libgraphicsmagick++1-dev=1.4+really1.3.35-1~deb10u1 \
     libjpeg-dev=1:1.5.2-2+deb10u1 \
-    libopencv-dev=3.2.0+dfsg-6 \
     libpng-dev=1.6.36-6 \
     libssl-dev=1.1.1d-0+deb10u6 \
     libtiff5-dev=4.1.0+git191117-2~deb10u2 \
@@ -29,12 +28,8 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      graphicsmagick-engine==0.1.1 \
-      opencv-engine==1.0.1 \
-      opencv-python-headless==4.4.0.46 \
       pillow==7.2.0 \
       pycurl==7.43.0.6 \
-      remotecv==3.0.0 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.4 \
       thumbor=="${THUMBOR_VERSION}" \
