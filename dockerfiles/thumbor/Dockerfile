@@ -24,7 +24,7 @@ RUN set -x \
     libpng-dev=1.6.36-6 \
     libssl-dev=1.1.1d-0+deb10u6 \
     libtiff5-dev=4.1.0+git191117-2~deb10u2 \
-    webp=0.6.1-2 \
+    webp=0.6.1-2+deb10u1 \
   && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
@@ -82,7 +82,7 @@ RUN set -x \
     graphicsmagick=1.4+really1.3.35-1~deb10u1 \
     libjpeg-turbo-progs=1:1.5.2-2+deb10u1 \
     libcurl4=7.64.0-4+deb10u2 \
-    webp=0.6.1-2 \
+    webp=0.6.1-2+deb10u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
