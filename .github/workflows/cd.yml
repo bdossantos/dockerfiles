@@ -1,0 +1,34 @@
+---
+name: CD
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        dockerfile:
+          # FIXME: replace by a `find . -type f -name 'Dockerfile*'`
+          - dockerfiles/dnscrypt-proxy/Dockerfile
+          #- dockerfiles/gcsfuse/Dockerfile
+          - dockerfiles/php-lol/Dockerfile.7.4
+          - dockerfiles/php-lol/Dockerfile.8.0
+          - dockerfiles/python-github-backup/Dockerfile
+          - dockerfiles/radicale/Dockerfile
+          - dockerfiles/thumbor/Dockerfile
+          - dockerfiles/tor/Dockerfile
+          - dockerfiles/twemproxy/Dockerfile
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build and push
+        uses: ./.github/actions/docker
+        with:
+          dockerfile: ${{ matrix.dockerfile }}
+          registry_password: ${{ secrets.DOCKERHUB_TOKEN }}

@@ -21,9 +21,9 @@ RUN set -x \
     libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2 \
     libjpeg-dev=1:1.5.2-2+deb10u1 \
     libpng-dev=1.6.36-6 \
-    libssl-dev=1.1.1d-0+deb10u6 \
+    libssl-dev=1.1.1k-1 \
     libtiff5-dev=4.1.0+git191117-2~deb10u2 \
-    webp=0.6.1-2+deb10u1 \
+    webp=0.6.1-2.1 \
   && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
@@ -71,13 +71,13 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20200601~deb10u2 \
-    ffmpeg=7:4.1.6-1~deb10u1 \
-    gifsicle=1.91-5 \
-    graphicsmagick=1.4+really1.3.35-1~deb10u1 \
-    libjpeg-turbo-progs=1:1.5.2-2+deb10u1 \
-    libcurl4=7.64.0-4+deb10u2 \
-    webp=0.6.1-2+deb10u1 \
+    ca-certificates=20210119 \
+    ffmpeg=7:4.3.2-0+deb11u2 \
+    gifsicle=1.92-2 \
+    graphicsmagick=1.4+really1.3.36+hg16481-2 \
+    libjpeg-turbo-progs=1:2.0.6-4 \
+    libcurl4=7.74.0-1.3 \
+    webp=0.6.1-2.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
