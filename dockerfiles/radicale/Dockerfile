@@ -16,7 +16,7 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      radicale==3.0.5 \
+      radicale==3.0.6 \
       passlib[bcrypt] \
       git+https://github.com/Unrud/RadicaleInfCloud \
   && mkdir -p /config /data
