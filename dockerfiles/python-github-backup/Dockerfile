@@ -9,7 +9,7 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      github-backup==0.26.0 \
+      github-backup==0.40.0 \
   && mkdir -p /data
 
 # Run
