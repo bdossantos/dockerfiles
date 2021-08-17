@@ -12,7 +12,7 @@ describe 'Dockerfile' do
 
   describe command('/usr/local/sbin/nutcracker -V') do
     its(:exit_status) { should eq 0 }
-    its(:stderr) { should contain('This is nutcracker-0.4.1') }
+    its(:stderr) { should contain('This is nutcracker-0.5.0') }
   end
 
   describe file('/usr/local/sbin/nutcracker') do
@@ -21,7 +21,7 @@ describe 'Dockerfile' do
     it { should be_mode 755 }
     its(:sha256sum) {
       should eq \
-        '477fdd2358df08c604e52c750b6e5995c2a800956e502f5b823c899adbea55d6'
+        '7cc863ba9c340a0116ec4222b847a7516b5b3bc19627cf8c270c88e625fced78'
     }
   end
 end
