@@ -1,5 +1,5 @@
 # build
-FROM python:3.9.6-slim-buster as build
+FROM python:3.9.6-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -10,7 +10,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.20.1-2+deb10u3 \
+    git=1:2.30.2-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && pip install \
@@ -29,7 +29,7 @@ RUN chmod 0750 /data /config \
   && chown -R nobody.nogroup /config /data
 
 # Run
-FROM python:3.9.6-slim-buster
+FROM python:3.9.6-slim-bullseye
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -63,8 +63,8 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.64.0-4+deb10u2 \
-    git=1:2.20.1-2+deb10u3 \
+    curl=7.74.0-1.3+b1 \
+    git=1:2.30.2-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
