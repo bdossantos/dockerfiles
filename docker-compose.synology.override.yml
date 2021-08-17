@@ -2,14 +2,12 @@
 version: "3"
 services:
   dnscrypt-proxy:
-    network_mode: host
     ports:
       - 192.168.1.250:53:53/tcp
       - 192.168.1.250:53:53/udp
     volumes:
       - /etc/localtime:/etc/localtime:ro
   tor:
-    network_mode: host
     ports:
       - 192.168.1.250:9050:9050/tcp
       - 192.168.1.250:9053:9053/udp
@@ -26,5 +24,4 @@ services:
     shm_size: 8M
     ports:
       - 192.168.1.250:5232:5232/tcp
-    network_mode: host
     restart: always
