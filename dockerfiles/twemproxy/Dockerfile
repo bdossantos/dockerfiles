@@ -1,6 +1,6 @@
 FROM debian:11.0-slim as build
 
-ENV TWEMPROXY_VESRION 0.5.0
+ENV VERSION=0.5.0
 
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
@@ -20,7 +20,7 @@ RUN apt-get update \
     libtool \
     make \
     pkg-config \
-  && curl -qL "https://github.com/twitter/twemproxy/releases/download/${TWEMPROXY_VESRION}/twemproxy-${TWEMPROXY_VESRION}.tar.gz" \
+  && curl -qL "https://github.com/twitter/twemproxy/releases/download/${VERSION}/twemproxy-${VERSION}.tar.gz" \
     | tar xvzf - --strip-components=1 \
   && autoreconf -fvi \
   && ./configure \

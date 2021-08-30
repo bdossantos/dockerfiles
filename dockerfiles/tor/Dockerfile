@@ -3,8 +3,8 @@ FROM debian:10.8-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TOR_VERSION=0.4.5.7 \
-  TORSOCKS_VERSION=2.3.0
+  TORSOCKS_VERSION=2.3.0 \
+  VERSION=0.4.5.7
 
 # hadolint ignore=DL3008
 RUN set -x \
@@ -38,11 +38,11 @@ COPY ./torrc /etc/tor/torrc
 WORKDIR /tmp/tor
 
 RUN set -x \
-  && wget -q "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz" \
-    -O "tor-${TOR_VERSION}.tar.gz" \
-  && wget -q "https://www.torproject.org/dist/tor-${TOR_VERSION}.tar.gz.asc" \
-    -O "tor-${TOR_VERSION}.tar.gz.asc" \
-  && tar -zxf "tor-${TOR_VERSION}.tar.gz" --strip-components=1 -C /tmp/tor \
+  && wget -q "https://www.torproject.org/dist/tor-${VERSION}.tar.gz" \
+    -O "tor-${VERSION}.tar.gz" \
+  && wget -q "https://www.torproject.org/dist/tor-${VERSION}.tar.gz.asc" \
+    -O "tor-${VERSION}.tar.gz.asc" \
+  && tar -zxf "tor-${VERSION}.tar.gz" --strip-components=1 -C /tmp/tor \
   && ./configure \
   && make \
   && make install \
@@ -100,7 +100,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.vcs-ref="$VCS_REF" \
   org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.vendor="tor" \
-  org.label-schema.version="$TOR_VERSION" \
+  org.label-schema.version="$VERSION" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.revision="$VCS_REF" \
@@ -108,7 +108,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.opencontainers.image.title="tor" \
   org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.vendor="tor" \
-  org.opencontainers.image.version="$TOR_VERSION"
+  org.opencontainers.image.version="$VERSION"
 
 RUN set -x \
   && apt-get update \

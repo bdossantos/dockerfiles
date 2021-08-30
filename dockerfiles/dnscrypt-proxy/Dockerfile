@@ -1,14 +1,14 @@
 # Build
 FROM golang:1.14-buster as builder
 
-ENV DNSCRYPT_PROXY_VERSION=2.0.45
+ENV VERSION=2.0.45
 
 RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 
 WORKDIR /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
 RUN set -x \
   && git pull --quiet \
-  && git checkout "tags/${DNSCRYPT_PROXY_VERSION}" \
+  && git checkout "tags/${VERSION}" \
   && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w -extldflags "-static"'
 
 WORKDIR /tmp
@@ -41,7 +41,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.vcs-ref="$VCS_REF" \
   org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.vendor="DNSCrypt" \
-  org.label-schema.version="$DNSCRYPT_PROXY_VERSION" \
+  org.label-schema.version="$VERSION" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.documentation="https://github.com/DNSCrypt/dnscrypt-proxy/wiki" \
   org.opencontainers.image.revision="$VCS_REF" \
@@ -49,7 +49,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.opencontainers.image.title="dnscrypt-proxy" \
   org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.vendor="DNSCrypt" \
-  org.opencontainers.image.version="$DNSCRYPT_PROXY_VERSION"
+  org.opencontainers.image.version="$VERSION"
 
 ENV DEBIAN_FRONTEND=noninteractive
 

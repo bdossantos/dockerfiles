@@ -2,8 +2,8 @@ FROM debian:10.8-slim
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  GCSFUSE_VERSION=0.32.0 \
-  GOOGLE_APPLICATION_CREDENTIALS=/secrets/key.json
+  GOOGLE_APPLICATION_CREDENTIALS=/secrets/key.json \
+  VERSION=0.32.0
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -16,7 +16,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.vcs-ref="$VCS_REF" \
   org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.vendor="gcsfuse" \
-  org.label-schema.version="$GCSFUSE_VERSION" \
+  org.label-schema.version="$VERSION" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.revision="$VCS_REF" \
@@ -24,7 +24,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.opencontainers.image.title="gcsfuse" \
   org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.vendor="gcsfuse" \
-  org.opencontainers.image.version="$GCSFUSE_VERSION"
+  org.opencontainers.image.version="$VERSION"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -40,7 +40,7 @@ RUN set -x \
   && curl https://packages.cloud.google.com/apt/doc/apt-key.gpg \
     | apt-key add - \
   && apt-get update \
-  && apt-get install -y --no-install-recommends gcsfuse="$GCSFUSE_VERSION" \
+  && apt-get install -y --no-install-recommends gcsfuse="$VERSION" \
   && mkdir -p /mnt/gcs \
   && chown nobody.nogroup /mnt/gcs \
   && apt-get clean \

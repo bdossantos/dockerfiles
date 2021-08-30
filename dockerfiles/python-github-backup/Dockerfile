@@ -3,13 +3,14 @@ FROM python:3.9.6-slim-bullseye as build
 
 ENV \
   PATH=$PATH:/app/bin/ \
-  PYTHONUSERBASE=/app
+  PYTHONUSERBASE=/app \
+  VERSION=0.40.0
 
 RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      github-backup==0.40.0 \
+      github-backup=="${VERSION}" \
   && mkdir -p /data
 
 # Run

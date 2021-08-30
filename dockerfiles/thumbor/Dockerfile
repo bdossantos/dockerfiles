@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  THUMBOR_VERSION=7.0.0a5
+  VERSION=7.0.0a5
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -32,7 +32,7 @@ RUN set -x \
       pycurl==7.43.0.6 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.4 \
-      thumbor=="${THUMBOR_VERSION}" \
+      thumbor=="${VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
   && chown nobody.nogroup /etc/thumbor/thumbor.conf \
   && chmod 0444 /etc/thumbor/thumbor.conf \
@@ -58,7 +58,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.vcs-ref="$VCS_REF" \
   org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.vendor="thumbor" \
-  org.label-schema.version="$THUMBOR_VERSION" \
+  org.label-schema.version="$VERSION" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.revision="$VCS_REF" \
@@ -66,7 +66,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.opencontainers.image.title="thumbor" \
   org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.vendor="thumbor" \
-  org.opencontainers.image.version="$THUMBOR_VERSION"
+  org.opencontainers.image.version="$VERSION"
 
 RUN set -x \
   && apt-get update \

@@ -3,8 +3,9 @@ FROM python:3.9.6-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
+  PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  PATH=$PATH:/app/bin/
+  VERSION=3.0.6
 
 # hadolint ignore=DL3013
 RUN set -x \
@@ -42,7 +43,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.vcs-ref="$VCS_REF" \
   org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.vendor="radicale" \
-  org.label-schema.version="$RADICALE_VERSION" \
+  org.label-schema.version="$VERSION" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.revision="$VCS_REF" \
@@ -50,7 +51,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.opencontainers.image.title="radicale" \
   org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.vendor="radicale" \
-  org.opencontainers.image.version="$RADICALE_VERSION"
+  org.opencontainers.image.version="$VERSION"
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
