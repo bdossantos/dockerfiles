@@ -1,5 +1,5 @@
 # Build
-FROM python:3.9.6-slim-buster as build
+FROM python:3.9.6-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -12,13 +12,13 @@ RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    build-essential=12.6 \
-    ca-certificates=20200601~deb10u2 \
-    ffmpeg=7:4.1.6-1~deb10u1 \
-    graphicsmagick=1.4+really1.3.35-1~deb10u1 \
-    libboost-python-dev=1.67.0.1 \
-    libcurl4-openssl-dev=7.64.0-4+deb10u2 \
-    libgraphicsmagick++1-dev=1.4+really1.3.35-1~deb10u1 \
+    build-essential=12.9 \
+    ca-certificates=20210119 \
+    ffmpeg=7:4.3.2-0+deb11u2 \
+    graphicsmagick=1.4+really1.3.36+hg16481-2 \
+    libboost-python-dev=1.74.0.3 \
+    libcurl4-openssl-dev=7.74.0-1.3 and others \
+    libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2 \
     libjpeg-dev=1:1.5.2-2+deb10u1 \
     libpng-dev=1.6.36-6 \
     libssl-dev=1.1.1d-0+deb10u6 \
@@ -40,7 +40,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.9.6-slim-buster
+FROM python:3.9.6-slim-bullseye
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
