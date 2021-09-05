@@ -1,32 +1,30 @@
 # Build
-FROM debian:10.8-slim as build
+FROM debian:11.0-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   TORSOCKS_VERSION=2.3.0 \
-  VERSION=0.4.5.7
+  VERSION=0.4.6.7
 
 # hadolint ignore=DL3008
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    autoconf=2.69-11 \
-    automake=1:1.16.1-4 \
-    build-essential=12.6 \
-    ca-certificates=20200601~deb10u2 \
-    dirmngr=2.2.12-1+deb10u1 \
-    gnupg=2.2.12-1+deb10u1 \
-    libevent-2.1-6=2.1.8-stable-4 \
-    libevent-dev=2.1.8-stable-4 \
-    libssl-dev=1.1.1d-0+deb10u7 \
-    libtool=2.4.6-9 \
-    make=4.2.1-1.2 \
-    net-tools=1.60+git20180626.aebd88e-1 \
-    openssl=1.1.1d-0+deb10u6 \
-    pwgen=2.08-1 \
-    wget=1.20.1-1.1 \
-    zlib1g-dev=1:1.2.11.dfsg-1 \
-    zlib1g=1:1.2.11.dfsg-1 \
+    autoconf=2.69-14 \
+    automake=1:1.16.3-2 \
+    build-essential=12.9 \
+    ca-certificates=20210119 \
+    dirmngr=2.2.27-2 \
+    gnupg=2.2.27-2 \
+    libevent-dev=2.1.12-stable-1 \
+    libssl-dev=1.1.1k-1+deb11u1 \
+    libtool=2.4.6-15 \
+    make=4.3-4.1 \
+    net-tools=1.60+git20181103.0eebece-1 \
+    openssl=1.1.1k-1+deb11u1 \
+    pwgen=2.08-2 \
+    wget=1.21-1+b1 \
+    zlib1g-dev=1:1.2.11.dfsg-2 \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
   && apt-get autoremove -y \
   && apt-get clean \
@@ -73,19 +71,19 @@ RUN set -x \
     /var/cache/apt/*.bin
 
 # Geoip
-FROM debian:10.8-slim as geoip
+FROM debian:11.0-slim as geoip
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.3.5.14-1 \
+    tor-geoipdb=0.4.5.9-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM debian:10.8-slim
+FROM debian:11.0-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -113,11 +111,11 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20200601~deb10u2 \
-    libevent-2.1-6=2.1.8-stable-4 \
-    libssl-dev=1.1.1d-0+deb10u7 \
-    openssl=1.1.1d-0+deb10u6 \
-    wget=1.20.1-1.1 \
+    ca-certificates=20210119 \
+    libevent-2.1-7=2.1.12-stable-1 \
+    libssl-dev=1.1.1k-1+deb11u1 \
+    openssl=1.1.1k-1+deb11u1 \
+    wget=1.21-1+b1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
