@@ -17,12 +17,12 @@ RUN set -x \
     ffmpeg=7:4.3.2-0+deb11u2 \
     graphicsmagick=1.4+really1.3.36+hg16481-2 \
     libboost-python-dev=1.74.0.3 \
-    libcurl4-openssl-dev=7.74.0-1.3 and others \
+    libcurl4-openssl-dev=7.74.0-1.3+b1 \
     libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2 \
-    libjpeg-dev=1:1.5.2-2+deb10u1 \
-    libpng-dev=1.6.36-6 \
+    libjpeg-dev=1:2.0.6-4 \
+    libpng-dev=1.6.37-3 \
     libssl-dev=1.1.1k-1 \
-    libtiff5-dev=4.1.0+git191117-2~deb10u2 \
+    libtiff5-dev=4.2.0-1 \
     webp=0.6.1-2.1 \
   && python -m pip install --upgrade pip \
   && pip install \
@@ -73,10 +73,10 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20210119 \
     ffmpeg=7:4.3.2-0+deb11u2 \
-    gifsicle=1.92-2 \
+    gifsicle=1.92-2+b1 \
     graphicsmagick=1.4+really1.3.36+hg16481-2 \
     libjpeg-turbo-progs=1:2.0.6-4 \
-    libcurl4=7.74.0-1.3 \
+    libcurl4=7.74.0-1.3+b1 \
     webp=0.6.1-2.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
