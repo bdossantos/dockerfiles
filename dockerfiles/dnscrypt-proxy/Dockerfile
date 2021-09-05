@@ -1,13 +1,12 @@
 # Build
-FROM golang:1.14-buster as builder
+FROM golang:1.16-bullseye as builder
 
-ENV VERSION=2.0.45
+ENV VERSION=2.1.0
 
-RUN go get -d -v github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
-
-WORKDIR /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy
+# hadolint ignore=DL3003
 RUN set -x \
-  && git pull --quiet \
+  && git clone https://github.com/DNSCrypt/dnscrypt-proxy \
+  && cd /go/dnscrypt-proxy/dnscrypt-proxy \
   && git checkout "tags/${VERSION}" \
   && env CGO_ENABLED=0 GOOS=linux go build -ldflags='-s -w -extldflags "-static"'
 
@@ -18,7 +17,7 @@ COPY domains-time-restricted.txt .
 COPY domains-allowlist.txt .
 
 RUN set -x \
-  && python /go/src/github.com/jedisct1/dnscrypt-proxy/utils/generate-domains-blocklist/generate-domains-blocklist.py \
+  && python3 /go/dnscrypt-proxy//utils/generate-domains-blocklist/generate-domains-blocklist.py \
     --config /tmp/domains-blocklist.conf \
     --allowlist /tmp/domains-allowlist.txt \
     --time-restricted /tmp/domains-time-restricted.txt \
@@ -28,7 +27,7 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:10.8-slim
+FROM debian:11.0-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -56,13 +55,13 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20200601~deb10u2 \
-    dnsutils=1:9.11.5.P4+dfsg-5.1+deb10u5 \
+    ca-certificates=20210119 \
+    dnsutils=1:9.16.15-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder \
-  /go/src/github.com/jedisct1/dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy \
+  /go/dnscrypt-proxy/dnscrypt-proxy/dnscrypt-proxy \
   /usr/local/bin/dnscrypt-proxy
 COPY --from=builder \
   /etc/dnscrypt-proxy-blocklist.txt \
