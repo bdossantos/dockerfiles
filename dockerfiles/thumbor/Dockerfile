@@ -30,6 +30,7 @@ RUN set -x \
     --prefix="${PYTHONUSERBASE}" \
       pillow==7.2.0 \
       pycurl==7.43.0.6 \
+      pyexiv2==2.7.0 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
