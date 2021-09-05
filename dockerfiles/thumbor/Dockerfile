@@ -28,6 +28,7 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
+      cairosvg==2.5.2 \
       pillow==7.2.0 \
       pycurl==7.43.0.6 \
       pyexiv2==2.7.0 \
