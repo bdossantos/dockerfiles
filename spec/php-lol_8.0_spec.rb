@@ -146,6 +146,7 @@ describe 'Dockerfile' do
 
   # FIXME: install geoip
   %w[
+    amqp
     apcu
     bcmath
     bz2

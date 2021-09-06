@@ -28,11 +28,12 @@ ENV BUILD_DEPENDENCIES \
   libpcre3-dev \
   libpng-dev \
   libpq-dev \
+  librabbitmq-dev \
   libssl-dev \
   libtidy-dev \
   libuv1-dev \
-  libzip-dev \
   libxml2-dev \
+  libzip-dev \
   zlib1g-dev
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -45,11 +46,12 @@ RUN set -eux \
     bash \
     geoip-database \
     git \
-    libfontconfig \
     libaio1 \
+    libfontconfig \
     libjpeg-turbo-progs \
     libodbc1 \
     libpq5 \
+    librabbitmq4 \
     libtool \
     locales \
     supervisor \
@@ -57,6 +59,7 @@ RUN set -eux \
     $BUILD_DEPENDENCIES \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
+  && pecl install amqp-1.10.2 \
   && pecl install apcu-5.1.20 \
   && pecl install geoip-1.1.1 \
   && pecl install igbinary-3.2.3 \
@@ -97,6 +100,7 @@ RUN set -eux \
   && cd - \
   && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
   && docker-php-ext-enable \
+    amqp \
     apcu \
     geoip \
     igbinary \

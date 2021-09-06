@@ -145,6 +145,7 @@ describe 'Dockerfile' do
   end
 
   %w[
+    amqp
     apcu
     bcmath
     bz2
