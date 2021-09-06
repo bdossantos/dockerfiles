@@ -61,7 +61,7 @@ RUN set -eux \
     unzip \
     $BUILD_DEPENDENCIES \
   && docker-php-ext-install -j"$(nproc)" zip \
-  && curl -L -o /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/download/v0.7.2/pickle.phar \
+  && curl -L -o /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \
   && chmod +x /usr/local/bin/pickle \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
