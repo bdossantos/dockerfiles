@@ -31,7 +31,7 @@ runs:
         version=$(egrep ' VERSION=(.*)$' '${{ inputs.dockerfile }}' | sed 's/^.*=//')
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
-        tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref}
+        tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
         echo ::set-output name=build_date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
         echo ::set-output name=path::$(dirname ${{ inputs.dockerfile }})
         echo ::set-output name=tags::${tags}
