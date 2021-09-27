@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.16-bullseye as builder
 
-ENV VERSION=2.1.0
+ENV VERSION=2.1.1
 
 # hadolint ignore=DL3003
 RUN set -x \

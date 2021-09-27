@@ -1,6 +1,7 @@
 block_ipv6 = false
 block_undelegated = true
 block_unqualified = true
+bootstrap_resolvers = ['1.1.1.1:53', '9.9.9.9:53']
 cache = true
 cache_max_ttl = 86400
 cache_min_ttl = 3600
@@ -8,11 +9,9 @@ cache_neg_max_ttl = 600
 cache_neg_ttl = 60
 cache_size = 16000
 cert_refresh_delay = 240
-daemonize = false
 dnscrypt_ephemeral_keys = false
 dnscrypt_servers = true
 doh_servers = true
-fallback_resolvers = ['1.1.1.1:53', '9.9.9.9:53']
 force_tcp = false
 ignore_system_dns = true
 ipv4_servers = true
@@ -41,13 +40,13 @@ tls_disable_session_tickets = false
 
 [sources]
   [sources.'public-resolvers']
-  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v2/public-resolvers.md']
+  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/public-resolvers.md', 'https://download.dnscrypt.info/resolvers-list/v3/public-resolvers.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/public-resolvers.md', 'https://download.dnscrypt.net/resolvers-list/v3/public-resolvers.md']
   cache_file = '/dev/shm/public-resolvers.md'
   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
   prefix = ''
 
   [sources.'relays']
-  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v2/relays.md', 'https://download.dnscrypt.info/resolvers-list/v2/relays.md']
+  urls = ['https://raw.githubusercontent.com/DNSCrypt/dnscrypt-resolvers/master/v3/relays.md', 'https://download.dnscrypt.info/resolvers-list/v3/relays.md', 'https://ipv6.download.dnscrypt.info/resolvers-list/v3/relays.md', 'https://download.dnscrypt.net/resolvers-list/v3/relays.md']
   cache_file = '/dev/shm/relays.md'
   minisign_key = 'RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3'
   refresh_delay = 72
