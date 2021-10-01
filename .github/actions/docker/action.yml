@@ -45,5 +45,5 @@ runs:
           VCS_REF=${{ steps.context.outputs.vcs_ref }}
         context: ${{ steps.context.outputs.path }}
         file: ${{ inputs.dockerfile }}
-        push: true
+        push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.context.outputs.tags }}
