@@ -9,7 +9,8 @@ ENV \
   APP_DIR=/usr/src/app \
   LIBMAXMINDDB_VERSION=1.4.3 \
   NGINX_VERSION=1.20.1 \
-  NGX_HTTP_GEOIP2_MODULE_VERSION=3.3
+  NGX_HTTP_GEOIP2_MODULE_VERSION=3.3 \
+  PHP-FPM_EXPORTER=2.0.3
 
 ENV BUILD_DEPENDENCIES \
   automake \
@@ -162,6 +163,9 @@ RUN set -eux \
   && mkdir -p /var/cache/nginx \
   && chown -R www-data.www-data /var/cache/nginx \
   && chsh -s /usr/sbin/nologin www-data \
+  && curl -sSL https://github.com/hipages/php-fpm_exporter/releases/download/v${PHP-FPM_EXPORTER}/php-fpm_exporter_${PHP-FPM_EXPORTER}_darwin_amd64 \
+    -o /usr/local/bin/php-fpm_exporter \
+  && chmod +x /usr/local/bin/php-fpm_exporter \
   && apt-get purge -y $BUILD_DEPENDENCIES \
   && docker-php-source delete \
   && pecl clear-cache \
