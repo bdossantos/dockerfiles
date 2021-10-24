@@ -21,7 +21,7 @@ RUN set -x \
     libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2 \
     libjpeg-dev=1:2.0.6-4 \
     libpng-dev=1.6.37-3 \
-    libssl-dev=1.1.1k-1 \
+    libssl-dev=1.1.1k-1+deb11u1 \
     libtiff5-dev=4.2.0-1 \
     webp=0.6.1-2.1 \
   && python -m pip install --upgrade pip \
