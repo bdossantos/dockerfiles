@@ -1,5 +1,5 @@
 # build
-FROM python:3.9.6-slim-bullseye as build
+FROM python:3.9.9-slim-bullseye as build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -14,7 +14,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.9.6-slim-bullseye
+FROM python:3.9.9-slim-bullseye
 
 ENV \
   PATH=$PATH:/app/bin/ \

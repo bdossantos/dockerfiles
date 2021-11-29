@@ -1,5 +1,5 @@
 # Build
-FROM python:3.9.6-slim-bullseye as build
+FROM python:3.9.9-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -42,7 +42,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.9.6-slim-bullseye
+FROM python:3.9.9-slim-bullseye
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
