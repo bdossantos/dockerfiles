@@ -27,7 +27,7 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:11.0-slim
+FROM debian:11-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
