@@ -23,7 +23,7 @@ RUN set -x \
     net-tools=1.60+git20181103.0eebece-1 \
     openssl=1.1.1k-1+deb11u1 \
     pwgen=2.08-2 \
-    wget=1.21-1+b1 \
+    wget=1.21-1+deb11u1 \
     zlib1g-dev=1:1.2.11.dfsg-2 \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
   && apt-get autoremove -y \
@@ -115,7 +115,7 @@ RUN set -x \
     libevent-2.1-7=2.1.12-stable-1 \
     libssl-dev=1.1.1k-1+deb11u1 \
     openssl=1.1.1k-1+deb11u1 \
-    wget=1.21-1+b1 \
+    wget=1.21-1+deb11u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
