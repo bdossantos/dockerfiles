@@ -4,7 +4,7 @@ FROM debian:11-slim as build
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   TORSOCKS_VERSION=2.3.0 \
-  VERSION=0.4.6.7
+  VERSION=0.4.6.9
 
 # hadolint ignore=DL3008
 RUN set -x \
