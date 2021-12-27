@@ -78,7 +78,7 @@ RUN set -x \
     gifsicle=1.92-2+b1 \
     graphicsmagick=1.4+really1.3.36+hg16481-2 \
     libjpeg-turbo-progs=1:2.0.6-4 \
-    libcurl4=7.74.0-1.3+b1 \
+    libcurl4=7.74.0-1.3+deb11u1 \
     webp=0.6.1-2.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
