@@ -20,6 +20,7 @@ jobs:
           #- dockerfiles/gcsfuse/Dockerfile
           - dockerfiles/php-lol/Dockerfile.7.4
           - dockerfiles/php-lol/Dockerfile.8.0
+          - dockerfiles/php-lol/Dockerfile.8.1
           - dockerfiles/python-github-backup/Dockerfile
           - dockerfiles/radicale/Dockerfile
           - dockerfiles/thumbor/Dockerfile
