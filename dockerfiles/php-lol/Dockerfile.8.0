@@ -71,7 +71,7 @@ RUN set -eux \
   && echo "--enable-memcached-igbinary" > memcached_options \
   && echo "--enable-redis-igbinary" > redis_options \
   && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.1.5 \
-  && pickle install --no-interaction --with-configure-options="redis_options" redis@5.3.4 \
+  && pickle install --no-interaction --with-configure-options="redis_options" redis@5.3.5 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \

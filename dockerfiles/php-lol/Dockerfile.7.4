@@ -64,7 +64,7 @@ RUN set -eux \
   && pecl install geoip-1.1.1 \
   && pecl install igbinary-3.2.6 \
   && pecl install --nobuild memcached-3.1.5 \
-  && pecl install --nobuild redis-5.3.4 \
+  && pecl install --nobuild redis-5.3.5 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \
