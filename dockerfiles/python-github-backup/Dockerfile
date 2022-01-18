@@ -10,7 +10,7 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      github-backup=="${VERSION}" \
+      "https://github.com/josegonzalez/python-github-backup/archive/refs/tags/${VERSION}.tar.gz" \
   && mkdir -p /data
 
 # Run
