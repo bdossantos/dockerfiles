@@ -4,7 +4,7 @@ FROM python:3.10.1-slim-bullseye as build
 ENV \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=0.40.0
+  VERSION=0.40.2
 
 RUN set -x \
   && pip install \
