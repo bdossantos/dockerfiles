@@ -1,5 +1,5 @@
 # build
-FROM python:3.10.1-slim-bullseye as build
+FROM python:3.10-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -30,7 +30,7 @@ RUN chmod 0750 /data /config \
   && chown -R nobody.nogroup /config /data
 
 # Run
-FROM python:3.10.1-slim-bullseye
+FROM python:3.10-slim-bullseye
 
 ARG BUILD_DATE
 ARG VCS_REF
