@@ -1,11 +1,11 @@
 # Build
-FROM python:3.9.9-slim-bullseye as build
+FROM python:3.9-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=7.0.0a5
+  VERSION=7.0.1
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -29,9 +29,9 @@ RUN set -x \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       cairosvg==2.5.2 \
-      pillow==7.2.0 \
-      pycurl==7.43.0.6 \
-      pyexiv2==2.7.0 \
+      pillow==8.4.0 \
+      pycurl==7.44.1 \
+      pyexiv2==2.7.1 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
