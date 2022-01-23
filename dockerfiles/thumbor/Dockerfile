@@ -42,7 +42,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.9.9-slim-bullseye
+FROM python:3.9-slim-bullseye
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
