@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=7.0.2
+  VERSION=7.0.3
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -29,7 +29,7 @@ RUN set -x \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       cairosvg==2.5.2 \
-      pillow==8.4.0 \
+      pillow==9.0.0 \
       pycurl==7.44.1 \
       pyexiv2==2.7.1 \
       tc_prometheus==0.1.1 \
