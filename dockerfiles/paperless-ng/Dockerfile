@@ -149,6 +149,8 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=300s \
 
 WORKDIR /app
 
+USER nobody:nogroup
+
 EXPOSE 8000/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
