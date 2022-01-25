@@ -144,7 +144,7 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 VOLUME ["/app/data", "/app/media","/app/consume", "/app/export"]
 
-HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
+HEALTHCHECK --interval=10s --timeout=5s --start-period=300s \
   CMD curl -s --fail http://127.0.0.1:8000 &>/dev/null || exit 1
 
 WORKDIR /app
