@@ -132,7 +132,9 @@ RUN set -x \
     tesseract-ocr-ita \
     tesseract-ocr-spa \
   && apt-get clean \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  # GNUPG needs a home directory for some reason
+  && usermod --home /dev/shm nobody
 
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
