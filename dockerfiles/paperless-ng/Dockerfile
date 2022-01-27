@@ -103,6 +103,7 @@ RUN set -x \
     gettext \
     gnupg \
     imagemagick \
+    sqlite3 \
     supervisor \
     tzdata \
     # fonts for text file thumbnail generation
