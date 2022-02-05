@@ -21,6 +21,8 @@ RUN set -x \
     gettext \
     git \
     libleptonica-dev \
+    libpq-dev  \
+    libqpdf-dev \
     libtool \
     nodejs \
     npm \
@@ -103,6 +105,7 @@ RUN set -x \
     gettext \
     gnupg \
     imagemagick \
+    libpq5 \
     sqlite3 \
     supervisor \
     tzdata \
