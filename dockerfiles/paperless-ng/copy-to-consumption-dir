@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+PAPERLESS_CONSUMPTION_DIR=${PAPERLESS_CONSUMPTION_DIR:='/app/consume'}
+WATCH_DIRECTORY=${WATCH_DIRECTORY:='/app/watch'}
+
+inotifywait -mrqs -e create -e close_write --format="%w%f" "${WATCH_DIRECTORY}" | while
+  read -r file
+do
+  file_path=$(dirname "$file")
+  file_name=$(basename "$file")
+  file_extension="${file_name##*.}"
+
+  if [[ "$file_extension" == 'pdf' ]]; then
+    cp -v -f "$file" "${PAPERLESS_CONSUMPTION_DIR}/${file_name}"
+  fi
+done

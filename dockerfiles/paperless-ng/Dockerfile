@@ -105,6 +105,7 @@ RUN set -x \
     gettext \
     gnupg \
     imagemagick \
+    inotify-tools \
     libpq5 \
     sqlite3 \
     supervisor \
@@ -146,9 +147,10 @@ COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
 COPY --from=build /usr/local/src/paperless-ng/docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 COPY entrypoint.sh /entrypoint.sh
+COPY copy-to-consumption-dir /app/copy-to-consumption-dir
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 
-VOLUME ["/app/data", "/app/media","/app/consume", "/app/export"]
+VOLUME ["/app/data", "/app/media","/app/consume", "/app/export", "/app/watch"]
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=300s \
   CMD curl -s --fail http://127.0.0.1:8000 &>/dev/null || exit 1
