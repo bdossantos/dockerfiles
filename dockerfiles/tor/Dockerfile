@@ -38,7 +38,7 @@ WORKDIR /tmp/tor
 RUN set -x \
   && wget -q "https://dist.torproject.org/tor-${VERSION}.tar.gz" \
     -O "tor-${VERSION}.tar.gz" \
-  && wget -q "https://dist.torproject.org/tor-${VERSION}.tar.gz.asc" \
+  && wget -q "https://dist.torproject.org/tor-${VERSION}.tar.gz.sha256sum.asc" \
     -O "tor-${VERSION}.tar.gz.asc" \
   && tar -zxf "tor-${VERSION}.tar.gz" --strip-components=1 -C /tmp/tor \
   && ./configure \
