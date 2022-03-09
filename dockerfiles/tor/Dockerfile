@@ -4,7 +4,7 @@ FROM debian:11-slim as build
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   TORSOCKS_VERSION=2.3.0 \
-  VERSION=0.4.6.9
+  VERSION=0.4.6.10
 
 # hadolint ignore=DL3008
 RUN set -x \
@@ -36,9 +36,9 @@ COPY ./torrc /etc/tor/torrc
 WORKDIR /tmp/tor
 
 RUN set -x \
-  && wget -q "https://www.torproject.org/dist/tor-${VERSION}.tar.gz" \
+  && wget -q "https://dist.torproject.org/tor-${VERSION}.tar.gz" \
     -O "tor-${VERSION}.tar.gz" \
-  && wget -q "https://www.torproject.org/dist/tor-${VERSION}.tar.gz.asc" \
+  && wget -q "https://dist.torproject.org/tor-${VERSION}.tar.gz.sha256sum.asc" \
     -O "tor-${VERSION}.tar.gz.asc" \
   && tar -zxf "tor-${VERSION}.tar.gz" --strip-components=1 -C /tmp/tor \
   && ./configure \
