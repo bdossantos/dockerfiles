@@ -1,6 +1,6 @@
 # Dockerfiles
 
-[![Build Status](https://travis-ci.org/bdossantos/dockerfiles.svg?branch=master)](https://travis-ci.org/bdossantos/dockerfiles)
+[![Build Status](https://github.com/bdossantos/dockerfiles/actions/workflows/cd.yml/badge.svg)](https://github.com/bdossantos/dockerfiles/actions/workflows/cd.yml)
 
 Some Dockerfiles.
 
