@@ -14,8 +14,8 @@ RUN set -x \
     automake=1:1.16.3-2 \
     build-essential=12.9 \
     ca-certificates=20210119 \
-    dirmngr=2.2.27-2 \
-    gnupg=2.2.27-2 \
+    dirmngr=2.2.27-2+deb11u1 \
+    gnupg=2.2.27-2+deb11u1 \
     libevent-dev=2.1.12-stable-1 \
     libssl-dev=1.1.1n-0+deb11u1 \
     libtool=2.4.6-15 \
