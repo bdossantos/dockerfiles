@@ -35,6 +35,12 @@ services:
       context: dockerfiles/radicale
     image: bdossantos/radicale
     container_name: radicale
+  resec:
+    <<: *default
+    build:
+      context: dockerfiles/resec
+    image: bdossantos/resec
+    container_name: resec
   thumbor:
     <<: *default
     build:
