@@ -24,6 +24,7 @@ jobs:
           - dockerfiles/php-lol/Dockerfile.8.1
           - dockerfiles/python-github-backup/Dockerfile
           - dockerfiles/radicale/Dockerfile
+          - dockerfiles/resec/Dockerfile
           - dockerfiles/thumbor/Dockerfile
           - dockerfiles/tor/Dockerfile
           - dockerfiles/twemproxy/Dockerfile
