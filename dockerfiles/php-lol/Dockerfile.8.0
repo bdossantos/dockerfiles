@@ -7,7 +7,7 @@ FROM php:$VERSION-fpm-bullseye as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
-  LIBMAXMINDDB_VERSION=1.5.0 \
+  LIBMAXMINDDB_VERSION=1.6.0 \
   NGINX_VERSION=1.22.0 \
   NGX_HTTP_GEOIP2_MODULE_VERSION=3.3
 
