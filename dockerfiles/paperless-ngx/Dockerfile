@@ -122,8 +122,8 @@ RUN set -x \
     optipng \
     pngquant \
     unpaper \
+    # Mime type detection \
     zlib1g \
-    zbar-tools \
     # Mime type detection
     file \
     libmagic-dev \
@@ -137,6 +137,9 @@ RUN set -x \
     tesseract-ocr-fra \
     tesseract-ocr-ita \
     tesseract-ocr-spa \
+    # Barcode splitter \
+    libzbar0 \
+    poppler-utils \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   # GNUPG needs a home directory for some reason
