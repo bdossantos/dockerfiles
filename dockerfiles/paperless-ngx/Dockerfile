@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=1.5.0
+  VERSION=1.7.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -33,21 +33,21 @@ RUN set -x \
   && ./configure \
   && make \
   && popd \
-  && mkdir /usr/local/src/paperless-ng \
-  && curl -sSL "https://github.com/jonaswinkler/paperless-ng/archive/refs/tags/ng-${VERSION}.tar.gz" \
-    | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ng \
-  && pushd /usr/local/src/paperless-ng/src-ui \
+  && mkdir /usr/local/src/paperless-ngx \
+  && curl -sSL "https://github.com/paperless-ngx/paperless-ngx/archive/refs/tags/v${VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
+  && pushd /usr/local/src/paperless-ngx/src-ui \
   && npm install \
   && ./node_modules/.bin/ng build --prod \
   && popd \
-  && mv /usr/local/src/paperless-ng/src/* /app/ \
-  && mv /usr/local/src/paperless-ng/gunicorn.conf.py /app/gunicorn.conf.py \
+  && mv /usr/local/src/paperless-ngx/src/* /app/ \
+  && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
   && pushd /app \
   && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-    -r /usr/local/src/paperless-ng/requirements.txt \
+    -r /usr/local/src/paperless-ngx/requirements.txt \
   && python3 manage.py collectstatic --clear --no-input \
   && python3 manage.py compilemessages \
   && popd \
@@ -79,27 +79,27 @@ ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL org.label-schema.build-date="$BUILD_DATE" \
-  org.label-schema.name="paperless-ng" \
+  org.label-schema.name="paperless-ngx" \
   org.label-schema.schema-version="1.0" \
   org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.vcs-ref="$VCS_REF" \
   org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
-  org.label-schema.vendor="paperless-ng" \
+  org.label-schema.vendor="paperless-ngx" \
   org.label-schema.version="$VERSION" \
   org.opencontainers.image.created="$BUILD_DATE" \
   org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
   org.opencontainers.image.revision="$VCS_REF" \
   org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
-  org.opencontainers.image.title="paperless-ng" \
+  org.opencontainers.image.title="paperless-ngx" \
   org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
-  org.opencontainers.image.vendor="paperless-ng" \
+  org.opencontainers.image.vendor="paperless-ngx" \
   org.opencontainers.image.version="$VERSION"
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    # See https://paperless-ng.readthedocs.io/en/latest/setup.html#bare-metal-route
+    # See https://paperless-ngx.readthedocs.io/en/latest/setup.html#bare-metal-route
     # Basic dependencies
     curl \
     gettext \
@@ -145,7 +145,7 @@ COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
-COPY --from=build /usr/local/src/paperless-ng/docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
+COPY --from=build /usr/local/src/paperless-ngx/docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 COPY entrypoint.sh /entrypoint.sh
 COPY copy-to-consumption-dir /app/copy-to-consumption-dir
 COPY supervisord.conf /etc/supervisor/supervisord.conf

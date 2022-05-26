@@ -9,6 +9,13 @@ services:
         VCS_REF: ${VCS_REF}
     image: bdossantos/dnscrypt-proxy
     container_name: dnscrypt-proxy
+  paperless-ngx:
+    <<: *default
+    build:
+      context: dockerfiles/paperless-ngx
+      dockerfile: Dockerfile
+    image: bdossantos/paperless-ngx
+    container_name: paperless-ngx
   php-lol74:
     <<: *default
     build:
