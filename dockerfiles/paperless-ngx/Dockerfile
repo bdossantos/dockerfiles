@@ -123,6 +123,7 @@ RUN set -x \
     pngquant \
     unpaper \
     zlib1g \
+    zbar-tools \
     # Mime type detection
     file \
     libmagic-dev \
