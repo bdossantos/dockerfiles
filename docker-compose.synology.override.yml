@@ -19,8 +19,8 @@ services:
     container_name: radicale
     volumes:
       - /etc/localtime:/etc/localtime:ro
-      - /volume1/docker/radicale/data:/data
-      - /volume1/docker/radicale/users:/config/users:ro
+      - /volume1/docker_datas/radicale/data:/data
+      - /volume1/docker_datas/radicale/users:/config/users:ro
     shm_size: 8M
     ports:
       - 192.168.1.250:5232:5232/tcp
