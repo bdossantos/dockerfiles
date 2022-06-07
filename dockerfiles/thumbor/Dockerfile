@@ -21,6 +21,7 @@ RUN set -x \
     libcurl4-openssl-dev=7.74.0-1.3+deb11u1 \
     libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2 \
     libjpeg-dev=1:2.0.6-4 \
+    libopencv-dev=4.5.1+dfsg-5 \
     libpng-dev=1.6.37-3 \
     libssl-dev=1.1.1n-0+deb11u2 \
     libtiff5-dev=4.2.0-1 \
@@ -31,9 +32,11 @@ RUN set -x \
     --prefix="${PYTHONUSERBASE}" \
       cairosvg==2.5.2 \
       numpy==1.22.4 \
+      opencv-python-headless==4.5.5.64 \
       pillow==9.0.0 \
       pycurl==7.44.1 \
       pyexiv2==2.7.1 \
+      remotecv==3.2.1 \
       tc_prometheus==0.1.1 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
