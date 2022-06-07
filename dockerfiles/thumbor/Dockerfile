@@ -38,6 +38,7 @@ RUN set -x \
       pyexiv2==2.7.1 \
       remotecv==3.2.1 \
       tc_prometheus==0.1.1 \
+      thumbor-plugins-gifv==0.1.2 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
