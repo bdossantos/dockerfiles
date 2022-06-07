@@ -30,6 +30,7 @@ RUN set -x \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       cairosvg==2.5.2 \
+      numpy==1.22.4 \
       pillow==9.0.0 \
       pycurl==7.44.1 \
       pyexiv2==2.7.1 \
