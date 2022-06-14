@@ -65,7 +65,7 @@ RUN set -eux \
   && pecl install igbinary-3.2.6 \
   && pecl install msgpack-2.1.2 \
   && pecl install --nobuild memcached-3.1.5 \
-  && pecl install --nobuild redis-5.3.5 \
+  && pecl install --nobuild redis-5.3.7 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \
