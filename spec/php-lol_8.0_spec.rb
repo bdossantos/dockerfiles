@@ -159,6 +159,7 @@ describe 'Dockerfile' do
     intl
     mbstring
     memcached
+    msgpack
     pcntl
     pdo_mysql
     pdo_pgsql

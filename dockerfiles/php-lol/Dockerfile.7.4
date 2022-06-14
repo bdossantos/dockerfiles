@@ -63,6 +63,7 @@ RUN set -eux \
   && pecl install apcu-5.1.21 \
   && pecl install geoip-1.1.1 \
   && pecl install igbinary-3.2.6 \
+  && pecl install msgpack-2.1.2 \
   && pecl install --nobuild memcached-3.1.5 \
   && pecl install --nobuild redis-5.3.5 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
@@ -89,12 +90,12 @@ RUN set -eux \
     zip \
   && cd "$(pecl config-get temp_dir)/memcached" \
   && phpize \
-  && ./configure --enable-memcached-igbinary \
+  && ./configure --enable-memcached-igbinary --enable-memcached-msgpack \
   && make \
   && make install \
   && cd "$(pecl config-get temp_dir)/redis" \
   && phpize \
-  && ./configure --enable-redis-igbinary \
+  && ./configure --enable-redis-igbinary --enable-redis-msgpack \
   && make \
   && make install \
   && cd - \
@@ -105,6 +106,7 @@ RUN set -eux \
     geoip \
     igbinary \
     memcached \
+    msgpack \
     redis \
   && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
     https://github.com/leev/ngx_http_geoip2_module.git \

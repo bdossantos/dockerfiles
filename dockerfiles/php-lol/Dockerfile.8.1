@@ -67,11 +67,12 @@ RUN set -eux \
   && chown -R www-data.www-data /var/lib/php/session \
   && pickle install amqp \
   && pickle install --no-interaction apcu@5.1.21 \
-  && pickle install igbinary@3.2.6 \
-  && echo "--enable-memcached-igbinary" > memcached_options \
-  && echo "--enable-redis-igbinary" > redis_options \
-  && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.1.5 \
-  && pickle install --no-interaction --with-configure-options="redis_options" redis@5.3.5 \
+  && pickle install igbinary@3.2.7 \
+  && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
+  && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
+  && pickle install msgpack@2.1.2 \
+  && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.2.0 \
+  && pickle install --no-interaction --with-configure-options="redis_options" redis@5.3.7 \
   && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \
@@ -109,6 +110,7 @@ RUN set -eux \
     igbinary \
     imagick \
     memcached \
+    msgpack \
     redis \
   && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
     https://github.com/leev/ngx_http_geoip2_module.git \
