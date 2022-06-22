@@ -36,6 +36,12 @@ services:
       context: dockerfiles/privoxy
     image: bdossantos/privoxy
     container_name: privoxy
+  pint:
+    <<: *default
+    build:
+      context: dockerfiles/pint
+    image: bdossantos/pint
+    container_name: pint
   radicale:
     <<: *default
     build:
