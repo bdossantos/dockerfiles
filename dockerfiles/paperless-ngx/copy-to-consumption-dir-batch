@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+LOCK='/dev/shm/.copy-to-consumption-dir-batch'
+PAPERLESS_CONSUMPTION_DIR=${PAPERLESS_CONSUMPTION_DIR:='/app/consume'}
+WATCH_DIRECTORY=${WATCH_DIRECTORY:='/app/watch'}
+
+if [[ -f "${LOCK}" ]]; then
+  if kill -0 "$(cat "$LOCK")"; then
+    echo >&2 'copy-to-consumption-dir-batch is already running'
+    exit 1
+  fi
+fi
+
+# shellcheck disable=SC2064
+trap "rm -f ${LOCK}" INT TERM EXIT
+
+echo $$ >"${LOCK}"
+
+find "${WATCH_DIRECTORY}" -type f -name '*.pdf' -not -iname "Scanned*" -cmin -120 |
+  xargs -P 1 -I % cp -v -f '%' "${PAPERLESS_CONSUMPTION_DIR}"
+
+# cleanup old files from paperless consum dir
+find "${PAPERLESS_CONSUMPTION_DIR}" -type f -atime +1 -delete
