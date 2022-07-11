@@ -48,6 +48,6 @@ COPY --from=builder \
   /go/resec/build/resec \
   /usr/local/bin/resec
 
-USER nobody:nogroup
+USER 65534:65534
 
 ENTRYPOINT ["/usr/local/bin/resec"]

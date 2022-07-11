@@ -135,7 +135,7 @@ HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
   CMD torify wget -q -O - https://check.torproject.org/ \
     | grep -q 'Congratulations. This browser is configured to use Tor.'
 
-USER nobody:nogroup
+USER 65534:65534
 
 ENTRYPOINT ["/usr/local/bin/tor"]
 CMD ["--defaults-torrc", "/usr/local/etc/tor/torrc.sample", "-f", "/etc/tor/torrc"]

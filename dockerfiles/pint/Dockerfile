@@ -47,6 +47,6 @@ COPY --from=builder \
   /go/pint/pint \
   /usr/local/bin/pint
 
-USER nobody:nogroup
+USER 65534:65534
 
 ENTRYPOINT ["/usr/local/bin/pint"]

@@ -42,7 +42,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends gcsfuse="$VERSION" \
   && mkdir -p /mnt/gcs \
-  && chown nobody.nogroup /mnt/gcs \
+  && chown 65534:65534 /mnt/gcs \
   && apt-get clean \
   && rm -rf \
     /tmp/* \
@@ -50,7 +50,7 @@ RUN set -x \
     /var/cache/debconf \
     /var/lib/apt/lists/*
 
-USER nobody:nogroup
+USER 65534:65534
 
 ENTRYPOINT ["/usr/bin/gcsfuse"]
 CMD ["--help"]

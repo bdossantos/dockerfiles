@@ -22,7 +22,7 @@ describe 'Dockerfile' do
 
   describe file('/config/radicale.cfg') do
     it { should be_file }
-    it { should be_owned_by 'nobody' }
+    it { should be_owned_by '65534' }
     its(:sha256sum) {
       should eq \
         '766bb94b045bd5f172170046c976f0b30e2e2b997eecf0a817cbdf303ac9102c'

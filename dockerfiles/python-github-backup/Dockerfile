@@ -28,11 +28,11 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
-COPY --from=build --chown=nobody:nogroup /data /data
+COPY --from=build --chown=65534:65534 /data /data
 
 VOLUME /data
 
-USER nobody:nogroup
+USER 65534:65534
 
 ENTRYPOINT ["github-backup"]
 CMD ["--help"]

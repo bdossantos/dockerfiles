@@ -10,7 +10,7 @@ initialize() {
       echo "Creating directory $dir"
       mkdir -p "$dir"
       chmod 755 "$dir"
-      chown -R nobody.nogroup "$dir"
+      chown -R 65534:65534 "$dir"
     fi
   done
 }

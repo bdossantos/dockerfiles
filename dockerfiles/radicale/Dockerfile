@@ -27,7 +27,7 @@ COPY radicale.cfg /config/radicale.cfg
 RUN chmod 0750 /data /config \
   && chmod 0444 /config/radicale.cfg \
   && touch /config/users \
-  && chown -R nobody.nogroup /config /data
+  && chown -R 65534:65534 /config /data
 
 # Run
 FROM python:3.10-slim-bullseye
@@ -70,15 +70,15 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
-COPY --from=build --chown=nobody:nogroup /config /config
-COPY --from=build --chown=nobody:nogroup /data /data
+COPY --from=build --chown=65534:65534 /config /config
+COPY --from=build --chown=65534:65534 /data /data
 
 VOLUME /data
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
   CMD curl -s --fail http://127.0.0.1:5232/.web/ &>/dev/null || exit 1
 
-USER nobody:nogroup
+USER 65534:65534
 
 EXPOSE 5232/tcp
 

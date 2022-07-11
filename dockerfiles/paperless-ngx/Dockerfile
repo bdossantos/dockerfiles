@@ -161,7 +161,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=300s \
 
 WORKDIR /app
 
-USER nobody:nogroup
+USER 65534:65534
 
 EXPOSE 8000/tcp
 

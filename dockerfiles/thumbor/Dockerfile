@@ -42,7 +42,7 @@ RUN set -x \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
-  && chown nobody.nogroup /etc/thumbor/thumbor.conf \
+  && chown 65534:65534 /etc/thumbor/thumbor.conf \
   && chmod 0444 /etc/thumbor/thumbor.conf \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -93,7 +93,7 @@ RUN set -x \
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /etc/thumbor/thumbor.conf /etc/thumbor/thumbor.conf
 
-USER nobody:nogroup
+USER 65534:65534
 
 EXPOSE 8000/tcp 8888/tcp
 
