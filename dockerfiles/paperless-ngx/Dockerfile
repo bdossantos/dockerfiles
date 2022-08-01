@@ -9,6 +9,9 @@ ENV \
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
+# hadolint ignore=DL3022
+COPY --from=node:16-bullseye-slim /usr/local/ /usr/local/
+
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
   && mkdir "$PYTHONUSERBASE" \
@@ -24,8 +27,6 @@ RUN set -x \
     libpq-dev  \
     libqpdf-dev \
     libtool \
-    nodejs \
-    npm \
     zlib1g-dev \
   && git clone https://github.com/agl/jbig2enc /tmp/jbig2enc \
   && pushd /tmp/jbig2enc \
@@ -37,8 +38,9 @@ RUN set -x \
   && curl -sSL "https://github.com/paperless-ngx/paperless-ngx/archive/refs/tags/v${VERSION}.tar.gz" \
     | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
   && pushd /usr/local/src/paperless-ngx/src-ui \
-  && npm install \
-  && ./node_modules/.bin/ng build --prod \
+  && npm update npm --location=global \
+  && npm ci --omit=optional \
+  && ./node_modules/.bin/ng build --configuration production \
   && popd \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
