@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=1.7.1
+  VERSION=1.8.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
