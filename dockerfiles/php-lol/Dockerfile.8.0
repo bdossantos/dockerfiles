@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-ARG VERSION=8.0.19
+ARG VERSION=8.0.23
 
 FROM php:$VERSION-fpm-bullseye as foundation
 
