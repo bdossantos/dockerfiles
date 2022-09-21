@@ -64,7 +64,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.74.0-1.3+deb11u2 \
+    curl=7.74.0-1.3+deb11u3 \
     git=1:2.30.2-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
