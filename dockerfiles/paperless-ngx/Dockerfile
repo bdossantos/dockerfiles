@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=1.7.1
+  VERSION=1.9.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -21,6 +21,7 @@ RUN set -x \
     build-essential=12.9 \
     ca-certificates=20210119 \
     curl \
+    default-libmysqlclient-dev \
     gettext \
     git \
     libleptonica-dev \
@@ -42,16 +43,19 @@ RUN set -x \
   && npm ci --omit=optional \
   && ./node_modules/.bin/ng build --configuration production \
   && popd \
+  && pushd /usr/local/src/paperless-ngx/ \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
-  && pushd /app \
-  && python -m pip install --upgrade pip \
+  && python -m pip install --no-cache-dir --upgrade pipenv \
+  && pipenv requirements > requirements.txt \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-    -r /usr/local/src/paperless-ngx/requirements.txt \
+    -r requirements.txt \
+  && popd \
+  && pushd /app \
   && python3 manage.py collectstatic --clear --no-input \
-  && python3 manage.py compilemessages \
+  && python3 manage.py compilemessages || true \
   && popd \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
