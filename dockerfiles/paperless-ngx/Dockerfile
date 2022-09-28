@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=1.9.1
+  VERSION=1.9.2
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -34,7 +34,6 @@ RUN set -x \
   && ./autogen.sh \
   && ./configure \
   && make \
-  && popd \
   && mkdir /usr/local/src/paperless-ngx \
   && curl -sSL "https://github.com/paperless-ngx/paperless-ngx/archive/refs/tags/v${VERSION}.tar.gz" \
     | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
@@ -42,21 +41,18 @@ RUN set -x \
   && npm update npm --location=global \
   && npm ci --omit=optional \
   && ./node_modules/.bin/ng build --configuration production \
-  && popd \
-  && pushd /usr/local/src/paperless-ngx/ \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
+  && mv /usr/local/src/paperless-ngx/Pipfile* /app/ \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
-  && python -m pip install --no-cache-dir --upgrade pipenv \
+  && pushd /app \
+  && python3 -m pip install --no-cache-dir --upgrade pipenv \
   && pipenv requirements > requirements.txt \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
     -r requirements.txt \
-  && popd \
-  && pushd /app \
   && python3 manage.py collectstatic --clear --no-input \
   && python3 manage.py compilemessages || true \
-  && popd \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
