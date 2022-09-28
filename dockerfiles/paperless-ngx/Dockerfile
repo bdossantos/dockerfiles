@@ -47,7 +47,7 @@ RUN set -x \
   && pushd /app \
   && python3 -m pip install --no-cache-dir --upgrade pipenv \
   && pipenv requirements > requirements.txt \
-  && pip install \
+  && python3 -m pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
     -r requirements.txt \
