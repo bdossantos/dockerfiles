@@ -87,8 +87,8 @@ RUN set -eux \
     soap \
     sockets \
     tidy \
-    xmlreader \
     zip \
+  && CFLAGS="-I/usr/src/php" docker-php-ext-install xmlreader \
   && cd "$(pecl config-get temp_dir)/memcached" \
   && phpize \
   && ./configure --enable-memcached-igbinary --enable-memcached-msgpack \
