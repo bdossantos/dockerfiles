@@ -170,6 +170,7 @@ describe 'Dockerfile' do
     sockets
     sodium
     tidy
+    xmlreader
     zip
   ].each do |extension|
     describe command("php -m | grep -i #{extension}") do
