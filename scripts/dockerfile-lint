@@ -18,7 +18,7 @@ FILES=$(
 
 for file in $FILES; do
   if lint_outpout=$(docker run \
-    --rm -i hadolint/hadolint:v2.3.0 \
+    --rm -i hadolint/hadolint:v2.10.0 \
     hadolint --ignore DL3006 --ignore DL3007 - <"$file" 2>&1); then
     status='[OK]'
   else
