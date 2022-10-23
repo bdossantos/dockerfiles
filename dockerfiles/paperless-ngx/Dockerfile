@@ -3,8 +3,7 @@ FROM python:3.9-slim-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  PATH=$PATH:/app/bin/ \
-  PYTHONUSERBASE=/app \
+  PATH=/app/bin/:/app/.venv/bin/:$PATH \
   VERSION=1.9.2
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -14,7 +13,7 @@ COPY --from=node:16-bullseye-slim /usr/local/ /usr/local/
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
-  && mkdir "$PYTHONUSERBASE" \
+  && mkdir /app \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     automake \
@@ -40,17 +39,13 @@ RUN set -x \
   && pushd /usr/local/src/paperless-ngx/src-ui \
   && npm update npm --location=global \
   && npm ci --omit=optional \
-  && ./node_modules/.bin/ng build --configuration production \
+  && ./node_modules/.bin/ng build --configuration production || true \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && mv /usr/local/src/paperless-ngx/Pipfile* /app/ \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
   && pushd /app \
   && python3 -m pip install --no-cache-dir --upgrade pipenv \
-  && pipenv requirements > requirements.txt \
-  && python3 -m pip install \
-    --no-cache-dir \
-    --prefix="${PYTHONUSERBASE}" \
-    -r requirements.txt \
+  && PIPENV_VENV_IN_PROJECT=1 pipenv install \
   && python3 manage.py collectstatic --clear --no-input \
   && python3 manage.py compilemessages || true \
   && apt-get clean \
@@ -74,8 +69,7 @@ ENV \
   PAPERLESS_TASK_WORKERS=2 \
   PAPERLESS_THREADS_PER_WORKER=1 \
   PAPERLESS_TIME_ZONE=Europe/Paris \
-  PATH=$PATH:/app/bin/ \
-  PYTHONUSERBASE=/app
+  PATH=/app/bin/:/app/.venv/bin/:$PATH
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -147,7 +141,7 @@ RUN set -x \
   # GNUPG needs a home directory for some reason
   && usermod --home /dev/shm nobody
 
-COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
+COPY --from=build /app /app
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
