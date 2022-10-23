@@ -4,6 +4,7 @@ FROM python:3.9-slim-bullseye as build
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
+  PYTHONDONTWRITEBYTECODE=1 \
   VERSION=1.9.2
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -45,7 +46,7 @@ RUN set -x \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
   && pushd /app \
   && python3 -m pip install --no-cache-dir --upgrade pipenv \
-  && PIPENV_VENV_IN_PROJECT=1 pipenv install \
+  && PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy \
   && python3 manage.py collectstatic --clear --no-input \
   && python3 manage.py compilemessages || true \
   && apt-get clean \
