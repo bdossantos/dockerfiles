@@ -3,14 +3,14 @@ version: "3"
 services:
   dnscrypt-proxy:
     ports:
-      - 10.92.64.3:53:53/tcp
-      - 10.92.64.3:53:53/udp
+      - 53:53/tcp
+      - 53:53/udp
     volumes:
       - /etc/localtime:/etc/localtime:ro
   tor:
     ports:
-      - 10.92.64.3:9050:9050/tcp
-      - 10.92.64.3:9053:9053/udp
+      - 9050:9050/tcp
+      - 9053:9053/udp
     volumes:
       - /etc/localtime:/etc/localtime:ro
   radicale:
@@ -23,5 +23,5 @@ services:
       - /volume1/docker_datas/radicale/users:/config/users:ro
     shm_size: 8M
     ports:
-      - 10.92.64.3:5232:5232/tcp
+      - 5232:5232/tcp
     restart: always
