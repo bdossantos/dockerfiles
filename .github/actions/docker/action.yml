@@ -33,11 +33,11 @@ runs:
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
         cache_image=bdossantos/${image_name}:buildcache
-        echo ::set-output name=build_date::$(date -u +'%Y-%m-%dT%H:%M:%SZ')
-        echo ::set-output name=cache_image::${cache_image}
-        echo ::set-output name=path::$(dirname ${{ inputs.dockerfile }})
-        echo ::set-output name=tags::${tags}
-        echo ::set-output name=vcs_ref::${vcs_ref}
+        echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+        echo "cache_image=${cache_image}" >> $GITHUB_OUTPUT
+        echo "path=$(dirname ${{ inputs.dockerfile }})" >> $GITHUB_OUTPUT
+        echo "tags=${tags}" >> $GITHUB_OUTPUT
+        echo "vcs_ref=${vcs_ref}" >> $GITHUB_OUTPUT
 
     - name: Build and push docker image
       uses: docker/build-push-action@v2
