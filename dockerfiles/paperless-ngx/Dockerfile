@@ -46,7 +46,7 @@ RUN set -x \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
   && pushd /app \
   && python3 -m pip install --no-cache-dir --upgrade pipenv \
-  && PIPENV_VENV_IN_PROJECT=1 pipenv install --deploy \
+  && PIPENV_VENV_IN_PROJECT=1 pipenv install \
   && python3 manage.py collectstatic --clear --no-input \
   && python3 manage.py compilemessages || true \
   && apt-get clean \
