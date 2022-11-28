@@ -16,12 +16,12 @@ RUN set -x \
     ca-certificates=20210119 \
     cairosvg=2.5.0-1.1 \
     ffmpeg=7:4.3.5-0+deb11u1 \
-    graphicsmagick=1.4+really1.3.36+hg16481-2 \
+    graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1 \
     libboost-python-dev=1.74.0.3 \
     libcairo2-dev=1.16.0-5 \
     libcurl4-openssl-dev=7.74.0-1.3+deb11u3 \
     libexiv2-dev=0.27.3-3+deb11u1 \
-    libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2 \
+    libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2+deb11u1 \
     libjpeg-dev=1:2.0.6-4 \
     libopencv-dev=4.5.1+dfsg-5 \
     libpng-dev=1.6.37-3 \
@@ -87,7 +87,7 @@ RUN set -x \
     cairosvg=2.5.0-1.1 \
     ffmpeg=7:4.3.5-0+deb11u1 \
     gifsicle=1.92-2+b1 \
-    graphicsmagick=1.4+really1.3.36+hg16481-2 \
+    graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1 \
     libjpeg-turbo-progs=1:2.0.6-4 \
     libcurl4=7.74.0-1.3+deb11u3 \
     webp=0.6.1-2.1 \
