@@ -56,7 +56,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20210119 \
-    dnsutils=1:9.16.27-1~deb11u1 \
+    dnsutils=1:9.16.33-1~deb11u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
