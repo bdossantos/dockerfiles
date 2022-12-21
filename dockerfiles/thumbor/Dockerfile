@@ -1,5 +1,5 @@
 # Build
-FROM python:3.11-slim-bullseye as build
+FROM python:3.11-bullseye as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -28,8 +28,6 @@ RUN set -x \
     libssl-dev=1.1.1n-0+deb11u3 \
     libtiff5-dev=4.2.0-1+deb11u1 \
     webp=0.6.1-2.1 \
-  && ln -s /usr/lib/*-linux-gnu/libboost_python3*.so \
-    /usr/lib/libboost_python3.so \
   && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
