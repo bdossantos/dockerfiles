@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=7.4.1
+  VERSION=7.4.2
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -17,10 +17,8 @@ RUN set -x \
     cairosvg=2.5.0-1.1 \
     ffmpeg=7:4.3.5-0+deb11u1 \
     graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1 \
-    libboost-python-dev=1.74.0.3 \
     libcairo2-dev=1.16.0-5 \
     libcurl4-openssl-dev=7.74.0-1.3+deb11u3 \
-    libexiv2-dev=0.27.3-3+deb11u1 \
     libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2+deb11u1 \
     libjpeg-dev=1:2.0.6-4 \
     libopencv-dev=4.5.1+dfsg-5 \
@@ -37,7 +35,6 @@ RUN set -x \
       opencv-python-headless==4.5.5.64 \
       pillow==9.0.0 \
       pycurl==7.45.1 \
-      py3exiv2==0.7.1 \
       remotecv==3.2.1 \
       tc_prometheus==1.0.0 \
       thumbor-plugins-gifv==0.1.2 \
