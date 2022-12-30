@@ -1,1 +1,2 @@
 pre-commit==2.21.0
+pytest-testinfra==7.0.0
