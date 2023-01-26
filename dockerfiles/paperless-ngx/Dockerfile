@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
   PYTHONDONTWRITEBYTECODE=1 \
-  VERSION=1.12.0
+  VERSION=1.12.1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
