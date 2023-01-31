@@ -1,0 +1,239 @@
+#
+# Foundation
+#
+ARG VERSION=8.2.1
+
+FROM php:$VERSION-fpm-bullseye as foundation
+
+ENV \
+  APP_DIR=/usr/src/app \
+  LIBMAXMINDDB_VERSION=1.6.0 \
+  NGINX_VERSION=1.22.0 \
+  NGX_HTTP_GEOIP2_MODULE_VERSION=3.3
+
+ENV BUILD_DEPENDENCIES \
+  automake \
+  build-essential \
+  bzip2 \
+  cmake \
+  curl \
+  libbz2-dev \
+  libc-client-dev \
+  libgeoip-dev \
+  libgmp-dev \
+  libicu-dev \
+  libjpeg-dev \
+  libkrb5-dev \
+  libmemcached-dev \
+  libpcre3-dev \
+  libpng-dev \
+  libpq-dev \
+  librabbitmq-dev \
+  libssl-dev \
+  libtidy-dev \
+  libuv1-dev \
+  libxml2-dev \
+  libzip-dev \
+  zlib1g-dev
+
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
+
+# hadolint ignore=DL3003,DL3008
+RUN set -eux \
+  && apt-get update \
+  && apt-get install -y --no-install-recommends \
+    acl \
+    bash \
+    geoip-database \
+    git \
+    imagemagick \
+    libaio1 \
+    libfontconfig \
+    libjpeg-turbo-progs \
+    libmagickcore-dev \
+    libmagickwand-dev \
+    libodbc1 \
+    libpq5 \
+    librabbitmq4 \
+    libtool \
+    locales \
+    supervisor \
+    unzip \
+    $BUILD_DEPENDENCIES \
+  && docker-php-ext-install -j"$(nproc)" zip \
+  && curl -L -o /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \
+  && chmod +x /usr/local/bin/pickle \
+  && mkdir -p /var/lib/php/session \
+  && chown -R www-data.www-data /var/lib/php/session \
+  && pickle install amqp \
+  && pickle install --no-interaction apcu@5.1.21 \
+  && pickle install igbinary@3.2.7 \
+  && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
+  && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
+  && pickle install msgpack@2.1.2 \
+  && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.2.0 \
+  && pickle install --no-interaction --with-configure-options="redis_options" redis@5.3.7 \
+  && PHP_OPENSSL=yes docker-php-ext-configure \
+    imap --with-kerberos --with-imap-ssl \
+  && docker-php-ext-install \
+    bcmath \
+    bz2 \
+    exif \
+    gd \
+    iconv \
+    imap \
+    intl \
+    opcache \
+    pcntl \
+    pdo_mysql \
+    pdo_pgsql \
+    pgsql \
+    phar \
+    posix \
+    simplexml \
+    soap \
+    sockets \
+    tidy \
+    zip \
+  && CFLAGS="-I/usr/src/php" docker-php-ext-install xmlreader \
+  # Temporarily building for PHP 8.0: https://github.com/Imagick/imagick/issues/358
+  && git clone --depth 1 https://github.com/Imagick/imagick /usr/src/imagick \
+  && pushd /usr/src/imagick \
+  && phpize \
+  && ./configure \
+  && make \
+  && make install \
+  && popd \
+  && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
+  && docker-php-ext-enable \
+    amqp \
+    apcu \
+    igbinary \
+    imagick \
+    memcached \
+    msgpack \
+    redis \
+  && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
+    https://github.com/leev/ngx_http_geoip2_module.git \
+    /usr/src/ngx_http_geoip2_module \
+  && mkdir -p /usr/src/libmaxminddb \
+  && curl -sSL "https://github.com/maxmind/libmaxminddb/releases/download/${LIBMAXMINDDB_VERSION}/libmaxminddb-${LIBMAXMINDDB_VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/src/libmaxminddb \
+  && cd /usr/src/libmaxminddb \
+  && ./configure \
+  && make \
+  && make check \
+  && make install \
+  && ldconfig \
+  && mkdir -p /usr/src/nginx \
+  && curl -sSL "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
+    | tar -xzf - --strip-components 1 -C /usr/src/nginx \
+  && cd /usr/src/nginx \
+  && ./configure \
+    --add-module=/usr/src/ngx_http_geoip2_module \
+    --conf-path=/etc/nginx/nginx.conf \
+    --error-log-path=/dev/stderr \
+    --group=www-data \
+    --http-client-body-temp-path=/var/cache/nginx/client_temp \
+    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+    --http-log-path=/var/log/nginx/access.log \
+    --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+    --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+    --lock-path=/var/run/nginx.lock \
+    --pid-path=/var/run/nginx.pid \
+    --prefix=/etc/nginx \
+    --sbin-path=/usr/sbin/nginx \
+    --user=www-data \
+    --with-file-aio \
+    --with-http_mp4_module \
+    --with-http_addition_module \
+    --with-http_auth_request_module \
+    --with-http_flv_module \
+    --with-http_gunzip_module \
+    --with-http_gzip_static_module \
+    --with-http_random_index_module \
+    --with-http_realip_module \
+    --with-http_secure_link_module \
+    --with-http_slice_module \
+    --with-http_ssl_module \
+    --with-http_stub_status_module \
+    --with-http_sub_module \
+    --with-http_v2_module \
+    --with-stream \
+    --with-stream_realip_module \
+    --with-stream_ssl_module \
+    --with-threads \
+  && make \
+  && make install \
+  && mkdir -p /var/cache/nginx \
+  && chown -R www-data.www-data /var/cache/nginx \
+  && chsh -s /usr/sbin/nologin www-data \
+  && apt-get purge -y $BUILD_DEPENDENCIES \
+  && docker-php-source delete \
+  && apt-get clean \
+  && rm -rf \
+    /tmp/* \
+    /usr/src/* \
+    /var/cache/debconf \
+    /var/lib/apt/lists/* \
+  && find /var/log -type f -print0 \
+    | xargs -0 rm -f
+
+VOLUME /etc/nginx/conf.d
+
+# hadolint ignore=DL3022
+COPY --from=composer:2.1 /usr/bin/composer /usr/bin/composer
+COPY app.conf /etc/supervisor/conf.d/app.conf
+COPY entrypoint.sh /entrypoint.sh
+COPY mime.types /etc/nginx/mime.types
+COPY nginx.conf /etc/nginx/nginx.conf
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+COPY zzz-apcu.ini /usr/local/etc/php/conf.d/zzz-apcu.ini
+COPY zzz-opcache.ini /usr/local/etc/php/conf.d/zzz-opcache.ini
+COPY zzz-php-fpm-tuning.conf /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
+COPY zzz-php-hardening.ini /usr/local/etc/php/conf.d/zzz-php-hardening.ini
+
+RUN chmod 0444 \
+  /etc/nginx/mime.types \
+  /etc/nginx/nginx.conf \
+  /etc/supervisor/conf.d/app.conf \
+  /etc/supervisor/supervisord.conf \
+  /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf \
+  /usr/local/etc/php/conf.d/zzz-apcu.ini \
+  /usr/local/etc/php/conf.d/zzz-opcache.ini \
+  /usr/local/etc/php/conf.d/zzz-php-hardening.ini \
+  /usr/local/etc/php/php.ini
+
+#
+# Run
+#
+FROM foundation as run
+
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="php-lol" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="PHP" \
+  org.label-schema.version="$VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.title="php-lol" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="PHP" \
+  org.opencontainers.image.version="$VERSION"
+
+WORKDIR /usr/src/app
+
+EXPOSE 80/tcp 443/tcp
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

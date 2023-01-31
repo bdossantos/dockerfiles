@@ -22,6 +22,7 @@ jobs:
           - dockerfiles/php-lol/Dockerfile.7.4
           - dockerfiles/php-lol/Dockerfile.8.0
           - dockerfiles/php-lol/Dockerfile.8.1
+          - dockerfiles/php-lol/Dockerfile.8.2
           - dockerfiles/pint/Dockerfile
           - dockerfiles/python-github-backup/Dockerfile
           - dockerfiles/radicale/Dockerfile
