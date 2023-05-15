@@ -34,7 +34,7 @@ RUN set -x \
       numpy==1.22.4 \
       opencv-python-headless==4.5.5.64 \
       pillow==9.0.0 \
-      pycurl==7.45.1 \
+      pycurl==7.45.2 \
       remotecv==3.2.1 \
       tc_prometheus==2.0.0 \
       thumbor-plugins-gifv==0.1.2 \
