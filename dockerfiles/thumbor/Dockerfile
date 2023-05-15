@@ -36,7 +36,7 @@ RUN set -x \
       pillow==9.0.0 \
       pycurl==7.45.1 \
       remotecv==3.2.1 \
-      tc_prometheus==1.0.0 \
+      tc_prometheus==2.0.0 \
       thumbor-plugins-gifv==0.1.2 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
