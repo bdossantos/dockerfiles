@@ -17,11 +17,11 @@ RUN set -x \
     dirmngr=2.2.27-2+deb11u2 \
     gnupg=2.2.27-2+deb11u2 \
     libevent-dev=2.1.12-stable-1 \
-    libssl-dev=1.1.1n-0+deb11u4 \
+    libssl-dev=1.1.1n-0+deb11u5 \
     libtool=2.4.6-15 \
     make=4.3-4.1 \
     net-tools=1.60+git20181103.0eebece-1 \
-    openssl=1.1.1n-0+deb11u4 \
+    openssl=1.1.1n-0+deb11u5 \
     pwgen=2.08-2 \
     wget=1.21-1+deb11u1 \
     zlib1g-dev=1:1.2.11.dfsg-2+deb11u2 \
@@ -113,8 +113,8 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20210119 \
     libevent-2.1-7=2.1.12-stable-1 \
-    libssl-dev=1.1.1n-0+deb11u4 \
-    openssl=1.1.1n-0+deb11u4 \
+    libssl-dev=1.1.1n-0+deb11u5 \
+    openssl=1.1.1n-0+deb11u5 \
     wget=1.21-1+deb11u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
