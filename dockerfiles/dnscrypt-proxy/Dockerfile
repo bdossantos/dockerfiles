@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.20-bullseye as builder
+FROM golang:1.20-bookworm as builder
 
 ENV VERSION=2.1.4
 
@@ -27,7 +27,7 @@ RUN set -x \
     -O /etc/hosts.tmp
 
 # Run
-FROM debian:11-slim
+FROM debian:12-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -55,8 +55,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20210119 \
-    dnsutils=1:9.16.37-1~deb11u1 \
+    ca-certificates=20230311 \
+    dnsutils=1:9.18.12-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

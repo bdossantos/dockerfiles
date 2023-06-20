@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.18-bullseye as builder
+FROM golang:1.20-bookworm as builder
 
 ENV VERSION=v0.22.2
 
@@ -11,7 +11,7 @@ RUN set -x \
   && make
 
 # Run
-FROM debian:11-slim
+FROM debian:12-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -39,7 +39,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20210119 \
+    ca-certificates=20230311 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
