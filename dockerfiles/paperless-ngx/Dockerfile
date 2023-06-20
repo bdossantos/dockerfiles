@@ -1,5 +1,5 @@
 # Build
-FROM python:3.9-slim-bullseye as build
+FROM python:3.9-slim-bookworm as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -10,7 +10,7 @@ ENV \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3022
-COPY --from=node:16-bullseye-slim /usr/local/ /usr/local/
+COPY --from=node:16-bookworm-slim /usr/local/ /usr/local/
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -19,7 +19,7 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     automake \
     build-essential=12.9 \
-    ca-certificates=20210119 \
+    ca-certificates=20230311 \
     curl \
     default-libmysqlclient-dev \
     gettext \
@@ -53,7 +53,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.9-slim-bullseye
+FROM python:3.9-slim-bookworm
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

@@ -1,5 +1,5 @@
 # build
-FROM python:3.10-slim-bullseye as build
+FROM python:3.10-slim-bookworm as build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -14,7 +14,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.10-slim-bullseye
+FROM python:3.10-slim-bookworm
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -23,7 +23,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.30.2-1+deb11u2 \
+    git=1:2.39.2-1.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

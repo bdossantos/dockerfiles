@@ -1,5 +1,5 @@
 # Build
-FROM python:3.11-bullseye as build
+FROM python:3.11-slim-bookworm as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -13,19 +13,19 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     build-essential=12.9 \
-    ca-certificates=20210119 \
-    cairosvg=2.5.0-1.1+deb11u1 \
-    ffmpeg=7:4.3.6-0+deb11u1 \
-    graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1 \
-    libcairo2-dev=1.16.0-5 \
-    libcurl4-openssl-dev=7.74.0-1.3+deb11u7 \
-    libgraphicsmagick++1-dev=1.4+really1.3.36+hg16481-2+deb11u1 \
-    libjpeg-dev=1:2.0.6-4 \
-    libopencv-dev=4.5.1+dfsg-5 \
-    libpng-dev=1.6.37-3 \
-    libssl-dev=1.1.1n-0+deb11u5 \
-    libtiff5-dev=4.2.0-1+deb11u4 \
-    webp=0.6.1-2.1 \
+    ca-certificates=20230311 \
+    cairosvg=2.5.2-1.1 \
+    ffmpeg=7:5.1.3-1 \
+    graphicsmagick=1.4+really1.3.40-4 \
+    libcairo2-dev=1.16.0-7 \
+    libcurl4-openssl-dev=7.88.1-10 \
+    libgraphicsmagick++1-dev=1.4+really1.3.40-4 \
+    libjpeg-dev=1:2.1.5-2 \
+    libopencv-dev=4.6.0+dfsg-12 \
+    libpng-dev=1.6.39-2 \
+    libssl-dev=3.0.9-1 \
+    libtiff5-dev=4.5.0-6 \
+    webp=1.2.4-0.2 \
   && python -m pip install --upgrade pip \
   && pip install \
     --no-cache-dir \
@@ -47,7 +47,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.11-slim-bullseye
+FROM python:3.11-slim-bookworm
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -78,14 +78,14 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20210119 \
-    cairosvg=2.5.0-1.1+deb11u1 \
-    ffmpeg=7:4.3.6-0+deb11u1 \
-    gifsicle=1.92-2+b1 \
-    graphicsmagick=1.4+really1.3.36+hg16481-2+deb11u1 \
-    libjpeg-turbo-progs=1:2.0.6-4 \
-    libcurl4=7.74.0-1.3+deb11u7 \
-    webp=0.6.1-2.1 \
+    ca-certificates=20230311 \
+    cairosvg=2.5.2-1.1 \
+    ffmpeg=7:5.1.3-1 \
+    gifsicle=1.93-2 \
+    graphicsmagick=1.4+really1.3.40-4 \
+    libjpeg-turbo-progs=1:2.1.5-2 \
+    libcurl4=7.88.1-10 \
+    webp=1.2.4-0.2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
