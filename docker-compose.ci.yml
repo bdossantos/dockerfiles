@@ -16,13 +16,6 @@ services:
       dockerfile: Dockerfile
     image: bdossantos/paperless-ngx
     container_name: paperless-ngx
-  php-lol74:
-    <<: *default
-    build:
-      context: dockerfiles/php-lol
-      dockerfile: Dockerfile.7.4
-    image: bdossantos/php-lol
-    container_name: php-lol74
   php-lol80:
     <<: *default
     build:
