@@ -3,7 +3,7 @@
 #
 ARG VERSION=8.1.20
 
-FROM php:$VERSION-fpm-bullseye as foundation
+FROM php:$VERSION-fpm-bookworm as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
