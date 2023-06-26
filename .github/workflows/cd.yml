@@ -19,7 +19,6 @@ jobs:
           - dockerfiles/dnscrypt-proxy/Dockerfile
           #- dockerfiles/gcsfuse/Dockerfile
           - dockerfiles/paperless-ngx/Dockerfile
-          - dockerfiles/php-lol/Dockerfile.7.4
           - dockerfiles/php-lol/Dockerfile.8.0
           - dockerfiles/php-lol/Dockerfile.8.1
           - dockerfiles/php-lol/Dockerfile.8.2
