@@ -1,7 +1,7 @@
 # Build
 FROM golang:1.20-bookworm as builder
 
-ENV VERSION=2.1.4
+ENV VERSION=2.1.5
 
 # hadolint ignore=DL3003
 RUN set -x \
