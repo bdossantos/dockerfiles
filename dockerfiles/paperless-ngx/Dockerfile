@@ -28,6 +28,7 @@ RUN set -x \
     libpq-dev  \
     libqpdf-dev \
     libtool \
+    pkg-config \
     zlib1g-dev \
   && git clone https://github.com/agl/jbig2enc /tmp/jbig2enc \
   && pushd /tmp/jbig2enc \
@@ -46,8 +47,12 @@ RUN set -x \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
   && pushd /app \
   && python3 -m pip install --no-cache-dir --upgrade pipenv \
-  && PIPENV_VENV_IN_PROJECT=1 pipenv install \
-  && python3 manage.py collectstatic --clear --no-input \
+  && pipenv requirements > requirements.txt \
+  && python3 -m pip install --requirement requirements.txt \
+  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
+  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' stopwords \
+  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' punkt \
+  && python3 manage.py collectstatic --clear --no-input --link \
   && python3 manage.py compilemessages || true \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -75,6 +80,65 @@ ENV \
 ARG BUILD_DATE
 ARG VCS_REF
 
+# Packages need for running
+ARG RUNTIME_PACKAGES="\
+  # General utils
+  curl \
+  # Docker specific
+  gosu \
+  # Timezones support
+  tzdata \
+  # fonts for text file thumbnail generation
+  fonts-liberation \
+  gettext \
+  ghostscript \
+  gnupg \
+  icc-profiles-free \
+  imagemagick \
+  # Image processing
+  liblept5 \
+  liblcms2-2 \
+  libtiff6 \
+  libfreetype6 \
+  libwebp7 \
+  libopenjp2-7 \
+  libimagequant0 \
+  libraqm0 \
+  libjpeg62-turbo \
+  # PostgreSQL
+  libpq5 \
+  postgresql-client \
+  # MySQL / MariaDB
+  mariadb-client \
+  # For Numpy
+  libatlas3-base \
+  # OCRmyPDF dependencies
+  tesseract-ocr \
+  tesseract-ocr-eng \
+  tesseract-ocr-deu \
+  tesseract-ocr-fra \
+  tesseract-ocr-ita \
+  tesseract-ocr-spa \
+  unpaper \
+  pngquant \
+  # pikepdf / qpdf
+  jbig2dec \
+  libxml2 \
+  libxslt1.1 \
+  libgnutls30 \
+  libqpdf29 \
+  qpdf \
+  # Mime type detection
+  file \
+  libmagic1 \
+  media-types \
+  zlib1g \
+  # Barcode splitter
+  libzbar0 \
+  poppler-utils \
+  # RapidFuzz on armv7
+  libatomic1"
+
 LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.name="paperless-ngx" \
   org.label-schema.schema-version="1.0" \
@@ -95,48 +159,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 
 RUN set -x \
   && apt-get update \
-  && apt-get install -y --no-install-recommends \
-    # See https://paperless-ngx.readthedocs.io/en/latest/setup.html#bare-metal-route
-    # Basic dependencies
-    curl \
-    gettext \
-    gnupg \
-    imagemagick \
-    inotify-tools \
-    libpq5 \
-    sqlite3 \
-    supervisor \
-    tzdata \
-    # fonts for text file thumbnail generation
-    fonts-liberation \
-    # for Numpy
-    libatlas-base-dev \
-    libxslt1-dev \
-    # thumbnail size reduction
-    ghostscript \
-    icc-profiles-free \
-    libxml2 \
-    optipng \
-    pngquant \
-    unpaper \
-    # Mime type detection \
-    zlib1g \
-    # Mime type detection
-    file \
-    libmagic-dev \
-    media-types \
-    # OCRmyPDF dependencies
-    liblept5 \
-    qpdf \
-    tesseract-ocr \
-    tesseract-ocr-eng \
-    tesseract-ocr-deu \
-    tesseract-ocr-fra \
-    tesseract-ocr-ita \
-    tesseract-ocr-spa \
-    # Barcode splitter \
-    libzbar0 \
-    poppler-utils \
+  && apt-get install --yes --quiet --no-install-recommends ${RUNTIME_PACKAGES} \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   # GNUPG needs a home directory for some reason
@@ -146,6 +169,7 @@ COPY --from=build /app /app
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
+COPY --from=build /tmp/nltk_data /usr/share/
 COPY --from=build /usr/local/src/paperless-ngx/docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
 COPY entrypoint.sh /entrypoint.sh
 COPY copy-to-consumption-dir /app/copy-to-consumption-dir
