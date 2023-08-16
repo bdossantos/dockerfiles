@@ -4,6 +4,7 @@ FROM python:3.9-slim-bookworm as build
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
+  PYTHONUSERBASE=/app \
   PYTHONDONTWRITEBYTECODE=1 \
   VERSION=1.17.1
 
@@ -14,7 +15,7 @@ COPY --from=node:16-bookworm-slim /usr/local/ /usr/local/
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
-  && mkdir /app \
+  && mkdir "$PYTHONUSERBASE" \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     automake \
@@ -46,9 +47,16 @@ RUN set -x \
   && mv /usr/local/src/paperless-ngx/Pipfile* /app/ \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
   && pushd /app \
-  && python3 -m pip install --no-cache-dir --upgrade pipenv \
+  && python3 -m pip install \
+    --no-cache-dir \
+    --prefix="${PYTHONUSERBASE}" \
+    --upgrade \
+    pipenv \
   && pipenv requirements > requirements.txt \
-  && python3 -m pip install --requirement requirements.txt \
+  && python3 -m pip install \
+    --no-cache-dir \
+    --prefix="${PYTHONUSERBASE}" \
+    -r requirements.txt \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' stopwords \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' punkt \
@@ -75,7 +83,8 @@ ENV \
   PAPERLESS_TASK_WORKERS=2 \
   PAPERLESS_THREADS_PER_WORKER=1 \
   PAPERLESS_TIME_ZONE=Europe/Paris \
-  PATH=/app/bin/:/app/.venv/bin/:$PATH
+  PATH=/app/bin/:/app/.venv/bin/:$PATH \
+  PYTHONUSERBASE=/app
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -165,7 +174,7 @@ RUN set -x \
   # GNUPG needs a home directory for some reason
   && usermod --home /dev/shm nobody
 
-COPY --from=build /app /app
+COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
