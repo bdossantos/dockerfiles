@@ -21,6 +21,7 @@ jobs:
           - dockerfiles/paperless-ngx/Dockerfile
           - dockerfiles/php-lol/Dockerfile.8.1
           - dockerfiles/php-lol/Dockerfile.8.2
+          - dockerfiles/pingdom-exporter/Dockerfile
           - dockerfiles/pint/Dockerfile
           - dockerfiles/python-github-backup/Dockerfile
           - dockerfiles/radicale/Dockerfile

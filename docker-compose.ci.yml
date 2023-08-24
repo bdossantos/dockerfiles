@@ -29,6 +29,12 @@ services:
       context: dockerfiles/privoxy
     image: bdossantos/privoxy
     container_name: privoxy
+  pingdom-exporter:
+    <<: *default
+    build:
+      context: dockerfiles/pingdom-exporter
+    image: bdossantos/pingdom-exporter
+    container_name: pingdom-exporter
   pint:
     <<: *default
     build:
