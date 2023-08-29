@@ -94,7 +94,7 @@ ARG RUNTIME_PACKAGES="\
   # General utils
   curl \
   # Docker specific
-  gosu \
+  supervisor \
   # Timezones support
   tzdata \
   # fonts for text file thumbnail generation
