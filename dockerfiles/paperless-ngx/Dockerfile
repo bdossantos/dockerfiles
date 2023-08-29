@@ -6,7 +6,7 @@ ENV \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
   PYTHONUSERBASE=/app \
   PYTHONDONTWRITEBYTECODE=1 \
-  VERSION=1.17.2
+  VERSION=1.17.3
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
