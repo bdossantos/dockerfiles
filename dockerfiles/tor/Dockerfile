@@ -1,30 +1,30 @@
 # Build
-FROM debian:11-slim as build
+FROM debian:12-slim as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TORSOCKS_VERSION=2.3.0 \
-  VERSION=0.4.6.10
+  TORSOCKS_VERSION=v2.4.0 \
+  VERSION=0.4.8.6
 
 # hadolint ignore=DL3008
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    autoconf=2.69-14 \
-    automake=1:1.16.3-2 \
+    autoconf=2.71-3 \
+    automake=1:1.16.5-1.3 \
     build-essential=12.9 \
-    ca-certificates=20210119 \
-    dirmngr=2.2.27-2+deb11u2 \
-    gnupg=2.2.27-2+deb11u2 \
-    libevent-dev=2.1.12-stable-1 \
-    libssl-dev=1.1.1n-0+deb11u5 \
-    libtool=2.4.6-15 \
+    ca-certificates=20230311 \
+    dirmngr=2.2.40-1.1 \
+    gnupg=2.2.40-1.1 \
+    libevent-dev=2.1.12-stable-8 \
+    libssl-dev=3.0.9-1 \
+    libtool=2.4.7-5 \
     make=4.3-4.1 \
-    net-tools=1.60+git20181103.0eebece-1 \
-    openssl=1.1.1n-0+deb11u5 \
+    net-tools=2.10-0.1 \
+    openssl=3.0.9-1 \
     pwgen=2.08-2 \
-    wget=1.21-1+deb11u1 \
-    zlib1g-dev=1:1.2.11.dfsg-2+deb11u2 \
+    wget=1.21.3-1+b2 \
+    zlib1g-dev=1:1.2.13.dfsg-1 \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
   && apt-get autoremove -y \
   && apt-get clean \
@@ -51,7 +51,7 @@ RUN set -x \
 WORKDIR /tmp/torsocks
 
 RUN set -x \
-  && wget -q "https://github.com/dgoulet/torsocks/archive/v${TORSOCKS_VERSION}.tar.gz" \
+  && wget -q "https://gitlab.torproject.org/tpo/core/torsocks/-/archive/${TORSOCKS_VERSION}/torsocks-${TORSOCKS_VERSION}.tar.gz" \
     -O "torsocks-${TORSOCKS_VERSION}.tar.gz" \
   && tar -zxf "torsocks-${TORSOCKS_VERSION}.tar.gz" --strip-components=1 -C \
     '/tmp/torsocks' \
@@ -71,19 +71,19 @@ RUN set -x \
     /var/cache/apt/*.bin
 
 # Geoip
-FROM debian:11-slim as geoip
+FROM debian:12-slim as geoip
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.4.5.16-1 \
+    tor-geoipdb=0.4.7.13-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM debian:11-slim
+FROM debian:12-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -111,11 +111,11 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20210119 \
-    libevent-2.1-7=2.1.12-stable-1 \
-    libssl-dev=1.1.1n-0+deb11u5 \
-    openssl=1.1.1n-0+deb11u5 \
-    wget=1.21-1+deb11u1 \
+    ca-certificates=20230311 \
+    libevent-2.1-7=2.1.12-stable-8 \
+    libssl-dev=3.0.9-1 \
+    openssl=3.0.9-1 \
+    wget=1.21.3-1+b2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
