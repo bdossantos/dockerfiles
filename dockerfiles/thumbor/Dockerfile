@@ -33,7 +33,7 @@ RUN set -x \
       cairosvg==2.7.1 \
       numpy==1.22.4 \
       opencv-python-headless==4.5.5.64 \
-      pillow==9.0.0 \
+      pillow==10.0.1 \
       pycurl==7.45.2 \
       remotecv==5.1.5 \
       tc_prometheus==2.0.0 \
