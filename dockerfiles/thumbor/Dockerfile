@@ -30,7 +30,7 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      cairosvg==2.5.2 \
+      cairosvg==2.7.1 \
       numpy==1.22.4 \
       opencv-python-headless==4.5.5.64 \
       pillow==9.0.0 \
