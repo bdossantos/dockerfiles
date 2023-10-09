@@ -14,7 +14,7 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     build-essential=12.9 \
     ca-certificates=20230311 \
-    cairosvg=2.5.2-1.1 \
+    cairosvg=2.5.2-1.1+deb12u1 \
     ffmpeg=7:5.1.3-1 \
     graphicsmagick=1.4+really1.3.40-4 \
     libcairo2-dev=1.16.0-7 \
@@ -79,7 +79,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20230311 \
-    cairosvg=2.5.2-1.1 \
+    cairosvg=2.5.2-1.1+deb12u1 \
     ffmpeg=7:5.1.3-1 \
     gifsicle=1.93-2 \
     graphicsmagick=1.4+really1.3.40-4 \
