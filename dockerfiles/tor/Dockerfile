@@ -78,7 +78,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.4.7.13-1 \
+    tor-geoipdb=0.4.7.16-1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
