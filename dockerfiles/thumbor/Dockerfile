@@ -37,7 +37,7 @@ RUN set -x \
       pycurl==7.45.2 \
       remotecv==5.1.5 \
       tc_prometheus==2.0.0 \
-      thumbor-plugins-gifv==0.1.2 \
+      thumbor-plugins-gifv==0.1.5 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
