@@ -41,7 +41,7 @@ RUN set -x \
     | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
   && pushd /usr/local/src/paperless-ngx/src-ui \
   && npm update npm --location=global \
-  && npm ci --omit=optional \
+  && npm ci \
   && ./node_modules/.bin/ng build --configuration production || true \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && mv /usr/local/src/paperless-ngx/Pipfile* /app/ \
