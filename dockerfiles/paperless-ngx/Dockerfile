@@ -11,7 +11,7 @@ ENV \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3022
-COPY --from=node:16-bookworm-slim /usr/local/ /usr/local/
+COPY --from=node:20-bookworm-slim /usr/local/ /usr/local/
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
