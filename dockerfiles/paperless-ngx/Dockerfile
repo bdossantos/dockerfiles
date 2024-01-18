@@ -42,7 +42,7 @@ RUN set -x \
   && pushd /usr/local/src/paperless-ngx/src-ui \
   && npm update npm --location=global \
   && npm ci \
-  && ./node_modules/.bin/ng build --configuration production || true \
+  && ./node_modules/.bin/ng build --configuration production \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && mv /usr/local/src/paperless-ngx/Pipfile* /app/ \
   && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
