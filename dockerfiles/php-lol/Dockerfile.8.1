@@ -67,7 +67,7 @@ RUN set -eux \
   && chown -R www-data.www-data /var/lib/php/session \
   && pickle install amqp \
   && pickle install --no-interaction apcu@5.1.21 \
-  && pickle install igbinary@3.2.14 \
+  && pickle install igbinary@3.2.15 \
   && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
   && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
   && pickle install msgpack@2.2.0 \
