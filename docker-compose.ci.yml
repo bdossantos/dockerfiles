@@ -83,3 +83,9 @@ services:
       context: dockerfiles/gcsfuse
     image: bdossantos/gcsfuse
     container_name: gcsfuse
+  anki:
+    <<: *default
+    build:
+      context: dockerfiles/anki
+    image: bdossantos/anki
+    container_name: anki

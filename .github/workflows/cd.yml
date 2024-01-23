@@ -16,6 +16,7 @@ jobs:
       matrix:
         dockerfile:
           # FIXME: replace by a `find . -type f -name 'Dockerfile*'`
+          - dockerfiles/anki/Dockerfile
           - dockerfiles/dnscrypt-proxy/Dockerfile
           #- dockerfiles/gcsfuse/Dockerfile
           - dockerfiles/paperless-ngx/Dockerfile
