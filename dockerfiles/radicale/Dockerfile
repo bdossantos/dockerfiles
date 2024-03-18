@@ -1,11 +1,11 @@
 # build
-FROM python:3.10-slim-bookworm as build
+FROM python:3.12-slim-bookworm as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=3.1.8
+  VERSION=3.1.9
 
 # hadolint ignore=DL3013
 RUN set -x \
@@ -30,7 +30,7 @@ RUN chmod 0750 /data /config \
   && chown -R 65534:65534 /config /data
 
 # Run
-FROM python:3.10-slim-bookworm
+FROM python:3.12-slim-bookworm
 
 ARG BUILD_DATE
 ARG VCS_REF
