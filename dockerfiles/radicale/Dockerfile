@@ -18,7 +18,7 @@ RUN set -x \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       git+https://github.com/Unrud/RadicaleInfCloud \
-      git+https://github.com/Kozea/Radicale@v${VERSION} \
+      "Radicale[bcrypt] @ https://github.com/Kozea/Radicale/archive/v${VERSION}.tar.gz" \
       passlib[bcrypt] \
       pytz \
   && mkdir -p /config /data
