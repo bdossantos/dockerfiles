@@ -20,6 +20,7 @@ RUN set -x \
       git+https://github.com/Unrud/RadicaleInfCloud \
       git+https://github.com/Kozea/Radicale@v${VERSION} \
       passlib[bcrypt] \
+      pytz \
   && mkdir -p /config /data
 
 COPY radicale.cfg /config/radicale.cfg
