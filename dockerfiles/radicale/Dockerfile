@@ -17,9 +17,9 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      radicale==${VERSION} \
-      passlib[bcrypt] \
       git+https://github.com/Unrud/RadicaleInfCloud \
+      git+https://github.com/Kozea/Radicale@${VERSION} \
+      passlib[bcrypt] \
   && mkdir -p /config /data
 
 COPY radicale.cfg /config/radicale.cfg
