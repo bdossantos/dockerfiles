@@ -17,7 +17,6 @@ RUN set -x \
   && pip install \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
-      git+https://github.com/Unrud/RadicaleInfCloud \
       "Radicale[bcrypt] @ https://github.com/Kozea/Radicale/archive/v${VERSION}.tar.gz" \
       passlib[bcrypt] \
       pytz \
