@@ -58,7 +58,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.88.1-10+deb12u5 \
+    curl=7.88.1-10+deb12u6 \
     git=1:2.39.2-1.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
