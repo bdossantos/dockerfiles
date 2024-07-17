@@ -18,7 +18,7 @@ RUN set -x \
     gnupg=2.2.40-1.1 \
     libevent-dev=2.1.12-stable-8 \
     libssl-dev=3.0.11-1~deb12u2 \
-    libtool=2.4.7-5 \
+    libtool-bin=2.4.7-7~deb12u1 \
     make=4.3-4.1 \
     net-tools=2.10-0.1 \
     openssl=3.0.11-1~deb12u2 \
