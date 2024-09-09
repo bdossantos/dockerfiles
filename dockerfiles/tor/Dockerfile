@@ -21,7 +21,7 @@ RUN set -x \
     libtool-bin=2.4.7-7~deb12u1 \
     make=4.3-4.1 \
     net-tools=2.10-0.1 \
-    openssl=3.0.11-1~deb12u2 \
+    openssl=3.0.14-1~deb12u2 \
     pwgen=2.08-2 \
     wget=1.21.3-1+b2 \
     zlib1g-dev=1:1.2.13.dfsg-1 \
@@ -114,7 +114,7 @@ RUN set -x \
     ca-certificates=20230311 \
     libevent-2.1-7=2.1.12-stable-8 \
     libssl-dev=3.0.14-1~deb12u2 \
-    openssl=3.0.11-1~deb12u2 \
+    openssl=3.0.14-1~deb12u2 \
     wget=1.21.3-1+b2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
