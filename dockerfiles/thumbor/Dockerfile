@@ -18,7 +18,7 @@ RUN set -x \
     ffmpeg=7:5.1.5-0+deb12u1 \
     graphicsmagick=1.4+really1.3.40-4 \
     libcairo2-dev=1.16.0-7 \
-    libcurl4-openssl-dev=7.88.1-10+deb12u6 \
+    libcurl4-openssl-dev=7.88.1-10+deb12u7 \
     libgraphicsmagick++1-dev=1.4+really1.3.40-4 \
     libjpeg-dev=1:2.1.5-2 \
     libopencv-dev=4.6.0+dfsg-12 \
@@ -84,7 +84,7 @@ RUN set -x \
     gifsicle=1.93-2 \
     graphicsmagick=1.4+really1.3.40-4 \
     libjpeg-turbo-progs=1:2.1.5-2 \
-    libcurl4=7.88.1-10+deb12u6 \
+    libcurl4=7.88.1-10+deb12u7 \
     webp=1.2.4-0.2+deb12u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
