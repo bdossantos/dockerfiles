@@ -1,5 +1,5 @@
 ## build
-FROM python:3.12-slim-bookworm as build
+FROM python:3.13-bookworm@sha256:1320ae67bdc123c78ba664edf1b66faf94d6cc151e512676e457892dc047af71 as build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -25,7 +25,7 @@ RUN chmod 0750 /data /config \
   && chown -R 65534:65534 /config /data
 
 # Run
-FROM python:3.12-slim-bookworm
+FROM python:3.13-bookworm@sha256:1320ae67bdc123c78ba664edf1b66faf94d6cc151e512676e457892dc047af71
 
 ARG BUILD_DATE
 ARG VCS_REF
