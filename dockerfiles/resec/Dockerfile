@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.20-bookworm as builder
+FROM golang:1.20-bookworm@sha256:9fa9101141c01e9440216d32eb2b380b3c3079bea07aeab3546020cc91b3662c as builder
 
 ENV VERSION=v1.5.2
 
@@ -12,7 +12,7 @@ RUN set -x \
   && env CGO_ENABLED=0 GOOS=linux go build -ldflags="-X 'main.Version=${VERSION}'" -a -installsuffix cgo -o build/resec  .
 
 # Run
-FROM debian:12-slim
+FROM debian:12-slim@sha256:f70dc8d6a8b6a06824c92471a1a258030836b26b043881358b967bf73de7c5ab
 
 ARG BUILD_DATE
 ARG VCS_REF
