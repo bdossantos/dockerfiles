@@ -3,7 +3,7 @@
 #
 ARG VERSION=8.2.27
 
-FROM php:$VERSION-fpm-bookworm as foundation
+FROM php:$VERSION-fpm-bookworm@sha256:1db6d38d8c71b9ebdccc99b40d035b70db9b19c0fd168c13916c5e571c517713 as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
