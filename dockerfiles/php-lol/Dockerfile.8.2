@@ -1,15 +1,14 @@
 #
 # Foundation
 #
-ARG VERSION=8.2.27
-
-FROM php:$VERSION-fpm-bookworm@sha256:1db6d38d8c71b9ebdccc99b40d035b70db9b19c0fd168c13916c5e571c517713 as foundation
+FROM php:8.2.27-fpm-bookworm@sha256:1db6d38d8c71b9ebdccc99b40d035b70db9b19c0fd168c13916c5e571c517713 as foundation
 
 ENV \
   APP_DIR=/usr/src/app \
   LIBMAXMINDDB_VERSION=1.7.1 \
   NGINX_VERSION=1.26.2 \
-  NGX_HTTP_GEOIP2_MODULE_VERSION=3.4
+  NGX_HTTP_GEOIP2_MODULE_VERSION=3.4 \
+  VERSION=8.2.27
 
 ENV BUILD_DEPENDENCIES \
   automake \
