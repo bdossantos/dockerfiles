@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.20-bookworm@sha256:9fa9101141c01e9440216d32eb2b380b3c3079bea07aeab3546020cc91b3662c as builder
+FROM golang:1.20-bookworm@sha256:9fa9101141c01e9440216d32eb2b380b3c3079bea07aeab3546020cc91b3662c AS builder
 
 ENV VERSION=v1.5.2
 

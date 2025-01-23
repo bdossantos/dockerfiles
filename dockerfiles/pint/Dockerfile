@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.20-bookworm as builder
+FROM golang:1.20-bookworm AS builder
 
 ENV VERSION=v0.22.2
 

@@ -1,4 +1,4 @@
-FROM debian:12-slim as build
+FROM debian:12-slim AS build
 
 ENV VERSION=0.5.0
 

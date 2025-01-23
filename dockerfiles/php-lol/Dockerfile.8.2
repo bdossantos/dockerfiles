@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-FROM php:8.2.27-fpm-bookworm@sha256:1db6d38d8c71b9ebdccc99b40d035b70db9b19c0fd168c13916c5e571c517713 as foundation
+FROM php:8.2.27-fpm-bookworm@sha256:1db6d38d8c71b9ebdccc99b40d035b70db9b19c0fd168c13916c5e571c517713 AS foundation
 
 ENV \
   APP_DIR=/usr/src/app \
@@ -208,7 +208,7 @@ RUN chmod 0444 \
 #
 # Run
 #
-FROM foundation as run
+FROM foundation AS run
 
 ARG BUILD_DATE
 ARG VCS_REF

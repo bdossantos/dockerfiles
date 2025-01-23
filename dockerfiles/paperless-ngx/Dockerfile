@@ -1,5 +1,5 @@
 # Build
-FROM python:3.12-bookworm@sha256:6fd71b82f847f160ced61a230478d29a403412cc76dc1be2424634f3a203df65 as build
+FROM python:3.12-bookworm@sha256:6fd71b82f847f160ced61a230478d29a403412cc76dc1be2424634f3a203df65 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
