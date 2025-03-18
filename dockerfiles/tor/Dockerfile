@@ -23,7 +23,7 @@ RUN set -x \
     net-tools=2.10-0.1 \
     openssl=3.0.15-1~deb12u1 \
     pwgen=2.08-2 \
-    wget=1.21.3-1+b2 \
+    wget=1.21.3-1+deb12u1 \
     zlib1g-dev=1:1.2.13.dfsg-1 \
   && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
   && apt-get autoremove -y \
