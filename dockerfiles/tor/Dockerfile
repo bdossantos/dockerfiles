@@ -115,7 +115,7 @@ RUN set -x \
     libevent-2.1-7=2.1.12-stable-8 \
     libssl-dev=3.0.15-1~deb12u1 \
     openssl=3.0.15-1~deb12u1 \
-    wget=1.21.3-1+b2 \
+    wget=1.21.3-1+deb12u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
