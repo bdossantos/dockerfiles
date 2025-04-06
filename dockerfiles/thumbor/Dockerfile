@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=7.7.4
+  VERSION=7.7.5
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -36,7 +36,7 @@ RUN set -x \
       pillow==10.0.1 \
       pycurl==7.45.2 \
       remotecv==5.1.5 \
-      tc_prometheus==2.0.0 \
+      tc_prometheus==4.0.0 \
       thumbor-plugins-gifv==0.1.5 \
       thumbor-plugins==0.2.4 \
       thumbor=="${VERSION}" \
