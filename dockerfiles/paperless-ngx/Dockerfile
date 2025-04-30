@@ -1,20 +1,23 @@
 # Build
-FROM python:3.12-bookworm@sha256:6fd71b82f847f160ced61a230478d29a403412cc76dc1be2424634f3a203df65 AS build
+FROM python:3.12-bookworm@sha256:4ea730e54e2a87b716ffc58a426bd627baa182a3d4d5696d05c1bca2dde775aa AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
   PYTHONUSERBASE=/app \
   PYTHONDONTWRITEBYTECODE=1 \
-  VERSION=2.15.0
+  VERSION=2.15.3
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3022
 COPY --from=node:20-bookworm-slim /usr/local/ /usr/local/
 
+COPY --from=ghcr.io/astral-sh/uv:python3.12-bookworm-slim /usr/local/bin/uv /usr/local/bin/uv
+
 # hadolint ignore=DL3013,DL3042
-RUN set -x \
+RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
+  set -x \
   && mkdir "$PYTHONUSERBASE" \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -40,33 +43,29 @@ RUN set -x \
   && curl -sSL "https://github.com/paperless-ngx/paperless-ngx/archive/refs/tags/v${VERSION}.tar.gz" \
     | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
   && pushd /usr/local/src/paperless-ngx/src-ui \
-  && npm update npm --location=global \
-  && npm ci \
+  && npm update -g pnpm  \
+  && npm install -g corepack@latest \
+  && corepack enable \
+  && pnpm install \
   && ./node_modules/.bin/ng build --configuration production \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
-  && mv /usr/local/src/paperless-ngx/Pipfile* /app/ \
-  && mv /usr/local/src/paperless-ngx/gunicorn.conf.py /app/gunicorn.conf.py \
+  && uv export --quiet --no-dev --all-extras --format requirements-txt --output-file requirements.txt \
+  && uv pip install \
+    --no-cache-dir \
+    --no-python-downloads \
+    --prefix="${PYTHONUSERBASE}" \
+    --requirements requirements.txt \
   && pushd /app \
-  && python3 -m pip install \
-    --no-cache-dir \
-    --prefix="${PYTHONUSERBASE}" \
-    --upgrade \
-    pipenv \
-  && pipenv requirements > requirements.txt \
-  && python3 -m pip install \
-    --no-cache-dir \
-    --prefix="${PYTHONUSERBASE}" \
-    -r requirements.txt \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' stopwords \
-  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' punkt \
+  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' punkt_tab \
   && python3 manage.py collectstatic --clear --no-input --link \
-  && python3 manage.py compilemessages || true \
+  && python3 manage.py compilemessages \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-bookworm@sha256:6fd71b82f847f160ced61a230478d29a403412cc76dc1be2424634f3a203df65
+FROM python:3.12-bookworm@sha256:4ea730e54e2a87b716ffc58a426bd627baa182a3d4d5696d05c1bca2dde775aa
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -179,7 +178,7 @@ COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
 COPY --from=build /tmp/nltk_data /usr/share/
-COPY --from=build /usr/local/src/paperless-ngx/docker/imagemagick-policy.xml /etc/ImageMagick-6/policy.xml
+COPY --from=build /usr/local/src/paperless-ngx/docker/rootfs/etc/ImageMagick-6/paperless-policy.xml /etc/ImageMagick-6/policy.xml
 COPY entrypoint.sh /entrypoint.sh
 COPY copy-to-consumption-dir /app/copy-to-consumption-dir
 COPY supervisord.conf /etc/supervisor/supervisord.conf
