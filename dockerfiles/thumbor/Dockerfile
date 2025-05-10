@@ -1,11 +1,11 @@
 # Build
-FROM python:3.11-slim-bookworm@sha256:6ed5bff4d7d377e2a27d9285553b8c21cfccc4f00881de1b24c9bc8d90016e82 AS build
+FROM python:3.13-bookworm@sha256:1320ae67bdc123c78ba664edf1b66faf94d6cc151e512676e457892dc047af71 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=7.7.5
+  VERSION=7.7.6
 
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
@@ -16,10 +16,10 @@ RUN set -x \
     ca-certificates=20230311 \
     cairosvg=2.5.2-1.1+deb12u1 \
     ffmpeg=7:5.1.6-0+deb12u1 \
-    graphicsmagick=1.4+really1.3.40-4 \
+    graphicsmagick=1.4+really1.3.40-4+deb12u1 \
     libcairo2-dev=1.16.0-7 \
     libcurl4-openssl-dev=7.88.1-10+deb12u12 \
-    libgraphicsmagick++1-dev=1.4+really1.3.40-4 \
+    libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
     libjpeg-dev=1:2.1.5-2 \
     libopencv-dev=4.6.0+dfsg-12 \
     libpng-dev=1.6.39-2 \
@@ -31,11 +31,11 @@ RUN set -x \
     --no-cache-dir \
     --prefix="${PYTHONUSERBASE}" \
       cairosvg==2.7.1 \
-      numpy==1.22.4 \
-      opencv-python-headless==4.5.5.64 \
-      pillow==10.0.1 \
-      pycurl==7.45.2 \
-      remotecv==5.1.5 \
+      numpy==1.26.4 \
+      opencv-python-headless==4.11.0.86 \
+      pillow==10.4.0 \
+      pycurl==7.45.6 \
+      remotecv==5.1.9 \
       tc_prometheus==4.0.0 \
       thumbor-plugins-gifv==0.1.5 \
       thumbor-plugins==0.2.4 \
@@ -47,7 +47,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.11-slim-bookworm@sha256:6ed5bff4d7d377e2a27d9285553b8c21cfccc4f00881de1b24c9bc8d90016e82
+FROM python:3.13-bookworm@sha256:1320ae67bdc123c78ba664edf1b66faf94d6cc151e512676e457892dc047af71
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -82,7 +82,7 @@ RUN set -x \
     cairosvg=2.5.2-1.1+deb12u1 \
     ffmpeg=7:5.1.6-0+deb12u1 \
     gifsicle=1.93-2 \
-    graphicsmagick=1.4+really1.3.40-4 \
+    graphicsmagick=1.4+really1.3.40-4+deb12u1 \
     libjpeg-turbo-progs=1:2.1.5-2 \
     libcurl4=7.88.1-10+deb12u12 \
     webp=1.2.4-0.2+deb12u1 \
