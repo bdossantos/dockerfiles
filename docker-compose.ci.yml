@@ -16,13 +16,34 @@ services:
       dockerfile: Dockerfile
     image: bdossantos/paperless-ngx
     container_name: paperless-ngx
-  php-lol80:
+  php-lol81:
     <<: *default
     build:
       context: dockerfiles/php-lol
-      dockerfile: Dockerfile.8.0
+      dockerfile: Dockerfile.8.1
     image: bdossantos/php-lol
-    container_name: php-lol80
+    container_name: php-lol81
+  php-lol82:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.2
+    image: bdossantos/php-lol
+    container_name: php-lol82
+  php-lol83:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.3
+    image: bdossantos/php-lol
+    container_name: php-lol83
+  php-lol84:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.4
+    image: bdossantos/php-lol
+    container_name: php-lol84
   privoxy:
     <<: *default
     build:
