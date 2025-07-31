@@ -67,13 +67,13 @@ RUN set -eux \
   && pickle install amqp \
   && pickle install --no-interaction apcu@5.1.24 \
   && pickle install igbinary@3.2.16 \
+  && echo "--with-imap-ssl --with-kerberos" > imap_options \
+  && PHP_OPENSSL=yes pickle install --no-interaction --with-configure-options="imap_options" imap@1.0.3 \
   && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
   && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
   && pickle install msgpack@3.0.0 \
   && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.3.0 \
   && pickle install --no-interaction --with-configure-options="redis_options" redis@6.2.0 \
-  && PHP_OPENSSL=yes docker-php-ext-configure \
-    imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \
     bcmath \
     bz2 \
@@ -81,7 +81,6 @@ RUN set -eux \
     ftp \
     gd \
     iconv \
-    imap \
     intl \
     opcache \
     pcntl \
