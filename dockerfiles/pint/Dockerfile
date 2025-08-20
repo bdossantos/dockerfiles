@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.20-trixie AS builder
+FROM golang:1.20-bookworm AS builder
 
 ENV VERSION=v0.22.2
 
@@ -39,7 +39,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20230311 \
+    ca-certificates=20250419 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
