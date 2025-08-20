@@ -1,5 +1,5 @@
 # build
-FROM python:3.10-slim-bookworm@sha256:a636f5aafba3654ac4d04d7c234a75b77fa26646fe0dafe4654b731bc413b02f AS build
+FROM python:3.10-slim-trixie AS build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -14,7 +14,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.10-slim-bookworm@sha256:a636f5aafba3654ac4d04d7c234a75b77fa26646fe0dafe4654b731bc413b02f
+FROM python:3.10-slim-trixie
 
 ENV \
   PATH=$PATH:/app/bin/ \

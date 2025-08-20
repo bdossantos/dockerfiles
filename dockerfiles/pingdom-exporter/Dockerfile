@@ -11,7 +11,7 @@ RUN set -x \
   && make
 
 # Run
-FROM debian:12-slim
+FROM debian:13-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -39,7 +39,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20230311 \
+    ca-certificates=20250419 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

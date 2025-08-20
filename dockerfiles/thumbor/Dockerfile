@@ -1,5 +1,5 @@
 # Build
-FROM python:3.13-bookworm@sha256:1320ae67bdc123c78ba664edf1b66faf94d6cc151e512676e457892dc047af71 AS build
+FROM python:3.13-trixie AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -47,7 +47,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-bookworm@sha256:1320ae67bdc123c78ba664edf1b66faf94d6cc151e512676e457892dc047af71
+FROM python:3.13-trixie
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

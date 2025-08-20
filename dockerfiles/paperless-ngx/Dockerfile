@@ -1,5 +1,5 @@
 # Build
-FROM python:3.12-bookworm@sha256:4ea730e54e2a87b716ffc58a426bd627baa182a3d4d5696d05c1bca2dde775aa AS build
+FROM python:3.12-trixie@sha256:23e642ca5600c3c6925490bf500914abe411d944b237ac0c6c87af2cd091b8fd AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -11,9 +11,9 @@ ENV \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3022
-COPY --from=node:20-bookworm-slim /usr/local/ /usr/local/
+COPY --from=node:20-trixie-slim /usr/local/ /usr/local/
 
-COPY --from=ghcr.io/astral-sh/uv:python3.12-bookworm-slim /usr/local/bin/uv /usr/local/bin/uv
+COPY --from=ghcr.io/astral-sh/uv:python3.12-trixie-slim /usr/local/bin/uv /usr/local/bin/uv
 
 # hadolint ignore=DL3013,DL3042
 RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
@@ -65,7 +65,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-bookworm@sha256:4ea730e54e2a87b716ffc58a426bd627baa182a3d4d5696d05c1bca2dde775aa
+FROM python:3.12-trixie@sha256:23e642ca5600c3c6925490bf500914abe411d944b237ac0c6c87af2cd091b8fd
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
