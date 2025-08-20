@@ -1,5 +1,5 @@
 # Build
-FROM debian:12-slim AS build
+FROM debian:13-slim AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -71,7 +71,7 @@ RUN set -x \
     /var/cache/apt/*.bin
 
 # Geoip
-FROM debian:12-slim AS geoip
+FROM debian:13-slim AS geoip
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -83,7 +83,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM debian:12-slim
+FROM debian:13-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 

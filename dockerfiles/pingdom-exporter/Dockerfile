@@ -1,5 +1,5 @@
 # Build
-FROM golang:1.20-bookworm AS builder
+FROM golang:1.20-trixie AS builder
 
 ENV VERSION=v1.4.0
 
@@ -11,7 +11,7 @@ RUN set -x \
   && make
 
 # Run
-FROM debian:12-slim
+FROM debian:13-slim
 
 ARG BUILD_DATE
 ARG VCS_REF

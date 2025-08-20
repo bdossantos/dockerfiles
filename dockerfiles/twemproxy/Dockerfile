@@ -1,4 +1,4 @@
-FROM debian:12-slim AS build
+FROM debian:13-slim AS build
 
 ENV VERSION=0.5.0
 
@@ -41,7 +41,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # run
-FROM debian:12-slim
+FROM debian:13-slim
 
 COPY --from=build /usr/local/sbin/nutcracker /usr/local/sbin/nutcracker
 COPY ./nutcracker.yml /etc/nutcracker.yml
