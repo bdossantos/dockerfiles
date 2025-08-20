@@ -11,7 +11,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.39.5-0+deb12u1 \
+    git=1:2.47.2-0.2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && pip install \
@@ -58,8 +58,8 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.88.1-10+deb12u12 \
-    git=1:2.39.5-0+deb12u1 \
+    curl=8.14.1-2 \
+    git=1:2.47.2-0.2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
