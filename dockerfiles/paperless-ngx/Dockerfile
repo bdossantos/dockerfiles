@@ -1,5 +1,5 @@
 # Build
-FROM python:3.12-trixie AS build
+FROM python:3.12-trixie@sha256:23e642ca5600c3c6925490bf500914abe411d944b237ac0c6c87af2cd091b8fd AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -65,7 +65,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-trixie
+FROM python:3.12-trixie@sha256:23e642ca5600c3c6925490bf500914abe411d944b237ac0c6c87af2cd091b8fd
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
