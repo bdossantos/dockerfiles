@@ -23,7 +23,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.39.5-0+deb12u1 \
+    git=1:2.39.5-0+deb12u2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
