@@ -23,7 +23,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && apt-get install -y --no-install-recommends \
     automake \
     build-essential=12.9 \
-    ca-certificates=20230311 \
+    ca-certificates=20230311+deb12u1 \
     curl \
     default-libmysqlclient-dev \
     gettext \
