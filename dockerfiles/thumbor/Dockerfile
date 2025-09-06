@@ -1,5 +1,5 @@
 # Build
-FROM python:3.13-trixie AS build
+FROM python:3.13-trixie@sha256:4952072f14c6c4459b0054adf40aecf583eea01003983da2cf873717781f2887 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -13,12 +13,12 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     build-essential=12.9 \
-    ca-certificates=20230311 \
+    ca-certificates=20250419 \
     cairosvg=2.5.2-1.1+deb12u1 \
-    ffmpeg=7:5.1.6-0+deb12u1 \
+    ffmpeg=7:5.1.7-0+deb12u1 \
     graphicsmagick=1.4+really1.3.40-4+deb12u1 \
     libcairo2-dev=1.16.0-7 \
-    libcurl4-openssl-dev=7.88.1-10+deb12u12 \
+    libcurl4-openssl-dev=8.14.1-2 \
     libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
     libjpeg-dev=1:2.1.5-2 \
     libopencv-dev=4.6.0+dfsg-12 \
@@ -47,7 +47,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-trixie
+FROM python:3.13-trixie@sha256:4952072f14c6c4459b0054adf40aecf583eea01003983da2cf873717781f2887
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -78,13 +78,13 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20230311 \
+    ca-certificates=20250419 \
     cairosvg=2.5.2-1.1+deb12u1 \
-    ffmpeg=7:5.1.6-0+deb12u1 \
+    ffmpeg=7:5.1.7-0+deb12u1 \
     gifsicle=1.93-2 \
     graphicsmagick=1.4+really1.3.40-4+deb12u1 \
     libjpeg-turbo-progs=1:2.1.5-2 \
-    libcurl4=7.88.1-10+deb12u12 \
+    libcurl4=8.14.1-2 \
     webp=1.2.4-0.2+deb12u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

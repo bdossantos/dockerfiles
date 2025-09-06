@@ -1,5 +1,5 @@
 ## build
-FROM python:3.13-trixie@sha256:a25cf7d1f673fffdc8d7195a50bf069ff47380daa1f12f0763e1c523254b4d9d AS build
+FROM python:3.13-trixie@sha256:4952072f14c6c4459b0054adf40aecf583eea01003983da2cf873717781f2887 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -25,7 +25,7 @@ RUN chmod 0750 /data /config \
   && chown -R 65534:65534 /config /data
 
 # Run
-FROM python:3.13-trixie@sha256:a25cf7d1f673fffdc8d7195a50bf069ff47380daa1f12f0763e1c523254b4d9d
+FROM python:3.13-trixie@sha256:4952072f14c6c4459b0054adf40aecf583eea01003983da2cf873717781f2887
 
 ARG BUILD_DATE
 ARG VCS_REF

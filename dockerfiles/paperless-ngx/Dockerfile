@@ -1,5 +1,5 @@
 # Build
-FROM python:3.12-trixie@sha256:23e642ca5600c3c6925490bf500914abe411d944b237ac0c6c87af2cd091b8fd AS build
+FROM python:3.12-trixie@sha256:9e5892d80651101df6f1fed0614fb8fcb43bb60ca48f1d6f9ef26e27db069d25 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -11,9 +11,9 @@ ENV \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3022
-COPY --from=node:20-trixie-slim /usr/local/ /usr/local/
+COPY --from=node:20-trixie-slim@sha256:88a1f84011b6245d97f39dedc0671b5fcc85e392cfa8c2722fbf3a20959c139b /usr/local/ /usr/local/
 
-COPY --from=ghcr.io/astral-sh/uv:python3.12-trixie-slim /usr/local/bin/uv /usr/local/bin/uv
+COPY --from=ghcr.io/astral-sh/uv:python3.12-trixie-slim@sha256:04e95e71176e42a2d60da5abdd1ea37f81368a67c9685df9f76e929ca950eef6 /usr/local/bin/uv /usr/local/bin/uv
 
 # hadolint ignore=DL3013,DL3042
 RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
@@ -23,7 +23,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && apt-get install -y --no-install-recommends \
     automake \
     build-essential=12.9 \
-    ca-certificates=20230311 \
+    ca-certificates=20250419 \
     curl \
     default-libmysqlclient-dev \
     gettext \
@@ -65,7 +65,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-trixie@sha256:23e642ca5600c3c6925490bf500914abe411d944b237ac0c6c87af2cd091b8fd
+FROM python:3.12-trixie@sha256:9e5892d80651101df6f1fed0614fb8fcb43bb60ca48f1d6f9ef26e27db069d25
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

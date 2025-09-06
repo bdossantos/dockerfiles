@@ -12,7 +12,7 @@ RUN set -x \
   && env CGO_ENABLED=0 GOOS=linux go build -ldflags="-X 'main.Version=${VERSION}'" -a -installsuffix cgo -o build/resec  .
 
 # Run
-FROM debian:13-slim
+FROM debian:13-slim@sha256:c85a2732e97694ea77237c61304b3bb410e0e961dd6ee945997a06c788c545bb
 
 ARG BUILD_DATE
 ARG VCS_REF
