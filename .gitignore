@@ -1,1 +1,3 @@
 venv
+php-ext-lz4-master/
+*.tar.gz

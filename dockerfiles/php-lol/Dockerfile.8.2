@@ -23,6 +23,7 @@ ENV BUILD_DEPENDENCIES \
   libicu-dev \
   libjpeg-dev \
   libkrb5-dev \
+  liblz4-dev \
   libmemcached-dev \
   libpcre3-dev \
   libpng-dev \
@@ -33,6 +34,7 @@ ENV BUILD_DEPENDENCIES \
   libuv1-dev \
   libxml2-dev \
   libzip-dev \
+  libzstd-dev \
   zlib1g-dev
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
@@ -72,6 +74,16 @@ RUN set -eux \
   && pickle install msgpack@3.0.0 \
   && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.3.0 \
   && pickle install --no-interaction --with-configure-options="redis_options" redis@6.2.0 \
+  && pickle install zstd@0.15.2 \
+  && curl -L -o /tmp/lz4.tar.gz https://github.com/kjdev/php-ext-lz4/archive/refs/heads/master.tar.gz \
+  && tar -xzf /tmp/lz4.tar.gz -C /usr/src \
+  && mv /usr/src/php-ext-lz4-master /usr/src/php-ext-lz4 \
+  && pushd /usr/src/php-ext-lz4 \
+  && phpize \
+  && ./configure --with-lz4-includedir=/usr \
+  && make \
+  && make install \
+  && popd \
   && PHP_OPENSSL=yes docker-php-ext-configure \
     imap --with-kerberos --with-imap-ssl \
   && docker-php-ext-install \
@@ -110,9 +122,11 @@ RUN set -eux \
     apcu \
     igbinary \
     imagick \
+    lz4 \
     memcached \
     msgpack \
     redis \
+    zstd \
   && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
     https://github.com/leev/ngx_http_geoip2_module.git \
     /usr/src/ngx_http_geoip2_module \
