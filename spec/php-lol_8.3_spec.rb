@@ -145,6 +145,7 @@ describe 'Dockerfile' do
     imap
     imagick
     intl
+    lz4
     mbstring
     memcached
     msgpack
@@ -160,6 +161,7 @@ describe 'Dockerfile' do
     tidy
     xmlreader
     zip
+    zstd
   ].each do |extension|
     describe command("php -m | grep -i #{extension}") do
       its(:exit_status) { should eq 0 }
