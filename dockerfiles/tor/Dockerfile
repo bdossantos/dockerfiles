@@ -20,7 +20,7 @@ RUN set -x \
     libssl-dev=3.0.17-1~deb12u2 \
     libtool-bin=2.4.7-7~deb12u1 \
     make=4.3-4.1 \
-    net-tools=2.10-0.1 \
+    net-tools=2.10-0.1+deb12u2 \
     openssl=3.0.17-1~deb12u2 \
     pwgen=2.08-2 \
     wget=1.21.3-1+deb12u1 \
