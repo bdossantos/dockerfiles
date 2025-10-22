@@ -6,7 +6,7 @@ ENV \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
   PYTHONUSERBASE=/app \
   PYTHONDONTWRITEBYTECODE=1 \
-  VERSION=2.18.3
+  VERSION=2.19.0
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -21,19 +21,19 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && mkdir "$PYTHONUSERBASE" \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    automake \
-    build-essential=12.9 \
-    ca-certificates=20230311+deb12u1 \
-    curl \
-    default-libmysqlclient-dev \
-    gettext \
-    git \
-    libleptonica-dev \
-    libpq-dev  \
-    libqpdf-dev \
-    libtool \
-    pkg-config \
-    zlib1g-dev \
+  automake \
+  build-essential=12.9 \
+  ca-certificates=20230311+deb12u1 \
+  curl \
+  default-libmysqlclient-dev \
+  gettext \
+  git \
+  libleptonica-dev \
+  libpq-dev  \
+  libqpdf-dev \
+  libtool \
+  pkg-config \
+  zlib1g-dev \
   && git clone https://github.com/agl/jbig2enc /tmp/jbig2enc \
   && pushd /tmp/jbig2enc \
   && ./autogen.sh \
@@ -41,7 +41,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && make \
   && mkdir /usr/local/src/paperless-ngx \
   && curl -sSL "https://github.com/paperless-ngx/paperless-ngx/archive/refs/tags/v${VERSION}.tar.gz" \
-    | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
+  | tar -xzf - --strip-components 1 -C /usr/local/src/paperless-ngx \
   && pushd /usr/local/src/paperless-ngx/src-ui \
   && npm update -g pnpm  \
   && npm install -g corepack@latest \
@@ -51,10 +51,10 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && uv export --quiet --no-dev --all-extras --format requirements-txt --output-file requirements.txt \
   && uv pip install \
-    --no-cache-dir \
-    --no-python-downloads \
-    --prefix="${PYTHONUSERBASE}" \
-    --requirements requirements.txt \
+  --no-cache-dir \
+  --no-python-downloads \
+  --prefix="${PYTHONUSERBASE}" \
+  --requirements requirements.txt \
   && pushd /app \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' stopwords \
