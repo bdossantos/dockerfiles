@@ -12,34 +12,34 @@ RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    build-essential=12.9 \
-    ca-certificates=20230311+deb12u1 \
-    cairosvg=2.5.2-1.1+deb12u1 \
-    ffmpeg=7:5.1.7-0+deb12u1 \
-    graphicsmagick=1.4+really1.3.40-4+deb12u1 \
-    libcairo2-dev=1.16.0-7 \
-    libcurl4-openssl-dev=7.88.1-10+deb12u12 \
-    libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
-    libjpeg-dev=1:2.1.5-2 \
-    libopencv-dev=4.6.0+dfsg-12 \
-    libpng-dev=1.6.39-2 \
-    libssl-dev=3.0.17-1~deb12u3 \
-    libtiff5-dev=4.5.0-6+deb12u1 \
-    webp=1.2.4-0.2+deb12u1 \
+  build-essential=12.9 \
+  ca-certificates=20230311+deb12u1 \
+  cairosvg=2.5.2-1.1+deb12u1 \
+  ffmpeg=7:5.1.7-0+deb12u1 \
+  graphicsmagick=1.4+really1.3.40-4+deb12u1 \
+  libcairo2-dev=1.16.0-7 \
+  libcurl4-openssl-dev=7.88.1-10+deb12u12 \
+  libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
+  libjpeg-dev=1:2.1.5-2 \
+  libopencv-dev=4.6.0+dfsg-12 \
+  libpng-dev=1.6.39-2 \
+  libssl-dev=3.0.17-1~deb12u3 \
+  libtiff5-dev=4.5.0-6+deb12u3 \
+  webp=1.2.4-0.2+deb12u1 \
   && python -m pip install --upgrade pip \
   && pip install \
-    --no-cache-dir \
-    --prefix="${PYTHONUSERBASE}" \
-      cairosvg==2.7.1 \
-      numpy==1.26.4 \
-      opencv-python-headless==4.11.0.86 \
-      pillow==10.4.0 \
-      pycurl==7.45.6 \
-      remotecv==5.1.9 \
-      tc_prometheus==4.0.0 \
-      thumbor-plugins-gifv==0.1.5 \
-      thumbor-plugins==0.2.4 \
-      thumbor=="${VERSION}" \
+  --no-cache-dir \
+  --prefix="${PYTHONUSERBASE}" \
+  cairosvg==2.7.1 \
+  numpy==1.26.4 \
+  opencv-python-headless==4.11.0.86 \
+  pillow==10.4.0 \
+  pycurl==7.45.6 \
+  remotecv==5.1.9 \
+  tc_prometheus==4.0.0 \
+  thumbor-plugins-gifv==0.1.5 \
+  thumbor-plugins==0.2.4 \
+  thumbor=="${VERSION}" \
   && thumbor-config > /etc/thumbor/thumbor.conf \
   && chown 65534:65534 /etc/thumbor/thumbor.conf \
   && chmod 0444 /etc/thumbor/thumbor.conf \
@@ -78,14 +78,14 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20230311+deb12u1 \
-    cairosvg=2.5.2-1.1+deb12u1 \
-    ffmpeg=7:5.1.7-0+deb12u1 \
-    gifsicle=1.93-2 \
-    graphicsmagick=1.4+really1.3.40-4+deb12u1 \
-    libjpeg-turbo-progs=1:2.1.5-2 \
-    libcurl4=7.88.1-10+deb12u12 \
-    webp=1.2.4-0.2+deb12u1 \
+  ca-certificates=20230311+deb12u1 \
+  cairosvg=2.5.2-1.1+deb12u1 \
+  ffmpeg=7:5.1.7-0+deb12u1 \
+  gifsicle=1.93-2 \
+  graphicsmagick=1.4+really1.3.40-4+deb12u1 \
+  libjpeg-turbo-progs=1:2.1.5-2 \
+  libcurl4=7.88.1-10+deb12u12 \
+  webp=1.2.4-0.2+deb12u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
