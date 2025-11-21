@@ -33,7 +33,7 @@ jobs:
           - dockerfiles/tor/Dockerfile
           - dockerfiles/twemproxy/Dockerfile
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Build and push
         uses: ./.github/actions/docker
         with:
