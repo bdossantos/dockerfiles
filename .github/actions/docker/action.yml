@@ -57,7 +57,8 @@ runs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@0.33.1
       with:
-        image-ref: ${{ steps.context.outputs.scan_image }}
+        #image-ref: ${{ steps.context.outputs.scan_image }}
+        image-ref: bdossantos/php-lol:8.2
         format: table
         exit-code: 1
         ignore-unfixed: true
