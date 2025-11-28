@@ -17,6 +17,7 @@ RUN set -x \
   cairosvg=2.5.2-1.1+deb12u1 \
   ffmpeg=7:5.1.7-0+deb12u1 \
   graphicsmagick=1.4+really1.3.40-4+deb12u1 \
+  libavif-dev=0.11.1-1+deb12u1 \
   libcairo2-dev=1.16.0-7 \
   libcurl4-openssl-dev=7.88.1-10+deb12u12 \
   libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
@@ -34,6 +35,7 @@ RUN set -x \
   numpy==1.26.4 \
   opencv-python-headless==4.11.0.86 \
   pillow==10.4.0 \
+  pillow-avif-plugin==1.5.2 \
   pycurl==7.45.6 \
   remotecv==5.1.9 \
   tc_prometheus==4.0.0 \
@@ -83,8 +85,9 @@ RUN set -x \
   ffmpeg=7:5.1.7-0+deb12u1 \
   gifsicle=1.93-2 \
   graphicsmagick=1.4+really1.3.40-4+deb12u1 \
-  libjpeg-turbo-progs=1:2.1.5-2 \
+  libavif15=0.11.1-1+deb12u1 \
   libcurl4=7.88.1-10+deb12u12 \
+  libjpeg-turbo-progs=1:2.1.5-2 \
   webp=1.2.4-0.2+deb12u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
