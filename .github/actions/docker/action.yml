@@ -31,7 +31,8 @@ runs:
         version=$(egrep ' VERSION=(.*)$' '${{ inputs.dockerfile }}' | sed 's/^.*=//')
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
-        scan_image=bdossantos/${image_name}:${version}-${vcs_ref}
+        #scan_image=bdossantos/${image_name}:${version}-${vcs_ref}
+        scan_image=bdossantos/${image_name}:latest
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
         cache_image=bdossantos/${image_name}:buildcache
         echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
