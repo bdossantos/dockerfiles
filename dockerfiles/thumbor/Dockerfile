@@ -1,5 +1,5 @@
 # Build
-FROM python:3.13-trixie@sha256:4952072f14c6c4459b0054adf40aecf583eea01003983da2cf873717781f2887 AS build
+FROM python:3.13-trixie@sha256:835544a58668d289f93939848a37d690d0e198bcb104ae4b8983bbba6e8ca70c AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -47,7 +47,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-trixie@sha256:4952072f14c6c4459b0054adf40aecf583eea01003983da2cf873717781f2887
+FROM python:3.13-trixie@sha256:835544a58668d289f93939848a37d690d0e198bcb104ae4b8983bbba6e8ca70c
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

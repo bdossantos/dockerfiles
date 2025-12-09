@@ -1,5 +1,5 @@
 # build
-FROM python:3.10-slim-trixie@sha256:420fbb0e468d3eaf0f7e93ea6f7a48792cbcadc39d43ac95b96bee2afe4367da AS build
+FROM python:3.10-slim-trixie@sha256:8769cc10045c67eac267537ff0950ce644eeebd9f0e88bec0604548a88f1f33d AS build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -14,7 +14,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.10-slim-trixie@sha256:420fbb0e468d3eaf0f7e93ea6f7a48792cbcadc39d43ac95b96bee2afe4367da
+FROM python:3.10-slim-trixie@sha256:8769cc10045c67eac267537ff0950ce644eeebd9f0e88bec0604548a88f1f33d
 
 ENV \
   PATH=$PATH:/app/bin/ \

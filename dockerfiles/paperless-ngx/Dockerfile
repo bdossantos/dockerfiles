@@ -1,5 +1,5 @@
 # Build
-FROM python:3.12-trixie@sha256:9e5892d80651101df6f1fed0614fb8fcb43bb60ca48f1d6f9ef26e27db069d25 AS build
+FROM python:3.12-trixie@sha256:b499cef422563a0ea06776df379781343de803291ffcfcd5513faf87a36ede6b AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -11,9 +11,9 @@ ENV \
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # hadolint ignore=DL3022
-COPY --from=node:20-trixie-slim@sha256:88a1f84011b6245d97f39dedc0671b5fcc85e392cfa8c2722fbf3a20959c139b /usr/local/ /usr/local/
+COPY --from=node:20-trixie-slim@sha256:f776ba58a761ac36de3b827e7f6b408f7f8ab01909f8e1f0530d4aeb60621547 /usr/local/ /usr/local/
 
-COPY --from=ghcr.io/astral-sh/uv:python3.12-trixie-slim@sha256:04e95e71176e42a2d60da5abdd1ea37f81368a67c9685df9f76e929ca950eef6 /usr/local/bin/uv /usr/local/bin/uv
+COPY --from=ghcr.io/astral-sh/uv:python3.12-trixie-slim@sha256:cc9d8867ea76e327864f0b826f09b3444bb19e77ceb22275ca123a06a0b4f6f9 /usr/local/bin/uv /usr/local/bin/uv
 
 # hadolint ignore=DL3013,DL3042
 RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
@@ -65,7 +65,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-trixie@sha256:9e5892d80651101df6f1fed0614fb8fcb43bb60ca48f1d6f9ef26e27db069d25
+FROM python:3.12-trixie@sha256:b499cef422563a0ea06776df379781343de803291ffcfcd5513faf87a36ede6b
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
