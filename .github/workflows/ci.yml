@@ -15,35 +15,35 @@ jobs:
       - uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-      - uses: actions/cache@v4.3.0
+      - uses: actions/cache@v5.0.0
         id: cache-pip
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt', '**/requirements-dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-pip-
-      - uses: actions/cache@v4.3.0
+      - uses: actions/cache@v5.0.0
         id: cache-venv
         with:
           path: venv
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt', '**/requirements-dev.txt') }}
           restore-keys: |
             ${{ runner.os }}-venv-
-      - uses: actions/cache@v4.3.0
+      - uses: actions/cache@v5.0.0
         id: cache-vendor
         with:
           path: vendor
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements-ansible.yml') }}
           restore-keys: |
             ${{ runner.os }}-vendor-
-      - uses: actions/cache@v4.3.0
+      - uses: actions/cache@v5.0.0
         id: cache-shellcheck
         with:
           path: bin/shellcheck
           key: ${{ runner.os }}-shellcheck-${{ hashFiles('.github/workflows/ci.yml') }}
           restore-keys: |
             ${{ runner.os }}-shellcheck-
-      - uses: actions/cache@v4.3.0
+      - uses: actions/cache@v5.0.0
         with:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ env.PY }}|${{ hashFiles('.pre-commit-config.yaml') }}
