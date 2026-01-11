@@ -5,21 +5,21 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=3.5.5
+  VERSION=3.6.0
 
 # hadolint ignore=DL3013
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.39.5-0+deb12u2 \
+  git=1:2.39.5-0+deb12u2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && pip install \
-    --no-cache-dir \
-    --prefix="${PYTHONUSERBASE}" \
-      "Radicale[bcrypt] @ https://github.com/Kozea/Radicale/archive/v${VERSION}.tar.gz" \
-      passlib[bcrypt] \
-      pytz \
+  --no-cache-dir \
+  --prefix="${PYTHONUSERBASE}" \
+  "Radicale[bcrypt] @ https://github.com/Kozea/Radicale/archive/v${VERSION}.tar.gz" \
+  passlib[bcrypt] \
+  pytz \
   && mkdir -p /config /data
 
 COPY radicale.cfg /config/radicale.cfg
@@ -64,8 +64,8 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.88.1-10+deb12u12 \
-    git=1:2.39.5-0+deb12u2 \
+  curl=7.88.1-10+deb12u12 \
+  git=1:2.39.5-0+deb12u2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
