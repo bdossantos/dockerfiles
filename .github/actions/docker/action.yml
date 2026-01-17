@@ -31,6 +31,8 @@ runs:
         version=$(egrep ' VERSION=(.*)$' '${{ inputs.dockerfile }}' | sed 's/^.*=//')
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
+        #scan_image=bdossantos/${image_name}:${version}-${vcs_ref}
+        scan_image=bdossantos/${image_name}:latest
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
         cache_image=bdossantos/${image_name}:buildcache
         echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
@@ -51,3 +53,14 @@ runs:
         file: ${{ inputs.dockerfile }}
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.context.outputs.tags }}
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@0.33.1
+      with:
+        #image-ref: ${{ steps.context.outputs.scan_image }}
+        image-ref: bdossantos/php-lol:8.2
+        format: table
+        exit-code: 1
+        ignore-unfixed: true
+        vuln-type: os,library
+        severity: CRITICAL,HIGH
