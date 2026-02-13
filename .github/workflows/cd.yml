@@ -18,7 +18,6 @@ jobs:
           # FIXME: replace by a `find . -type f -name 'Dockerfile*'`
           - dockerfiles/anki/Dockerfile
           - dockerfiles/dnscrypt-proxy/Dockerfile
-          #- dockerfiles/gcsfuse/Dockerfile
           - dockerfiles/paperless-ngx/Dockerfile
           - dockerfiles/php-lol/Dockerfile.8.1
           - dockerfiles/php-lol/Dockerfile.8.2

@@ -98,12 +98,6 @@ services:
       context: dockerfiles/python-github-backup
     image: bdossantos/python-github-backup
     container_name: python-github-backup
-  gcsfuse:
-    <<: *default
-    build:
-      context: dockerfiles/gcsfuse
-    image: bdossantos/gcsfuse
-    container_name: gcsfuse
   anki:
     <<: *default
     build:
