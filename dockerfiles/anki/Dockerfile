@@ -1,5 +1,5 @@
 ## build
-FROM python:3.13-bookworm@sha256:aba8a0cd72f259c2737c8a47050652036c8bc8266a4f39291523a45cf8081960 AS build
+FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -11,7 +11,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.39.5-0+deb12u2 \
+    git=1:2.39.5-0+deb12u3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && pip install \
@@ -25,7 +25,7 @@ RUN chmod 0750 /data /config \
   && chown -R 65534:65534 /config /data
 
 # Run
-FROM python:3.13-bookworm@sha256:aba8a0cd72f259c2737c8a47050652036c8bc8266a4f39291523a45cf8081960
+FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -58,8 +58,8 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.88.1-10+deb12u12 \
-    git=1:2.39.5-0+deb12u2 \
+    curl=7.88.1-10+deb12u14 \
+    git=1:2.39.5-0+deb12u3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

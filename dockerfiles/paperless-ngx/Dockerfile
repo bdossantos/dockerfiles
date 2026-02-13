@@ -1,5 +1,5 @@
 # Build
-FROM python:3.12-bookworm@sha256:4ea730e54e2a87b716ffc58a426bd627baa182a3d4d5696d05c1bca2dde775aa AS build
+FROM python:3.12-bookworm@sha256:efbb3e52ab8f17324f5b7e08152828a8fb2ea0c9c4e3818f7c3ea805ede0479b AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -65,7 +65,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-bookworm@sha256:4ea730e54e2a87b716ffc58a426bd627baa182a3d4d5696d05c1bca2dde775aa
+FROM python:3.12-bookworm@sha256:efbb3e52ab8f17324f5b7e08152828a8fb2ea0c9c4e3818f7c3ea805ede0479b
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \

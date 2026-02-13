@@ -1,5 +1,5 @@
 # build
-FROM python:3.10-slim-bookworm@sha256:a636f5aafba3654ac4d04d7c234a75b77fa26646fe0dafe4654b731bc413b02f AS build
+FROM python:3.10-slim-bookworm@sha256:eae406f018dd9c05687bdd6c13fe47443945c78e7c3320d57a5b3dfecc5d08b2 AS build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -14,7 +14,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.10-slim-bookworm@sha256:a636f5aafba3654ac4d04d7c234a75b77fa26646fe0dafe4654b731bc413b02f
+FROM python:3.10-slim-bookworm@sha256:eae406f018dd9c05687bdd6c13fe47443945c78e7c3320d57a5b3dfecc5d08b2
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -23,7 +23,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.39.5-0+deb12u2 \
+    git=1:2.39.5-0+deb12u3 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
