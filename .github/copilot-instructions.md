@@ -145,6 +145,37 @@ The repository uses pre-commit hooks for:
 - YAML validation
 - Trailing whitespace and end-of-file fixes
 
+### Commit Messages
+Follow [Conventional Commits](https://www.conventionalcommits.org/) format for all commit messages:
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+**Common types:**
+- `feat`: New feature or capability
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `chore`: Maintenance tasks (dependencies, config)
+- `refactor`: Code refactoring without feature changes
+- `test`: Adding or updating tests
+- `ci`: CI/CD configuration changes
+- `perf`: Performance improvements
+- `build`: Build system changes
+
+**Examples:**
+```
+feat(radicale): add support for bcrypt password hashing
+fix(thumbor): update to version 7.7.7 for security patches
+docs: update README with new installation instructions
+chore(deps): update python base image to 3.13-bookworm
+ci: add CodeQL security scanning workflow
+```
+
 ## Dockerfile Guidelines
 
 ### When Creating New Dockerfiles
