@@ -21,6 +21,24 @@ fileExistenceTests:
     gid: 0
 
 commandTests:
+  - name: 'privoxy binary checksum'
+    command: 'sha256sum'
+    args: ['/usr/sbin/privoxy']
+    expectedOutput:
+      - '0d816d34612a58b4ac5d19d5d33c1547b76a21852ec58fec680030336dfea0c0'
+
+  - name: 'privoxy config checksum'
+    command: 'sha256sum'
+    args: ['/etc/privoxy/config']
+    expectedOutput:
+      - '543f7edfb340ab56190109e99e22cb6b6038fd8e183fc9c6fc8547de677fb1be'
+
+  - name: 'privoxy user.action checksum'
+    command: 'sha256sum'
+    args: ['/etc/privoxy/user.action']
+    expectedOutput:
+      - 'fcb42214b4b0aed7dbe70a08e7d5388f632d889a1cae91d400f4fd40e2ca4f65'
+
   - name: 'privoxy version check'
     command: '/usr/sbin/privoxy'
     args: ['--version']

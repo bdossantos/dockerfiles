@@ -9,6 +9,12 @@ fileExistenceTests:
     gid: 0
 
 commandTests:
+  - name: 'nutcracker binary checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/sbin/nutcracker']
+    expectedOutput:
+      - '7cc863ba9c340a0116ec4222b847a7516b5b3bc19627cf8c270c88e625fced78'
+
   - name: 'nutcracker version check'
     command: '/usr/local/sbin/nutcracker'
     args: ['-V']

@@ -9,6 +9,12 @@ fileExistenceTests:
     gid: 0
 
 commandTests:
+  - name: 'resec binary checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/bin/resec']
+    expectedOutput:
+      - '5d064b1648bdbb5ed6bd17f2eed955a1ba9a7141889876c606c02944e1803315'
+
   - name: 'resec version check'
     command: '/usr/local/bin/resec'
     args: ['-version']
