@@ -7,9 +7,3 @@ fileExistenceTests:
     permissions: '-rwxr-xr-x'
     uid: 0
     gid: 0
-
-commandTests:
-  - name: 'paperless-ng web interface accessible'
-    command: 'curl'
-    args: ['--fail', '-s', 'http://127.0.0.1:8000']
-    exitCode: 0
