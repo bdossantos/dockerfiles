@@ -37,6 +37,7 @@ FROM python:3.13-bookworm
 - System packages MUST include full version with latest security patches
   - Format: `package=<upstream>-<debian-revision>+<release>u<update>`
   - Example: `curl=7.88.1-10+deb12u12` (7.88.1 upstream, Debian revision 10, Debian 12 with update 12)
+  - Package versions are fetched from https://packages.debian.org
 - Python packages MUST specify exact version: `thumbor==7.7.7`
 - Always pin versions for reproducibility and security
 - When updating, use the latest available security patch version at that time
@@ -197,7 +198,7 @@ ci: add CodeQL security scanning workflow
 
 1. **Update VERSION env var** in the Dockerfile
 2. **Update base image digest** if needed
-3. **Update system package versions** to latest security patches
+3. **Update system package versions** to latest security patches (fetch from https://packages.debian.org)
 4. **Update SHA256 checksums** in serverspec tests after rebuilding
 5. **Test thoroughly**: Run full test suite
 
