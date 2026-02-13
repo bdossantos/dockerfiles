@@ -15,6 +15,18 @@ fileExistenceTests:
     gid: 0
 
 commandTests:
+  - name: 'dnscrypt-proxy binary checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/bin/dnscrypt-proxy']
+    expectedOutput:
+      - '5d064b1648bdbb5ed6bd17f2eed955a1ba9a7141889876c606c02944e1803315'
+
+  - name: 'dnscrypt-proxy config checksum'
+    command: 'sha256sum'
+    args: ['/etc/dnscrypt-proxy.toml']
+    expectedOutput:
+      - 'aaccd14d8cbbdc92f3d81eb862959b518dcb3878d3c7691a6458486fc23fa2ff'
+
   - name: 'dnscrypt-proxy version check'
     command: '/usr/local/bin/dnscrypt-proxy'
     args: ['-version']

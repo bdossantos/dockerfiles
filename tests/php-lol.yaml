@@ -96,6 +96,54 @@ fileExistenceTests:
     permissions: '-rw-r--r--'
 
 commandTests:
+  - name: 'apcu config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php/conf.d/zzz-apcu.ini']
+    expectedOutput:
+      - 'd89f0a34e79a7389c2522b77d5200e88262d1c5ccb926062cb56924520d4cc60'
+
+  - name: 'opcache config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php/conf.d/zzz-opcache.ini']
+    expectedOutput:
+      - '2e6906ea586cb6e2fefbc38cc48f6766679b1e7ff8e7ca7ad89dc936ffa1774b'
+
+  - name: 'php-fpm tuning config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf']
+    expectedOutput:
+      - 'e3772ca736903a1a4c27a715adae6c2ef35059119b527cefb30bac50af94ffef'
+
+  - name: 'php hardening config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php/conf.d/zzz-php-hardening.ini']
+    expectedOutput:
+      - '489ba97dca079d84e7dc21afb68b0acf7954da8ad150279be70053dce7243f83'
+
+  - name: 'nginx.conf checksum'
+    command: 'sha256sum'
+    args: ['/etc/nginx/nginx.conf']
+    expectedOutput:
+      - '0c21ca2a7522fee98b6d5a0f28e0f6b1840d3df4d23b0b182b5c45c9d8b5ff8f'
+
+  - name: 'nginx mime.types checksum'
+    command: 'sha256sum'
+    args: ['/etc/nginx/mime.types']
+    expectedOutput:
+      - 'ac27e1f587ecebc46ded3265479efdc6cb2f711c22e8221dadb00b7b4db55369'
+
+  - name: 'supervisord.conf checksum'
+    command: 'sha256sum'
+    args: ['/etc/supervisor/supervisord.conf']
+    expectedOutput:
+      - 'cbf3f7370b1fd9f24360c20cc9e909f3298635d456fa76d97f531af0136a390c'
+
+  - name: 'supervisor app.conf checksum'
+    command: 'sha256sum'
+    args: ['/etc/supervisor/conf.d/app.conf']
+    expectedOutput:
+      - 'bbdd21d87a9b30770de6b434673caf6594eb67bc4ff5c124f8c0ccb453c62d6b'
+
   - name: 'php-fpm config test'
     command: '/usr/local/sbin/php-fpm'
     args: ['-t']
