@@ -12,7 +12,7 @@ This repository contains production-ready Dockerfiles for various applications i
 ## Architecture Patterns
 
 ### Multi-Stage Builds
-All Dockerfiles use multi-stage builds with two main stages:
+Most Dockerfiles use multi-stage builds with two main stages (this is the preferred pattern, though some images such as gcsfuse use a single-stage build):
 1. **Build Stage**: Install build dependencies, compile/install software, configure directories
 2. **Run Stage**: Minimal runtime image with only necessary dependencies
 
@@ -27,13 +27,15 @@ FROM python:3.13-bookworm
 ```
 
 ### Base Images
-- **Python services**: Use `python:3.13-bookworm` with pinned SHA256 digest
+- **Python services**: Prefer `python:3.13-bookworm` with pinned SHA256 digest when practical
 - **PHP services**: Use `php:8.x-fpm-bookworm` with specific minor versions
+- **Other services**: May use `debian:12-slim` or other appropriate base images
 
 ## Security Best Practices
 
 ### 1. Pin All Versions
-- Base images MUST use SHA256 digests: `python:3.13-bookworm@sha256:...`
+- Base images SHOULD use SHA256 digests where possible (e.g., `python:3.13-bookworm@sha256:...`)
+  - Using digests for all images is a long-term goal; some existing Dockerfiles may still use tag-only references
 - System packages MUST include full version with latest security patches
   - Format: `package=<upstream>-<debian-revision>+<release>u<update>`
   - Example: `curl=7.88.1-10+deb12u12` (7.88.1 upstream, Debian revision 10, Debian 12 with update 12)
@@ -43,9 +45,10 @@ FROM python:3.13-bookworm
 - When updating, use the latest available security patch version at that time
 
 ### 2. Non-Root User
-- All services run as user `65534:65534` (nobody/nogroup)
-- Use `USER 65534:65534` directive before ENTRYPOINT
+- By default, services SHOULD run as user `65534:65534` (nobody/nogroup)
+- Use `USER 65534:65534` directive before ENTRYPOINT in new or updated Dockerfiles
 - Set ownership with `--chown=65534:65534` when copying files
+- Known exception: the `dnscrypt-proxy` Dockerfile currently runs as root and does not set `USER 65534:65534`; this is a documented deviation from the guideline until it can be addressed
 
 ### 3. Minimal Attack Surface
 - Use `DEBIAN_FRONTEND=noninteractive` to avoid interactive prompts
@@ -114,7 +117,8 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
   - `DL3042`: Used for build caches to improve performance
 
 ### Container Testing with serverspec
-- Each service has a corresponding `<service>_spec.rb` test file in `spec/`
+- Services under test have corresponding `<service>_spec.rb` files in `spec/`
+- When adding a new service, also add a matching `<service>_spec.rb` to `spec/`
 - Tests verify:
   - File existence, ownership, permissions
   - SHA256 checksums for critical files
@@ -204,7 +208,7 @@ ci: add CodeQL security scanning workflow
 
 ### Common Commands Pattern
 
-Use `set -x` for debugging and command chaining:
+Use `set -x` for debugging output and proper error handling in shell pipelines:
 ```dockerfile
 RUN set -x \
   && apt-get update \
@@ -245,13 +249,13 @@ dockerfiles/
 ## Best Practices Summary
 
 1. ✅ **Always** pin versions (base images, packages, dependencies)
-2. ✅ **Always** use multi-stage builds
-3. ✅ **Always** run as non-root user (65534:65534)
+2. ✅ **Prefer** multi-stage builds when practical
+3. ✅ **Should** run as non-root user (65534:65534)
 4. ✅ **Always** clean up after installations
 5. ✅ **Always** set appropriate file permissions
 6. ✅ **Always** add tests for new services
 7. ✅ **Always** use `--no-install-recommends` with apt-get
-8. ✅ **Never** run services as root
+8. ✅ **Never** run services as root (except documented exceptions)
 9. ✅ **Never** leave credentials or secrets in images
 10. ✅ **Never** install unnecessary packages
 
