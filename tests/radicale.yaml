@@ -1,0 +1,38 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'radicale binary exists'
+    path: '/app/bin/radicale'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'radicale config file exists'
+    path: '/config/radicale.cfg'
+    shouldExist: true
+    uid: 65534
+    gid: 65534
+
+fileContentTests:
+  - name: 'radicale config has correct settings'
+    path: '/config/radicale.cfg'
+    expectedContents:
+      - 'hosts = 0.0.0.0:5232, \[::\]:5232'
+      - 'max_connections = 20'
+      - 'max_content_length = 100000000'
+      - 'timeout = 60'
+      - 'type = htpasswd'
+      - 'htpasswd_filename = /config/users'
+      - 'htpasswd_encryption = bcrypt'
+      - 'delay = 1'
+      - 'type = owner_only'
+      - 'type = multifilesystem'
+      - 'filesystem_folder = /data/collections'
+      - 'mask_passwords = True'
+
+commandTests:
+  - name: 'radicale web interface is accessible'
+    command: 'curl'
+    args: ['--fail', '-s', 'http://127.0.0.1:5232/.web']
+    exitCode: 0

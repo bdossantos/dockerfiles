@@ -1,0 +1,88 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'tor binary exists'
+    path: '/usr/local/bin/tor'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'torrc.sample exists'
+    path: '/usr/local/etc/tor/torrc.sample'
+    shouldExist: true
+    uid: 0
+    gid: 0
+
+  - name: 'torrc exists'
+    path: '/etc/tor/torrc'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+fileContentTests:
+  - name: 'torrc has correct configuration'
+    path: '/etc/tor/torrc'
+    expectedContents:
+      - 'AutomapHostsOnResolve 1'
+      - 'AutomapHostsSuffixes .exit,.onion'
+      - 'AvoidDiskWrites 1'
+      - 'ClientOnly 1'
+      - 'DNSPort 0.0.0.0:9053'
+      - 'DataDirectory /dev/shm/.tor'
+      - 'ExcludeNodes \{au\},\{ca\},\{cn\},\{cu\},\{fr\},\{gb\},\{hk\},\{ir\},\{iq\},\{kr\},\{kp\},\{nz\},\{ro\},\{ru\},\{sy\},\{tr\},\{us\}'
+      - 'ExitNodes \{be\},\{ch\},\{de\},\{es\},\{gr\},\{is\},\{it\},\{nl\},\{se\},\{no\},\{fi\},\{es\},\{pt\}'
+      - 'FascistFirewall 1'
+      - 'Log notice stdout'
+      - 'NumCPUs 2'
+      - 'ReachableAddresses \*:80,\*:443'
+      - 'RunAsDaemon 0'
+      - 'SafeLogging 1'
+      - 'SocksPort 0.0.0.0:9050'
+      - 'StrictNodes 1'
+
+commandTests:
+  - name: 'tor version check'
+    command: '/usr/local/bin/tor'
+    args: ['--version']
+    exitCode: 0
+    expectedOutput:
+      - 'Tor version 0.4.4.6.'
+
+  - name: 'ca-certificates package is installed'
+    command: 'dpkg'
+    args: ['-s', 'ca-certificates']
+    exitCode: 0
+
+  - name: 'openssl package is installed'
+    command: 'dpkg'
+    args: ['-s', 'openssl']
+    exitCode: 0
+
+  - name: 'wget package is installed'
+    command: 'dpkg'
+    args: ['-s', 'wget']
+    exitCode: 0
+
+  - name: 'zlib1g package is installed'
+    command: 'dpkg'
+    args: ['-s', 'zlib1g']
+    exitCode: 0
+
+  - name: 'torify wget check'
+    command: 'torify'
+    args: ['wget', '-q', '-O', '-', 'https://check.torproject.org/']
+    exitCode: 0
+    expectedOutput:
+      - 'Congratulations. This browser is configured to use Tor.'
+
+  - name: 'tor-resolve forward lookup'
+    command: 'tor-resolve'
+    args: ['bds.io']
+    exitCode: 0
+
+  - name: 'tor-resolve reverse lookup'
+    command: 'tor-resolve'
+    args: ['-x', '8.8.8.8']
+    exitCode: 0

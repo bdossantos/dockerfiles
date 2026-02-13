@@ -1,0 +1,38 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'dnscrypt-proxy binary exists'
+    path: '/usr/local/bin/dnscrypt-proxy'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'dnscrypt-proxy config file exists'
+    path: '/etc/dnscrypt-proxy.toml'
+    shouldExist: true
+    uid: 0
+    gid: 0
+
+commandTests:
+  - name: 'dnscrypt-proxy version check'
+    command: '/usr/local/bin/dnscrypt-proxy'
+    args: ['-version']
+    exitCode: 0
+    expectedOutput:
+      - '2.1.2'
+
+  - name: 'DNS query for localhost'
+    command: 'dig'
+    args: ['+time=5', '+tries=1', '@127.0.0.1', '-p', '53', 'localhost']
+    exitCode: 0
+    expectedOutput:
+      - 'QUERY: 1, ANSWER: 0, AUTHORITY: 0, ADDITIONAL: 1'
+
+  - name: 'DNS query for bds.io'
+    command: 'dig'
+    args: ['+time=5', '+tries=1', '@127.0.0.1', '-p', '53', 'bds.io']
+    exitCode: 0
+    expectedOutput:
+      - 'status: NOERROR'
+      - 'QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1'

@@ -1,0 +1,17 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'resec binary exists'
+    path: '/usr/local/bin/resec'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+commandTests:
+  - name: 'resec version check'
+    command: '/usr/local/bin/resec'
+    args: ['-version']
+    exitCode: 0
+    expectedOutput:
+      - 'resec version v1.1.2'
