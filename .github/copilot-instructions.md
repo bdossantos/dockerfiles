@@ -34,7 +34,9 @@ FROM python:3.13-bookworm
 
 ### 1. Pin All Versions
 - Base images MUST use SHA256 digests: `python:3.13-bookworm@sha256:...`
-- System packages MUST include full version with latest security patches (e.g., `curl=7.88.1-10+deb12u12`)
+- System packages MUST include full version with latest security patches
+  - Format: `package=<upstream>-<debian-revision>+<release>u<update>`
+  - Example: `curl=7.88.1-10+deb12u12` (7.88.1 upstream, Debian revision 10, Debian 12 with update 12)
 - Python packages MUST specify exact version: `thumbor==7.7.7`
 - Always pin versions for reproducibility and security
 - When updating, use the latest available security patch version at that time
@@ -71,7 +73,8 @@ ENV \
 - Add `/app/bin/` to PATH for executables
 
 ### Directory Structure
-- `/config`: Configuration files (owned by 65534:65534, mode 0750 for dirs, 0444 for files)
+- `/config`: Configuration files (owned by 65534:65534, mode 0750 for dirs)
+  - Config files are typically mode 0444 (world-readable) for ease of debugging and compatibility
 - `/data`: Persistent data volumes (owned by 65534:65534, mode 0750)
 - `/etc/<service>`: Service-specific config files
 
