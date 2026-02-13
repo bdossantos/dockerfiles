@@ -104,10 +104,10 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 ### Linting with hadolint
 - Run `make dockerfile-lint` to lint all Dockerfiles
 - Use `# hadolint ignore=DL3xxx` comments for intentional exceptions
-- Common exceptions:
-  - `DL3008`: Pin package versions (we do this)
-  - `DL3013`: Pin pip versions (we do this)
-  - `DL3042`: User cache directories (for performance)
+- Common exceptions used in this repository:
+  - `DL3008`: We satisfy this by pinning all package versions
+  - `DL3013`: We satisfy this by pinning all pip package versions
+  - `DL3042`: Used for build caches to improve performance
 
 ### Container Testing with serverspec
 - Each service has a corresponding `<service>_spec.rb` test file in `spec/`
