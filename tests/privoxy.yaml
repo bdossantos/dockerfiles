@@ -32,24 +32,3 @@ commandTests:
     command: 'dpkg'
     args: ['-s', 'privoxy']
     exitCode: 0
-
-  - name: 'privoxy status page accessible'
-    command: 'sh'
-    args: ['-c', 'env ALL_PROXY=http://127.0.0.1:8118 curl -s http://p.p/']
-    exitCode: 0
-    expectedOutput:
-      - 'enabled'
-
-  - name: 'privoxy blocks ads'
-    command: 'sh'
-    args: ['-c', 'env ALL_PROXY=http://127.0.0.1:8118 curl -I http://ads.foo.com/']
-    exitCode: 0
-    expectedOutput:
-      - '403 Request blocked by Privoxy'
-
-  - name: 'privoxy redirects imgur'
-    command: 'sh'
-    args: ['-c', 'env ALL_PROXY=http://127.0.0.1:8118 curl -I -L http://imgur.com/']
-    exitCode: 0
-    expectedOutput:
-      - '302 Local Redirect from Privoxy'

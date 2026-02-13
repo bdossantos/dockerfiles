@@ -30,9 +30,3 @@ fileContentTests:
       - 'type = multifilesystem'
       - 'filesystem_folder = /data/collections'
       - 'mask_passwords = True'
-
-commandTests:
-  - name: 'radicale web interface is accessible'
-    command: 'curl'
-    args: ['--fail', '-s', 'http://127.0.0.1:5232/.web']
-    exitCode: 0

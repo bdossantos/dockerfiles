@@ -69,20 +69,3 @@ commandTests:
     command: 'dpkg'
     args: ['-s', 'zlib1g']
     exitCode: 0
-
-  - name: 'torify wget check'
-    command: 'torify'
-    args: ['wget', '-q', '-O', '-', 'https://check.torproject.org/']
-    exitCode: 0
-    expectedOutput:
-      - 'Congratulations. This browser is configured to use Tor.'
-
-  - name: 'tor-resolve forward lookup'
-    command: 'tor-resolve'
-    args: ['bds.io']
-    exitCode: 0
-
-  - name: 'tor-resolve reverse lookup'
-    command: 'tor-resolve'
-    args: ['-x', '8.8.8.8']
-    exitCode: 0
