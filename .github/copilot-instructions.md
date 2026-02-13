@@ -121,11 +121,13 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 - When adding a new service, also add a matching `<service>.yaml` to `tests/`
 - Tests verify:
   - File existence, ownership, permissions
+  - SHA256 checksums for critical binaries and config files
   - Configuration content
   - Command outputs and exit codes
   - Package installations
 - Run tests with: `make container-structure-test`
 - Note: Tests run in ephemeral containers, so tests requiring running daemons should be avoided
+- **Checksum Updates**: When updating service versions, run the container and use `sha256sum <file>` to get the new checksum, then update the test configuration
 
 ### Image Efficiency with dive
 - Analyzes layer efficiency and wasted space
@@ -204,7 +206,9 @@ ci: add CodeQL security scanning workflow
 1. **Update VERSION env var** in the Dockerfile
 2. **Update base image digest** if needed
 3. **Update system package versions** to latest security patches (fetch from https://packages.debian.org)
-4. **Update test configurations** in `tests/` if binary paths or versions change
+4. **Update SHA256 checksums** in test configurations if binaries or config files change:
+   - Run the updated container: `docker run --rm -it bdossantos/<service> sha256sum <file_path>`
+   - Update the expectedOutput in the corresponding test YAML file
 5. **Test thoroughly**: Run full test suite
 
 ### Common Commands Pattern
