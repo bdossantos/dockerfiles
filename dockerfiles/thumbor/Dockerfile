@@ -1,5 +1,5 @@
 # Build
-FROM python:3.13-bookworm@sha256:aba8a0cd72f259c2737c8a47050652036c8bc8266a4f39291523a45cf8081960 AS build
+FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -15,16 +15,16 @@ RUN set -x \
   build-essential=12.9 \
   ca-certificates=20230311+deb12u1 \
   cairosvg=2.5.2-1.1+deb12u1 \
-  ffmpeg=7:5.1.7-0+deb12u1 \
+  ffmpeg=7:5.1.8-0+deb12u1 \
   graphicsmagick=1.4+really1.3.40-4+deb12u1 \
   libavif-dev=0.11.1-1+deb12u1 \
   libcairo2-dev=1.16.0-7 \
-  libcurl4-openssl-dev=7.88.1-10+deb12u12 \
+  libcurl4-openssl-dev=7.88.1-10+deb12u14 \
   libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
   libjpeg-dev=1:2.1.5-2 \
   libopencv-dev=4.6.0+dfsg-12 \
-  libpng-dev=1.6.39-2 \
-  libssl-dev=3.0.17-1~deb12u3 \
+  libpng-dev=1.6.39-2+deb12u1 \
+  libssl-dev=3.0.18-1~deb12u2 \
   libtiff5-dev=4.5.0-6+deb12u3 \
   webp=1.2.4-0.2+deb12u1 \
   && python -m pip install --upgrade pip \
@@ -49,7 +49,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-bookworm@sha256:aba8a0cd72f259c2737c8a47050652036c8bc8266a4f39291523a45cf8081960
+FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -82,11 +82,11 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
   ca-certificates=20230311+deb12u1 \
   cairosvg=2.5.2-1.1+deb12u1 \
-  ffmpeg=7:5.1.7-0+deb12u1 \
+  ffmpeg=7:5.1.8-0+deb12u1 \
   gifsicle=1.93-2 \
   graphicsmagick=1.4+really1.3.40-4+deb12u1 \
   libavif15=0.11.1-1+deb12u1 \
-  libcurl4=7.88.1-10+deb12u12 \
+  libcurl4=7.88.1-10+deb12u14 \
   libjpeg-turbo-progs=1:2.1.5-2 \
   webp=1.2.4-0.2+deb12u1 \
   && apt-get clean \
