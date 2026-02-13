@@ -34,9 +34,10 @@ FROM python:3.13-bookworm
 
 ### 1. Pin All Versions
 - Base images MUST use SHA256 digests: `python:3.13-bookworm@sha256:...`
-- System packages MUST include full version: `curl=7.88.1-10+deb12u12`
+- System packages MUST include full version with latest security patches (e.g., `curl=7.88.1-10+deb12u12`)
 - Python packages MUST specify exact version: `thumbor==7.7.7`
 - Always pin versions for reproducibility and security
+- When updating, use the latest available security patch version at that time
 
 ### 2. Non-Root User
 - All services run as user `65534:65534` (nobody/nogroup)
