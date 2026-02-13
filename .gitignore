@@ -1,3 +1,5 @@
 venv
 php-ext-lz4-master/
 *.tar.gz
+bin/container-structure-test
+bin/shellcheck

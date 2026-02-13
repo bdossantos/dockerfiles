@@ -50,18 +50,17 @@ pre-commit: ## Run pre-commit tests
 
 container-structure-test: ## Run container-structure-test
 	$(info --> Run container-structure-test)
-	@for service in $$(awk '/image:/ { print $$2 }' docker-compose.ci.yml | sed 's/bdossantos\///'); do \
-		test_file="tests/$${service}.yaml"; \
-		if [ "$$service" = "php-lol" ]; then \
-			for version in 8.1 8.2 8.3 8.4; do \
-				echo "Testing php-lol:$$version"; \
-				$(CWD)/bin/container-structure-test test --image "bdossantos/php-lol:$$version" --config "$$test_file" || exit 1; \
-			done; \
-		elif [ -f "$$test_file" ]; then \
-			echo "Testing $$service"; \
-			$(CWD)/bin/container-structure-test test --image "bdossantos/$$service" --config "$$test_file" || exit 1; \
-		fi; \
-	done
+	@$(CWD)/bin/container-structure-test test --image bdossantos/dnscrypt-proxy --config tests/dnscrypt-proxy.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/paperless-ngx --config tests/paperless-ngx.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol --config tests/php-lol.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/pint --config tests/pint.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/privoxy --config tests/privoxy.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/python-github-backup --config tests/python-github-backup.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/radicale --config tests/radicale.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/resec --config tests/resec.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/thumbor --config tests/thumbor.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/tor --config tests/tor.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/twemproxy --config tests/twemproxy.yaml
 
 shellcheck: ## Run shellcheck on /scripts directory
 	$(info --> Run shellsheck)
