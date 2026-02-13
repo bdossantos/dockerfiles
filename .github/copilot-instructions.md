@@ -116,15 +116,16 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
   - `DL3013`: We satisfy this by pinning all pip package versions
   - `DL3042`: Used for build caches to improve performance
 
-### Container Testing with serverspec
-- Services under test have corresponding `<service>_spec.rb` files in `spec/`
-- When adding a new service, also add a matching `<service>_spec.rb` to `spec/`
+### Container Testing with container-structure-test
+- Services under test have corresponding `<service>.yaml` files in `tests/`
+- When adding a new service, also add a matching `<service>.yaml` to `tests/`
 - Tests verify:
   - File existence, ownership, permissions
-  - SHA256 checksums for critical files
   - Configuration content
-  - Service availability via HTTP checks
-- Run tests with: `make serverspec`
+  - Command outputs and exit codes
+  - Package installations
+- Run tests with: `make container-structure-test`
+- Note: Tests run in ephemeral containers, so tests requiring running daemons should be avoided
 
 ### Image Efficiency with dive
 - Analyzes layer efficiency and wasted space
@@ -142,9 +143,9 @@ docker-compose up         # Start services
 
 ### Running Tests
 ```bash
-make test                 # Run full test suite (pre-commit, shellcheck, hadolint, serverspec, dive)
+make test                 # Run full test suite (pre-commit, shellcheck, hadolint, container-structure-test, dive)
 make dockerfile-lint      # Lint Dockerfiles only
-make serverspec          # Run serverspec tests only
+make container-structure-test  # Run container-structure-test tests only
 ```
 
 ### Pre-commit Hooks
@@ -203,7 +204,7 @@ ci: add CodeQL security scanning workflow
 1. **Update VERSION env var** in the Dockerfile
 2. **Update base image digest** if needed
 3. **Update system package versions** to latest security patches (fetch from https://packages.debian.org)
-4. **Update SHA256 checksums** in serverspec tests after rebuilding
+4. **Update test configurations** in `tests/` if binary paths or versions change
 5. **Test thoroughly**: Run full test suite
 
 ### Common Commands Pattern
@@ -227,13 +228,13 @@ dockerfiles/
 │   ├── Dockerfile              # Main Dockerfile
 │   ├── <service>.cfg           # Configuration files (if needed)
 │   └── ...                     # Other service-specific files
-├── spec/
-│   ├── <service>_spec.rb       # Serverspec tests
-│   └── spec_helper.rb          # Test helper
+├── tests/
+│   └── <service>.yaml          # container-structure-test configuration
 ├── scripts/
 │   ├── dockerfile-lint         # Linting script
 │   ├── changelog               # Changelog generator
-│   └── dive                    # Dive analyzer script
+│   ├── dive                    # Dive analyzer script
+│   └── container-structure-test-install  # Install container-structure-test
 ├── docker-compose.yml          # Development composition
 ├── docker-compose.ci.yml       # CI composition
 └── Makefile                    # Build automation
@@ -269,7 +270,7 @@ make install docker-build test
 docker-compose build <service>
 
 # Test single service
-bundle exec rspec spec/<service>_spec.rb
+./bin/container-structure-test test --image bdossantos/<service> --config tests/<service>.yaml
 
 # Lint specific Dockerfile
 hadolint dockerfiles/<service>/Dockerfile
