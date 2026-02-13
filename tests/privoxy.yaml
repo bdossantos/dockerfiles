@@ -1,0 +1,55 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'privoxy binary exists'
+    path: '/usr/sbin/privoxy'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'privoxy config file exists'
+    path: '/etc/privoxy/config'
+    shouldExist: true
+    uid: 0
+    gid: 0
+
+  - name: 'privoxy user.action file exists'
+    path: '/etc/privoxy/user.action'
+    shouldExist: true
+    uid: 0
+    gid: 0
+
+commandTests:
+  - name: 'privoxy version check'
+    command: '/usr/sbin/privoxy'
+    args: ['--version']
+    exitCode: 0
+    expectedOutput:
+      - 'Privoxy version 3.0.28 \(https://www.privoxy.org/\)'
+
+  - name: 'privoxy package is installed'
+    command: 'dpkg'
+    args: ['-s', 'privoxy']
+    exitCode: 0
+
+  - name: 'privoxy status page accessible'
+    command: 'sh'
+    args: ['-c', 'env ALL_PROXY=http://127.0.0.1:8118 curl -s http://p.p/']
+    exitCode: 0
+    expectedOutput:
+      - 'enabled'
+
+  - name: 'privoxy blocks ads'
+    command: 'sh'
+    args: ['-c', 'env ALL_PROXY=http://127.0.0.1:8118 curl -I http://ads.foo.com/']
+    exitCode: 0
+    expectedOutput:
+      - '403 Request blocked by Privoxy'
+
+  - name: 'privoxy redirects imgur'
+    command: 'sh'
+    args: ['-c', 'env ALL_PROXY=http://127.0.0.1:8118 curl -I -L http://imgur.com/']
+    exitCode: 0
+    expectedOutput:
+      - '302 Local Redirect from Privoxy'

@@ -1,0 +1,17 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'nutcracker binary exists'
+    path: '/usr/local/sbin/nutcracker'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+commandTests:
+  - name: 'nutcracker version check'
+    command: '/usr/local/sbin/nutcracker'
+    args: ['-V']
+    exitCode: 0
+    expectedError:
+      - 'This is nutcracker-0.5.0'

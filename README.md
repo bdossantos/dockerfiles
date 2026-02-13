@@ -11,9 +11,7 @@ Some Dockerfiles.
   * dive
 * pre-commit
 * shellcheck
-* ruby
-  * bundler
-  * serverspec
+* container-structure-test
 
 ## Installation
 

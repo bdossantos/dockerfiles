@@ -1,0 +1,15 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'github-backup binary exists'
+    path: '/app/bin/github-backup'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+commandTests:
+  - name: 'github-backup help works'
+    command: '/app/bin/github-backup'
+    args: ['--help']
+    exitCode: 0

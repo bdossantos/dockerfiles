@@ -1,0 +1,51 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'thumbor binary exists'
+    path: '/app/bin/thumbor'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'jpegtran binary exists'
+    path: '/usr/bin/jpegtran'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+commandTests:
+  - name: 'thumbor-doctor runs successfully'
+    command: '/app/bin/thumbor-doctor'
+    exitCode: 0
+
+  - name: 'ca-certificates package is installed'
+    command: 'dpkg'
+    args: ['-s', 'ca-certificates']
+    exitCode: 0
+
+  - name: 'ffmpeg package is installed'
+    command: 'dpkg'
+    args: ['-s', 'ffmpeg']
+    exitCode: 0
+
+  - name: 'gifsicle package is installed'
+    command: 'dpkg'
+    args: ['-s', 'gifsicle']
+    exitCode: 0
+
+  - name: 'graphicsmagick package is installed'
+    command: 'dpkg'
+    args: ['-s', 'graphicsmagick']
+    exitCode: 0
+
+  - name: 'libjpeg-turbo-progs package is installed'
+    command: 'dpkg'
+    args: ['-s', 'libjpeg-turbo-progs']
+    exitCode: 0
+
+  - name: 'webp package is installed'
+    command: 'dpkg'
+    args: ['-s', 'webp']
+    exitCode: 0
