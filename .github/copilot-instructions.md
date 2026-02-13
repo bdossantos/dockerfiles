@@ -3,6 +3,7 @@
 ## Repository Overview
 
 This repository contains production-ready Dockerfiles for various applications including:
+
 - Python-based services (anki, radicale, thumbor, python-github-backup)
 - PHP services (php-lol with multiple versions: 8.1, 8.2, 8.3, 8.4)
 - Networking tools (dnscrypt-proxy, tor, twemproxy)
@@ -12,7 +13,9 @@ This repository contains production-ready Dockerfiles for various applications i
 ## Architecture Patterns
 
 ### Multi-Stage Builds
+
 Most Dockerfiles use multi-stage builds with two main stages (this is the preferred pattern, though some images such as gcsfuse use a single-stage build):
+
 1. **Build Stage**: Install build dependencies, compile/install software, configure directories
 2. **Run Stage**: Minimal runtime image with only necessary dependencies
 
@@ -27,6 +30,7 @@ FROM python:3.13-bookworm
 ```
 
 ### Base Images
+
 - **Python services**: Prefer `python:3.13-bookworm` with pinned SHA256 digest when practical
 - **PHP services**: Use `php:8.x-fpm-bookworm` with specific minor versions
 - **Other services**: May use `debian:12-slim` or other appropriate base images
@@ -34,35 +38,40 @@ FROM python:3.13-bookworm
 ## Security Best Practices
 
 ### 1. Pin All Versions
+
 - Base images SHOULD use SHA256 digests where possible (e.g., `python:3.13-bookworm@sha256:...`)
   - Using digests for all images is a long-term goal; some existing Dockerfiles may still use tag-only references
 - System packages MUST include full version with latest security patches
   - Format: `package=<upstream>-<debian-revision>+<release>u<update>`
   - Example: `curl=7.88.1-10+deb12u12` (7.88.1 upstream, Debian revision 10, Debian 12 with update 12)
-  - Package versions are fetched from https://packages.debian.org
+  - Package versions are fetched from <https://packages.debian.org>
 - Python packages MUST specify exact version: `thumbor==7.7.7`
 - Always pin versions for reproducibility and security
 - When updating, use the latest available security patch version at that time
 
 ### 2. Non-Root User
+
 - By default, services SHOULD run as user `65534:65534` (nobody/nogroup)
 - Use `USER 65534:65534` directive before ENTRYPOINT in new or updated Dockerfiles
 - Set ownership with `--chown=65534:65534` when copying files
 - Known exception: the `dnscrypt-proxy` Dockerfile currently runs as root and does not set `USER 65534:65534`; this is a documented deviation from the guideline until it can be addressed
 
 ### 3. Minimal Attack Surface
+
 - Use `DEBIAN_FRONTEND=noninteractive` to avoid interactive prompts
 - Clean up after installations: `apt-get clean && rm -rf /var/lib/apt/lists/*`
 - Use `--no-install-recommends` for apt-get to minimize packages
 - Separate build and runtime dependencies
 
 ### 4. Read-Only Containers
+
 - Services should be compatible with `read_only: true` in docker-compose
 - Store mutable data in volumes, not the container filesystem
 
 ## Standard Patterns
 
 ### Environment Variables
+
 ```dockerfile
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -72,18 +81,22 @@ ENV \
 ```
 
 ### Python Application Structure
+
 - Install to user base: `PYTHONUSERBASE=/app`
 - Use pip with: `--no-cache-dir --prefix="${PYTHONUSERBASE}"`
 - Add `/app/bin/` to PATH for executables
 
 ### Directory Structure
+
 - `/config`: Configuration files (owned by 65534:65534, mode 0750 for dirs)
   - Config files are typically mode 0444 (world-readable) for ease of debugging and compatibility
 - `/data`: Persistent data volumes (owned by 65534:65534, mode 0750)
 - `/etc/<service>`: Service-specific config files
 
 ### OCI Labels
+
 Include both legacy `org.label-schema.*` and modern `org.opencontainers.image.*` labels:
+
 ```dockerfile
 LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.name="<service>" \
@@ -100,7 +113,9 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 ```
 
 ### Healthchecks
+
 Include HEALTHCHECK directives where applicable:
+
 ```dockerfile
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
   CMD curl -s --fail http://127.0.0.1:<port>/<path> &>/dev/null || exit 1
@@ -109,6 +124,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 ## Testing
 
 ### Linting with hadolint
+
 - Run `make dockerfile-lint` to lint all Dockerfiles
 - Use `# hadolint ignore=DL3xxx` comments for intentional exceptions
 - Common exceptions used in this repository:
@@ -117,6 +133,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
   - `DL3042`: Used for build caches to improve performance
 
 ### Container Testing with container-structure-test
+
 - Services under test have corresponding `<service>.yaml` files in `tests/`
 - When adding a new service, also add a matching `<service>.yaml` to `tests/`
 - Tests verify:
@@ -130,6 +147,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 - **Checksum Updates**: When updating service versions, run the container and use `sha256sum <file>` to get the new checksum, then update the test configuration
 
 ### Image Efficiency with dive
+
 - Analyzes layer efficiency and wasted space
 - Run with: `make dive`
 - Ensures multi-stage builds are effective
@@ -137,6 +155,7 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
 ## Development Workflow
 
 ### Building Images
+
 ```bash
 make install              # Install all dependencies
 make docker-build         # Build all images in parallel
@@ -144,6 +163,7 @@ docker-compose up         # Start services
 ```
 
 ### Running Tests
+
 ```bash
 make test                 # Run full test suite (pre-commit, shellcheck, hadolint, container-structure-test, dive)
 make dockerfile-lint      # Lint Dockerfiles only
@@ -151,12 +171,15 @@ make container-structure-test  # Run container-structure-test tests only
 ```
 
 ### Pre-commit Hooks
+
 The repository uses pre-commit hooks for:
+
 - Detecting large files, merge conflicts, private keys
 - YAML validation
 - Trailing whitespace and end-of-file fixes
 
 ### Commit Messages
+
 Follow [Conventional Commits](https://www.conventionalcommits.org/) format for all commit messages:
 
 ```
@@ -168,6 +191,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/) format for a
 ```
 
 **Common types:**
+
 - `feat`: New feature or capability
 - `fix`: Bug fix
 - `docs`: Documentation changes
@@ -179,6 +203,7 @@ Follow [Conventional Commits](https://www.conventionalcommits.org/) format for a
 - `build`: Build system changes
 
 **Examples:**
+
 ```
 feat(radicale): add support for bcrypt password hashing
 fix(thumbor): update to version 7.7.7 for security patches
@@ -193,7 +218,7 @@ ci: add CodeQL security scanning workflow
 
 1. **Follow the multi-stage pattern**: Separate build and runtime stages
 2. **Pin everything**: Base images (with digest), system packages, application packages
-3. **Security first**: 
+3. **Security first**:
    - Run as non-root user (65534:65534)
    - Set appropriate file permissions
    - Minimize installed packages
@@ -205,7 +230,7 @@ ci: add CodeQL security scanning workflow
 
 1. **Update VERSION env var** in the Dockerfile
 2. **Update base image digest** if needed
-3. **Update system package versions** to latest security patches (fetch from https://packages.debian.org)
+3. **Update system package versions** to latest security patches (fetch from <https://packages.debian.org>)
 4. **Update SHA256 checksums** in test configurations if binaries or config files change:
    - Run the updated container: `docker run --rm -it bdossantos/<service> sha256sum <file_path>`
    - Update the expectedOutput in the corresponding test YAML file
@@ -214,6 +239,7 @@ ci: add CodeQL security scanning workflow
 ### Common Commands Pattern
 
 Use `set -x` for debugging output and proper error handling in shell pipelines:
+
 ```dockerfile
 RUN set -x \
   && apt-get update \
