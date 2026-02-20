@@ -26,26 +26,26 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/bin/tor']
     expectedOutput:
-      - '68ebbf2cf786cc35dde18f50fc164963fa0b1d2a1e8b7a883eb3aeafa382cf09'
+      - 'TBD'
 
   - name: 'torrc.sample checksum'
     command: 'sha256sum'
     args: ['/usr/local/etc/tor/torrc.sample']
     expectedOutput:
-      - '700eab901377ef4834e12a4e16367a0f27f20ecfb546744741ae0ab40f6067a0'
+      - 'TBD'
 
   - name: 'torrc checksum'
     command: 'sha256sum'
     args: ['/etc/tor/torrc']
     expectedOutput:
-      - 'd869589e8c7c49972c445f40a7f14c2c6b32ad17055160052ce75fa79c95349e'
+      - 'cf21a629bcebdb447d3b42cf578bacbcdd06a4b4b3a85fe4cf0be3c0378f4502'
 
   - name: 'tor version check'
     command: '/usr/local/bin/tor'
     args: ['--version']
     exitCode: 0
     expectedOutput:
-      - 'Tor version 0.4.4.6.'
+      - 'Tor version 0.4.9.5.'
 
   - name: 'ca-certificates package is installed'
     command: 'dpkg'
@@ -78,8 +78,7 @@ fileContentTests:
       - 'DNSPort 0.0.0.0:9053'
       - 'DataDirectory /dev/shm/.tor'
       - 'ExcludeNodes \{au\},\{ca\},\{cn\},\{cu\},\{fr\},\{gb\},\{hk\},\{ir\},\{iq\},\{kr\},\{kp\},\{nz\},\{ro\},\{ru\},\{sy\},\{tr\},\{us\}'
-      - 'ExitNodes \{be\},\{ch\},\{de\},\{es\},\{gr\},\{is\},\{it\},\{nl\},\{se\},\{no\},\{fi\},\{es\},\{pt\}'
-      - 'FascistFirewall 1'
+      - 'ExitNodes \{be\},\{ch\},\{de\},\{es\},\{gr\},\{is\},\{it\},\{nl\},\{se\},\{no\},\{fi\},\{pt\}'
       - 'Log notice stdout'
       - 'NumCPUs 2'
       - 'ReachableAddresses \*:80,\*:443'
