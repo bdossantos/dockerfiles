@@ -5,8 +5,7 @@ ClientOnly 1
 DNSPort 0.0.0.0:9053
 DataDirectory /dev/shm/.tor
 ExcludeNodes {au},{ca},{cn},{cu},{fr},{gb},{hk},{ir},{iq},{kr},{kp},{nz},{ro},{ru},{sy},{tr},{us}
-ExitNodes {be},{ch},{de},{es},{gr},{is},{it},{nl},{se},{no},{fi},{es},{pt}
-FascistFirewall 1
+ExitNodes {be},{ch},{de},{es},{gr},{is},{it},{nl},{se},{no},{fi},{pt}
 GeoIPFile /usr/share/tor/geoip
 GeoIPv6File /usr/share/tor/geoip6
 HardwareAccel 1
