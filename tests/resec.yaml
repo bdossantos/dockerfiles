@@ -13,11 +13,11 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/bin/resec']
     expectedOutput:
-      - '5d064b1648bdbb5ed6bd17f2eed955a1ba9a7141889876c606c02944e1803315'
+      - '7177468997223c63f3a0319dfcbfa3b2a9a24921bbd38d4eac38af34331f6555'
 
   - name: 'resec version check'
     command: '/usr/local/bin/resec'
     args: ['-version']
     exitCode: 0
     expectedOutput:
-      - 'resec version v1.1.2'
+      - 'resec version v1.5.2'
