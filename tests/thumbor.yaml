@@ -20,13 +20,13 @@ commandTests:
     command: 'sha256sum'
     args: ['/app/bin/thumbor']
     expectedOutput:
-      - 'a5deb3a8942f30059604a643c4908f8c0d46279fa1a7b77ea0dd41babdff1690'
+      - '866f217ee2bfeae5dbad0245d93fbbf64391cc8c5c172dea7ca2bd81eb57136f'
 
   - name: 'jpegtran binary checksum'
     command: 'sha256sum'
     args: ['/usr/bin/jpegtran']
     expectedOutput:
-      - '9aa3694a8991a57bc7ca8913fe7a0cb9ebbbf84287a92432bb6303218021204e'
+      - '9531fb8d7da7b9f9dcbf46451a4977d3d7ac6eda933d8931cd870c73fb7dfcab'
 
   - name: 'thumbor-doctor runs successfully'
     command: '/app/bin/thumbor-doctor'
