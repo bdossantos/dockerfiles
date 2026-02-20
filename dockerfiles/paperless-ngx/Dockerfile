@@ -1,5 +1,5 @@
 # uv
-FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim AS uv
+FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim@sha256:c32d0376532c87fc99725529f3fff54f599f52cc0a38f4e7a19fa2f1d3533c5e AS uv
 
 # Build
 FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
