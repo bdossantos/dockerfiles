@@ -4,7 +4,8 @@ set -euo pipefail
 
 readonly VERSION="v1.19.1"
 readonly BINARY_NAME="container-structure-test-linux-amd64"
-readonly INSTALL_DIR="$(pwd)/bin"
+INSTALL_DIR="$(pwd)/bin"
+readonly INSTALL_DIR
 readonly BINARY_PATH="${INSTALL_DIR}/container-structure-test"
 
 mkdir -p "${INSTALL_DIR}"
