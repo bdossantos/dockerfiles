@@ -19,7 +19,7 @@ commandTests:
     command: 'sha256sum'
     args: ['/app/bin/radicale']
     expectedOutput:
-      - '2456d1e5f6d23920b487c28e366b68addb1ab07b2fad9f44d27779709dacba5b'
+      - '3b6af018f45b750a2a2e1803a50a36e0e7bcf604001fac0cf5cbddf576f14168'
 
   - name: 'radicale config checksum'
     command: 'sha256sum'
