@@ -1,5 +1,8 @@
+# uv
+FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim AS uv
+
 # Build
-FROM python:3.12-bookworm@sha256:efbb3e52ab8f17324f5b7e08152828a8fb2ea0c9c4e3818f7c3ea805ede0479b AS build
+FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -13,17 +16,17 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # hadolint ignore=DL3022
 COPY --from=node:20-bookworm-slim /usr/local/ /usr/local/
 
-COPY --from=ghcr.io/astral-sh/uv:python3.12-bookworm-slim /usr/local/bin/uv /usr/local/bin/uv
+COPY --from=uv /usr/local/bin/uv /usr/local/bin/uv
 
-# hadolint ignore=DL3013,DL3042
+# hadolint ignore=DL3008,DL3013,DL3042
 RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   set -x \
   && mkdir "$PYTHONUSERBASE" \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
   automake \
-  build-essential=12.9 \
-  ca-certificates=20230311+deb12u1 \
+  build-essential=12.12 \
+  ca-certificates=20250419 \
   curl \
   default-libmysqlclient-dev \
   gettext \
@@ -65,7 +68,7 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.12-bookworm@sha256:efbb3e52ab8f17324f5b7e08152828a8fb2ea0c9c4e3818f7c3ea805ede0479b
+FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -104,7 +107,7 @@ ARG RUNTIME_PACKAGES="\
   icc-profiles-free \
   imagemagick \
   # Image processing
-  liblept5 \
+  libleptonica6 \
   liblcms2-2 \
   libtiff6 \
   libfreetype6 \
@@ -133,16 +136,16 @@ ARG RUNTIME_PACKAGES="\
   jbig2dec \
   libxml2 \
   libxslt1.1 \
-  libgnutls30 \
-  libqpdf29 \
+  libgnutls30t64 \
+  libqpdf30 \
   qpdf \
   # Mime type detection
   file \
-  libmagic1 \
+  libmagic1t64 \
   media-types \
   zlib1g \
   # Barcode splitter
-  libzbar0 \
+  libzbar0t64 \
   poppler-utils \
   # RapidFuzz on armv7
   libatomic1"
@@ -165,6 +168,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.opencontainers.image.vendor="paperless-ngx" \
   org.opencontainers.image.version="$VERSION"
 
+# hadolint ignore=DL3008
 RUN set -x \
   && apt-get update \
   && apt-get install --yes --quiet --no-install-recommends ${RUNTIME_PACKAGES} \

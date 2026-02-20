@@ -13,4 +13,4 @@ commandTests:
     command: 'sha256sum'
     args: ['/app/bin/paperless-ng']
     expectedOutput:
-      - '2456d1e5f6d23920b487c28e366b68addb1ab07b2fad9f44d27779709dacba5b'
+      - 'TBD'
