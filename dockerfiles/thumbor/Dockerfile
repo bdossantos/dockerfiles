@@ -1,5 +1,5 @@
 # Build
-FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b AS build
+FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -12,21 +12,21 @@ RUN set -x \
   && mkdir "$PYTHONUSERBASE" /etc/thumbor \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-  build-essential=12.9 \
-  ca-certificates=20230311+deb12u1 \
-  cairosvg=2.5.2-1.1+deb12u1 \
-  ffmpeg=7:5.1.8-0+deb12u1 \
-  graphicsmagick=1.4+really1.3.40-4+deb12u1 \
-  libavif-dev=0.11.1-1+deb12u1 \
-  libcairo2-dev=1.16.0-7 \
-  libcurl4-openssl-dev=7.88.1-10+deb12u14 \
-  libgraphicsmagick++1-dev=1.4+really1.3.40-4+deb12u1 \
-  libjpeg-dev=1:2.1.5-2 \
-  libopencv-dev=4.6.0+dfsg-12 \
-  libpng-dev=1.6.39-2+deb12u1 \
-  libssl-dev=3.0.18-1~deb12u2 \
-  libtiff5-dev=4.5.0-6+deb12u3 \
-  webp=1.2.4-0.2+deb12u1 \
+  build-essential=12.12 \
+  ca-certificates=20250419 \
+  cairosvg=2.7.1-2 \
+  ffmpeg=7:7.1.3-0+deb13u1 \
+  graphicsmagick=1.4+really1.3.45+hg17696-1 \
+  libavif-dev=1.2.1-1.2 \
+  libcairo2-dev=1.18.4-1+b1 \
+  libcurl4-openssl-dev=8.14.1-2+deb13u2 \
+  libgraphicsmagick++1-dev=1.4+really1.3.45+hg17696-1 \
+  libjpeg-dev=1:2.1.5-4 \
+  libopencv-dev=4.10.0+dfsg-5 \
+  libpng-dev=1.6.48-1+deb13u3 \
+  libssl-dev=3.5.4-1~deb13u2 \
+  libtiff5-dev=4.7.0-3+deb13u1 \
+  webp=1.5.0-0.1 \
   && python -m pip install --upgrade pip \
   && pip install \
   --no-cache-dir \
@@ -49,7 +49,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b
+FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -80,15 +80,15 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-  ca-certificates=20230311+deb12u1 \
-  cairosvg=2.5.2-1.1+deb12u1 \
-  ffmpeg=7:5.1.8-0+deb12u1 \
-  gifsicle=1.93-2 \
-  graphicsmagick=1.4+really1.3.40-4+deb12u1 \
-  libavif15=0.11.1-1+deb12u1 \
-  libcurl4=7.88.1-10+deb12u14 \
-  libjpeg-turbo-progs=1:2.1.5-2 \
-  webp=1.2.4-0.2+deb12u1 \
+  ca-certificates=20250419 \
+  cairosvg=2.7.1-2 \
+  ffmpeg=7:7.1.3-0+deb13u1 \
+  gifsicle=1.96-1 \
+  graphicsmagick=1.4+really1.3.45+hg17696-1 \
+  libavif16=1.2.1-1.2 \
+  libcurl4t64=8.14.1-2+deb13u2 \
+  libjpeg-turbo-progs=1:2.1.5-4 \
+  webp=1.5.0-0.1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
