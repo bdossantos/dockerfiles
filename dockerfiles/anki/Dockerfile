@@ -1,17 +1,17 @@
 ## build
-FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b AS build
+FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=25.02.7
+  VERSION=25.9.2
 
 # hadolint ignore=DL3013
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    git=1:2.39.5-0+deb12u3 \
+    git=1:2.47.3-0+deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && pip install \
@@ -25,7 +25,7 @@ RUN chmod 0750 /data /config \
   && chown -R 65534:65534 /config /data
 
 # Run
-FROM python:3.13-bookworm@sha256:dee2644fa47db3885f7fd4500d92dc237b2a014d7763c74d8f2248e95aafb55b
+FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -58,8 +58,8 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=7.88.1-10+deb12u14 \
-    git=1:2.39.5-0+deb12u3 \
+    curl=8.14.1-2+deb13u2 \
+    git=1:2.47.3-0+deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
