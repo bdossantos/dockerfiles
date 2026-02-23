@@ -181,7 +181,7 @@ COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
-COPY --from=build /tmp/nltk_data /usr/share/
+COPY --from=build /tmp/nltk_data /usr/share/nltk_data
 COPY --from=build /usr/local/src/paperless-ngx/docker/rootfs/etc/ImageMagick-6/paperless-policy.xml /etc/ImageMagick-6/policy.xml
 COPY entrypoint.sh /entrypoint.sh
 COPY copy-to-consumption-dir /app/copy-to-consumption-dir
