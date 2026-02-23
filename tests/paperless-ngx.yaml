@@ -7,6 +7,12 @@ fileExistenceTests:
     permissions: '-rwxr-xr-x'
     uid: 0
     gid: 0
+  - name: 'nltk stopwords corpus exists'
+    path: '/usr/share/nltk_data/corpora/stopwords'
+    shouldExist: true
+  - name: 'nltk punkt_tab tokenizer exists'
+    path: '/usr/share/nltk_data/tokenizers/punkt_tab'
+    shouldExist: true
 
 commandTests:
   - name: 'paperless-ng binary checksum'
