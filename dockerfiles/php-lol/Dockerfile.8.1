@@ -66,14 +66,14 @@ RUN set -eux \
   && chmod +x /usr/local/bin/pickle \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
-  && pickle install amqp \
-  && pickle install --no-interaction apcu@5.1.24 \
+  && pickle install amqp@2.2.0 \
+  && pickle install --no-interaction apcu@5.1.28 \
   && pickle install igbinary@3.2.16 \
   && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
   && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
   && pickle install msgpack@3.0.0 \
-  && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.3.0 \
-  && pickle install --no-interaction --with-configure-options="redis_options" redis@6.2.0 \
+  && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.4.0 \
+  && pickle install --no-interaction --with-configure-options="redis_options" redis@6.3.0 \
   && pickle install zstd@0.15.2 \
   && curl -L -o /tmp/lz4.tar.gz https://github.com/kjdev/php-ext-lz4/archive/refs/heads/master.tar.gz \
   && tar -xzf /tmp/lz4.tar.gz -C /usr/src \
