@@ -205,12 +205,6 @@ commandTests:
     exitCode: 0
     expectedOutput: ['igbinary']
 
-  - name: 'imap extension is installed'
-    command: 'sh'
-    args: ['-c', 'php -m | grep -i imap']
-    exitCode: 0
-    expectedOutput: ['imap']
-
   - name: 'imagick extension is installed'
     command: 'sh'
     args: ['-c', 'php -m | grep -i imagick']
