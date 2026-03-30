@@ -112,7 +112,7 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf']
     expectedOutput:
-      - 'e3772ca736903a1a4c27a715adae6c2ef35059119b527cefb30bac50af94ffef'
+      - '3df0e2db044284e0492309bbafe18ddd3ddfe899b544c843c5900b5dfeb77270'
 
   - name: 'php hardening config checksum'
     command: 'sha256sum'
@@ -124,7 +124,7 @@ commandTests:
     command: 'sha256sum'
     args: ['/etc/nginx/nginx.conf']
     expectedOutput:
-      - '0c21ca2a7522fee98b6d5a0f28e0f6b1840d3df4d23b0b182b5c45c9d8b5ff8f'
+      - 'b1861c352bc1e15f265dcd36a1e1753ee1cb5ee686ccb7664feb4f81226e86a9'
 
   - name: 'nginx mime.types checksum'
     command: 'sha256sum'
@@ -136,13 +136,13 @@ commandTests:
     command: 'sha256sum'
     args: ['/etc/supervisor/supervisord.conf']
     expectedOutput:
-      - 'cbf3f7370b1fd9f24360c20cc9e909f3298635d456fa76d97f531af0136a390c'
+      - '4b1fdfb861af749e6024c35d7bc1bb40e18811be4f55ec4e27eef698584b5555'
 
   - name: 'supervisor app.conf checksum'
     command: 'sha256sum'
     args: ['/etc/supervisor/conf.d/app.conf']
     expectedOutput:
-      - 'bbdd21d87a9b30770de6b434673caf6594eb67bc4ff5c124f8c0ccb453c62d6b'
+      - 'ffaca82839725c81b62f59a5da6fc941f2643eee5e649654725e01c80b28b1b4'
 
   - name: 'php-fpm config test'
     command: '/usr/local/sbin/php-fpm'
