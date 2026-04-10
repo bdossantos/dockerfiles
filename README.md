@@ -78,7 +78,7 @@ Test a single image:
 ## Project Structure
 
 ```
-dockerfiles/
+.
 ├── dockerfiles/
 │   └── <service>/
 │       ├── Dockerfile
