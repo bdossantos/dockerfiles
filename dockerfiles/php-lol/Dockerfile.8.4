@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-FROM php:8.4.17-fpm-bookworm AS foundation
+FROM php:8.4.17-fpm-trixie@sha256:b3059c7682a331bc96281ffba2693fd0dcafb8684e6bde24fa77aa9c3e7a1d5d AS foundation
 
 ENV \
   APP_DIR=/usr/src/app \
@@ -17,15 +17,13 @@ ENV BUILD_DEPENDENCIES \
   cmake \
   curl \
   libbz2-dev \
-  libc-client-dev \
   libgeoip-dev \
   libgmp-dev \
   libicu-dev \
   libjpeg-dev \
-  libkrb5-dev \
   liblz4-dev \
   libmemcached-dev \
-  libpcre3-dev \
+  libpcre2-dev \
   libpng-dev \
   libpq-dev \
   librabbitmq-dev \
@@ -48,12 +46,12 @@ RUN set -eux \
     geoip-database \
     git \
     imagemagick \
-    libaio1 \
+    libaio1t64 \
     libfontconfig \
     libjpeg-turbo-progs \
     libmagickcore-dev \
     libmagickwand-dev \
-    libodbc1 \
+    libodbc2 \
     libpq5 \
     librabbitmq4 \
     libtool \
@@ -69,8 +67,6 @@ RUN set -eux \
   && pickle install amqp@2.2.0 \
   && pickle install --no-interaction apcu@5.1.28 \
   && pickle install igbinary@3.2.16 \
-  && echo "--with-imap-ssl --with-kerberos" > imap_options \
-  && PHP_OPENSSL=yes pickle install --no-interaction --with-configure-options="imap_options" imap@1.0.3 \
   && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
   && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
   && pickle install msgpack@3.0.0 \
