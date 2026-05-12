@@ -3,7 +3,6 @@ FROM debian:13-slim AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  TORSOCKS_VERSION=v2.5.0 \
   VERSION=0.4.9.5
 
 # hadolint ignore=DL3008
@@ -25,7 +24,7 @@ RUN set -x \
     pwgen=2.08-2 \
     wget=1.25.0-2 \
     zlib1g-dev=1:1.3.dfsg+really1.3.1-1+b1 \
-  && mkdir -p /tmp/tor /tmp/torsocks /etc/tor \
+  && mkdir -p /tmp/tor /etc/tor \
   && apt-get autoremove -y \
   && apt-get clean \
   && apt-get autoclean \
@@ -47,18 +46,6 @@ RUN set -x \
   && chown -R root.root /etc/tor \
   && chmod 0755 /etc/tor \
   && chmod 0444 /etc/tor/torrc
-
-WORKDIR /tmp/torsocks
-
-RUN set -x \
-  && wget -q "https://gitlab.torproject.org/tpo/core/torsocks/-/archive/${TORSOCKS_VERSION}/torsocks-${TORSOCKS_VERSION}.tar.gz" \
-    -O "torsocks-${TORSOCKS_VERSION}.tar.gz" \
-  && tar -zxf "torsocks-${TORSOCKS_VERSION}.tar.gz" --strip-components=1 -C \
-    '/tmp/torsocks' \
-  && ./autogen.sh \
-  && ./configure \
-  && make \
-  && make install
 
 WORKDIR /
 
@@ -113,8 +100,10 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20250419 \
     libevent-2.1-7t64=2.1.12-stable-10+b1 \
+    libtorsocks=2.5.0-1+deb13u1 \
     libssl-dev=3.5.5-1~deb13u2 \
     openssl=3.5.5-1~deb13u2 \
+    torsocks=2.5.0-1+deb13u1 \
     wget=1.25.0-2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
@@ -123,9 +112,7 @@ COPY --from=build /etc/tor/torrc /etc/tor/torrc
 COPY --from=build /usr/local/bin/tor /usr/local/bin/tor
 COPY --from=build /usr/local/bin/tor-resolve /usr/local/bin/tor-resolve
 COPY --from=build /usr/local/bin/torify /usr/local/bin/torify
-COPY --from=build /usr/local/bin/torsocks /usr/local/bin/torsocks
 COPY --from=build /usr/local/etc/tor/ /usr/local/etc/tor/
-COPY --from=build /usr/local/lib/torsocks /usr/local/lib/torsocks
 COPY --from=geoip /usr/share/tor/geoip /usr/share/tor/geoip
 COPY --from=geoip /usr/share/tor/geoip6 /usr/share/tor/geoip6
 

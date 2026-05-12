@@ -62,6 +62,11 @@ commandTests:
     args: ['-s', 'wget']
     exitCode: 0
 
+  - name: 'torsocks package is installed'
+    command: 'dpkg'
+    args: ['-s', 'torsocks']
+    exitCode: 0
+
   - name: 'zlib1g package is installed'
     command: 'dpkg'
     args: ['-s', 'zlib1g']
