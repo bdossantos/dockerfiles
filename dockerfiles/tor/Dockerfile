@@ -111,7 +111,6 @@ RUN set -x \
 COPY --from=build /etc/tor/torrc /etc/tor/torrc
 COPY --from=build /usr/local/bin/tor /usr/local/bin/tor
 COPY --from=build /usr/local/bin/tor-resolve /usr/local/bin/tor-resolve
-COPY --from=build /usr/local/bin/torify /usr/local/bin/torify
 COPY --from=build /usr/local/etc/tor/ /usr/local/etc/tor/
 COPY --from=geoip /usr/share/tor/geoip /usr/share/tor/geoip
 COPY --from=geoip /usr/share/tor/geoip6 /usr/share/tor/geoip6
