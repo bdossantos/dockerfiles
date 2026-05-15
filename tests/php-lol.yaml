@@ -157,6 +157,13 @@ commandTests:
       - 'nginx: the configuration file /etc/nginx/nginx.conf syntax is ok'
       - 'nginx: configuration file /etc/nginx/nginx.conf test is successful'
 
+  - name: 'nginx version is 1.30.1'
+    command: '/usr/sbin/nginx'
+    args: ['-v']
+    exitCode: 0
+    expectedError:
+      - 'nginx version: nginx/1.30.1'
+
   - name: 'amqp extension is installed'
     command: 'sh'
     args: ['-c', 'php -m | grep -i amqp']
