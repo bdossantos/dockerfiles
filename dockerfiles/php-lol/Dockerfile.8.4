@@ -65,7 +65,7 @@ RUN set -eux \
   && curl -L -o /usr/local/bin/pickle https://github.com/FriendsOfPHP/pickle/releases/latest/download/pickle.phar \
   && chmod +x /usr/local/bin/pickle \
   && mkdir -p /var/lib/php/session \
-  && chown -R www-data.www-data /var/lib/php/session \
+  && chown -R 65534:65534 /var/lib/php/session \
   && pickle install amqp@2.2.0 \
   && pickle install --no-interaction apcu@5.1.28 \
   && pickle install igbinary@3.2.16 \
@@ -179,7 +179,7 @@ RUN set -eux \
   && make \
   && make install \
   && mkdir -p /var/cache/nginx \
-  && chown -R www-data.www-data /var/cache/nginx \
+  && chown -R 65534:65534 /var/cache/nginx \
   && chsh -s /usr/sbin/nologin www-data \
   && apt-get purge -y $BUILD_DEPENDENCIES \
   && docker-php-source delete \
@@ -245,7 +245,9 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 
 WORKDIR /usr/src/app
 
-EXPOSE 80/tcp 443/tcp
+EXPOSE 8080/tcp
+
+USER 65534:65534
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
