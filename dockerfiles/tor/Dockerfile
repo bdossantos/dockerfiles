@@ -13,7 +13,7 @@ RUN set -x \
     automake=1:1.17-4 \
     build-essential=12.12 \
     ca-certificates=20250419 \
-    dirmngr=2.4.7-21+deb13u1+b2 \
+    dirmngr=2.4.7-21+deb13u1+b3 \
     gnupg=2.4.7-21+deb13u1 \
     libevent-dev=2.1.12-stable-10+b1 \
     libssl-dev=3.5.5-1~deb13u2 \
