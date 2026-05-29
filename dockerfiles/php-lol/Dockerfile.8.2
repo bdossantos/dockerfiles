@@ -74,6 +74,7 @@ RUN set -eux \
   && pickle install msgpack@3.0.0 \
   && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.4.0 \
   && pickle install --no-interaction --with-configure-options="redis_options" redis@6.3.0 \
+  && pickle install mailparse@3.1.8 \
   && pickle install zstd@0.15.2 \
   && curl -L -o /tmp/lz4.tar.gz https://github.com/kjdev/php-ext-lz4/archive/refs/heads/master.tar.gz \
   && tar -xzf /tmp/lz4.tar.gz -C /usr/src \
@@ -123,6 +124,7 @@ RUN set -eux \
     igbinary \
     imagick \
     lz4 \
+    mailparse \
     memcached \
     msgpack \
     redis \
