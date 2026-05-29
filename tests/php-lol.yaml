@@ -229,6 +229,12 @@ commandTests:
     exitCode: 0
     expectedOutput: ['lz4']
 
+  - name: 'mailparse extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i mailparse']
+    exitCode: 0
+    expectedOutput: ['mailparse']
+
   - name: 'mbstring extension is installed'
     command: 'sh'
     args: ['-c', 'php -m | grep -i mbstring']
