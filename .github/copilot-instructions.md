@@ -222,7 +222,7 @@ ci: add CodeQL security scanning workflow
    - Run as non-root user (65534:65534)
    - Set appropriate file permissions
    - Minimize installed packages
-4. **Add tests**: Create corresponding `<service>_spec.rb` file
+4. **Add tests**: Create corresponding `<service>.yaml` file in `tests/`
 5. **Document**: Update README.md if adding new service
 6. **Add to docker-compose**: Include service in docker-compose.yml
 
