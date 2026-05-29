@@ -19,7 +19,7 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/bin/dnscrypt-proxy']
     expectedOutput:
-      - '5d064b1648bdbb5ed6bd17f2eed955a1ba9a7141889876c606c02944e1803315'
+      - '429d8a21f51ac65cdaa89adc725098ff217153643aa126e1c946d914db48c2e4'
 
   - name: 'dnscrypt-proxy config checksum'
     command: 'sha256sum'
@@ -32,4 +32,4 @@ commandTests:
     args: ['-version']
     exitCode: 0
     expectedOutput:
-      - '2.1.2'
+      - '2.1.5'
