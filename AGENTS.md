@@ -1,4 +1,4 @@
-# GitHub Copilot Instructions for Dockerfiles Repository
+# Agent Instructions for Dockerfiles Repository
 
 ## Repository Overview
 
