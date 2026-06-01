@@ -54,7 +54,8 @@ FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PYTHONUSERBASE=/app \
-  PATH=$PATH:/app/bin/
+  PATH=$PATH:/app/bin/ \
+  VERSION=7.8.0
 
 ARG BUILD_DATE
 ARG VCS_REF
