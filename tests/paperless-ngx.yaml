@@ -1,10 +1,9 @@
 schemaVersion: '2.0.0'
 
 fileExistenceTests:
-  - name: 'paperless-ng binary exists'
-    path: '/app/bin/paperless-ng'
+  - name: 'manage.py exists'
+    path: '/app/manage.py'
     shouldExist: true
-    permissions: '-rwxr-xr-x'
     uid: 0
     gid: 0
   - name: 'nltk stopwords corpus exists'
@@ -13,10 +12,3 @@ fileExistenceTests:
   - name: 'nltk punkt_tab tokenizer exists'
     path: '/usr/share/nltk_data/tokenizers/punkt_tab'
     shouldExist: true
-
-commandTests:
-  - name: 'paperless-ng binary checksum'
-    command: 'sha256sum'
-    args: ['/app/bin/paperless-ng']
-    expectedOutput:
-      - 'TBD'
