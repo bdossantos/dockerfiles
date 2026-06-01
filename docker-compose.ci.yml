@@ -86,12 +86,6 @@ services:
       context: dockerfiles/tor
     image: bdossantos/tor
     container_name: tor
-  twemproxy:
-    <<: *default
-    build:
-      context: dockerfiles/twemproxy
-    image: bdossantos/twemproxy
-    container_name: twemproxy
   python-github-backup:
     <<: *default
     build:

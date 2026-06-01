@@ -6,7 +6,7 @@ This repository contains production-ready Dockerfiles for various applications i
 
 - Python-based services (anki, radicale, thumbor, python-github-backup)
 - PHP services (php-lol with multiple versions: 8.1, 8.2, 8.3, 8.4)
-- Networking tools (dnscrypt-proxy, tor, twemproxy)
+- Networking tools (dnscrypt-proxy, tor)
 - Infrastructure services (gcsfuse, resec, pingdom-exporter, paperless-ngx)
 - Development tools (pint)
 

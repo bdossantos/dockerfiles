@@ -30,7 +30,6 @@ jobs:
           - dockerfiles/resec/Dockerfile
           - dockerfiles/thumbor/Dockerfile
           - dockerfiles/tor/Dockerfile
-          - dockerfiles/twemproxy/Dockerfile
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # ratchet:actions/checkout@v6
       - name: Build and push
