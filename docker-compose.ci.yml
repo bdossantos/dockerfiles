@@ -92,6 +92,12 @@ services:
       context: dockerfiles/python-github-backup
     image: bdossantos/python-github-backup
     container_name: python-github-backup
+  memcached-proxy:
+    <<: *default
+    build:
+      context: dockerfiles/memcached-proxy
+    image: bdossantos/memcached-proxy
+    container_name: memcached-proxy
   anki:
     <<: *default
     build:
