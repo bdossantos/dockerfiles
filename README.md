@@ -21,7 +21,6 @@ multi-stage builds, pinned dependencies, and non-root users.
 | [resec](dockerfiles/resec) | [Resec](https://github.com/YotpoLtd/resec) – Redis high-availability agent using Consul |
 | [thumbor](dockerfiles/thumbor) | [Thumbor](https://www.thumbor.org/) smart image cropping and resizing service |
 | [tor](dockerfiles/tor) | [Tor](https://www.torproject.org/) anonymity network daemon |
-| [twemproxy](dockerfiles/twemproxy) | [Twemproxy](https://github.com/twitter/twemproxy) (nutcracker) – Memcached/Redis proxy |
 
 ## Requirements
 
