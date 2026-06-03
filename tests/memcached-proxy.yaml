@@ -5,8 +5,16 @@ fileExistenceTests:
     path: '/usr/local/lib/memcached/routelib.lua'
     shouldExist: true
     permissions: '-rw-r--r--'
+    uid: 65534
+    gid: 65534
 
 commandTests:
+  - name: 'routelib.lua SHA256 checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/lib/memcached/routelib.lua']
+    expectedOutput:
+      - '97aa953893995971dd39b4a15ba2ddc58445d81ea8a40f2ef70e88d2078764e9'
+
   - name: 'memcached version check'
     command: 'memcached'
     args: ['-V']
