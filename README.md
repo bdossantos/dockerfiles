@@ -12,6 +12,7 @@ multi-stage builds, pinned dependencies, and non-root users.
 |-------|-------------|
 | [anki](dockerfiles/anki) | [Anki](https://apps.ankiweb.net/) sync server for flashcard synchronization |
 | [dnscrypt-proxy](dockerfiles/dnscrypt-proxy) | [DNSCrypt](https://dnscrypt.info/) proxy with encrypted DNS support |
+| [memcached](dockerfiles/memcached) | [Memcached](https://memcached.org/) with built-in proxy support and embedded [routelib](https://github.com/memcached/memcached-proxylibs) |
 | [paperless-ngx](dockerfiles/paperless-ngx) | [Paperless-ngx](https://docs.paperless-ngx.com/) document management system |
 | [php-lol](dockerfiles/php-lol) | PHP-FPM with Nginx and common extensions (8.1, 8.2, 8.3, 8.4) |
 | [pingdom-exporter](dockerfiles/pingdom-exporter) | Prometheus exporter for Pingdom metrics |
