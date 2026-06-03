@@ -1,6 +1,19 @@
 # hadolint ignore=DL3006
 FROM memcached:1.6.42-trixie@sha256:26983a43c9181d37d0f9b0d2cf49c3ccf02e5b816afb1f8ffff7f825e65bcdad
 
+ARG BUILD_DATE
+ARG VCS_REF
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="memcached-proxy" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="memcached" \
+  org.label-schema.version="1.6.42"
+
 # This image is based on the official memcached:1.6.42-trixie image which is
 # compiled with --enable-proxy support.
 #
