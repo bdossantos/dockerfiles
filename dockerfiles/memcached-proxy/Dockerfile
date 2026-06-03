@@ -28,6 +28,8 @@ ADD --chmod=644 \
 
 EXPOSE 11211
 
+USER 65534:65534
+
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["memcached"]
