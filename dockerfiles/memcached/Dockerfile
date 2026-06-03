@@ -5,7 +5,7 @@ ARG BUILD_DATE
 ARG VCS_REF
 
 LABEL org.label-schema.build-date="$BUILD_DATE" \
-  org.label-schema.name="memcached-proxy" \
+  org.label-schema.name="memcached" \
   org.label-schema.schema-version="1.0" \
   org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
   org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
@@ -20,7 +20,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 # To boot the image in proxy mode using the embedded routelib:
 #
 #   docker run -v /path/to/proxy-config.lua:/etc/memcached/proxy.lua:ro \
-#     bdossantos/memcached-proxy \
+#     bdossantos/memcached \
 #     memcached -o proxy_config=/usr/local/lib/memcached/routelib.lua:/etc/memcached/proxy.lua
 #
 # For more information on memcached proxy configuration, see:

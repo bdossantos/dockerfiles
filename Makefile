@@ -60,7 +60,7 @@ container-structure-test: ## Run container-structure-test
 	@$(CWD)/bin/container-structure-test test --image bdossantos/resec --config tests/resec.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/thumbor --config tests/thumbor.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/tor --config tests/tor.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/memcached-proxy --config tests/memcached-proxy.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/memcached --config tests/memcached.yaml
 
 shellcheck: ## Run shellcheck on /scripts directory
 	$(info --> Run shellsheck)
