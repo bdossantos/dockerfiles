@@ -50,4 +50,5 @@ runs:
         context: ${{ steps.context.outputs.path }}
         file: ${{ inputs.dockerfile }}
         push: ${{ github.event_name != 'pull_request' }}
+        sbom: true
         tags: ${{ steps.context.outputs.tags }}
