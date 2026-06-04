@@ -12,6 +12,8 @@ on:
 jobs:
   discover:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     outputs:
       dockerfiles: ${{ steps.discover.outputs.dockerfiles }}
     steps:
@@ -24,6 +26,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
     needs: discover
     strategy:
       matrix:
