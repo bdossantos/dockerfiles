@@ -10,26 +10,24 @@ on:
       - master
 
 jobs:
+  discover:
+    runs-on: ubuntu-latest
+    outputs:
+      dockerfiles: ${{ steps.discover.outputs.dockerfiles }}
+    steps:
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
+      - name: Discover Dockerfiles
+        id: discover
+        run: |
+          dockerfiles=$(find dockerfiles -type f -name 'Dockerfile*' | sort | jq -R -s -c 'split("\n")[:-1]')
+          echo "dockerfiles=${dockerfiles}" >> $GITHUB_OUTPUT
+
   build:
     runs-on: ubuntu-latest
+    needs: discover
     strategy:
       matrix:
-        dockerfile:
-          # FIXME: replace by a `find . -type f -name 'Dockerfile*'`
-          - dockerfiles/anki/Dockerfile
-          - dockerfiles/dnscrypt-proxy/Dockerfile
-          - dockerfiles/paperless-ngx/Dockerfile
-          - dockerfiles/php-lol/Dockerfile.8.1
-          - dockerfiles/php-lol/Dockerfile.8.2
-          - dockerfiles/php-lol/Dockerfile.8.3
-          - dockerfiles/php-lol/Dockerfile.8.4
-          - dockerfiles/pingdom-exporter/Dockerfile
-          - dockerfiles/pint/Dockerfile
-          - dockerfiles/python-github-backup/Dockerfile
-          - dockerfiles/radicale/Dockerfile
-          - dockerfiles/resec/Dockerfile
-          - dockerfiles/thumbor/Dockerfile
-          - dockerfiles/tor/Dockerfile
+        dockerfile: ${{ fromJSON(needs.discover.outputs.dockerfiles) }}
     steps:
       - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # ratchet:actions/checkout@v6
       - name: Build and push
