@@ -28,7 +28,7 @@ runs:
       shell: bash
       id: context
       run: |
-        version=$(egrep ' VERSION=(.*)$' '${{ inputs.dockerfile }}' | sed 's/^.*=//')
+        version=$(grep -E '^\s*(ENV\s+)?VERSION=' '${{ inputs.dockerfile }}' | tail -1 | sed -E 's/^.*VERSION=([^ \\]+).*/\1/')
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
