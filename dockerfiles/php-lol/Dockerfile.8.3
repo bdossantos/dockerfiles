@@ -10,7 +10,7 @@ ENV \
   NGX_HTTP_GEOIP2_MODULE_VERSION=3.4 \
   VERSION=8.3.31
 
-ENV BUILD_DEPENDENCIES \
+ENV BUILD_DEPENDENCIES="\
   automake \
   build-essential \
   bzip2 \
@@ -35,7 +35,7 @@ ENV BUILD_DEPENDENCIES \
   libxml2-dev \
   libzip-dev \
   libzstd-dev \
-  zlib1g-dev
+  zlib1g-dev"
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -228,6 +228,7 @@ FROM foundation AS run
 
 ARG BUILD_DATE
 ARG VCS_REF
+ARG VERSION=8.3.31
 
 LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.name="php-lol" \
