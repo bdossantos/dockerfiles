@@ -44,12 +44,6 @@ services:
       dockerfile: Dockerfile.8.4
     image: bdossantos/php-lol
     container_name: php-lol84
-  privoxy:
-    <<: *default
-    build:
-      context: dockerfiles/privoxy
-    image: bdossantos/privoxy
-    container_name: privoxy
   pingdom-exporter:
     <<: *default
     build:
