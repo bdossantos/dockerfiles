@@ -16,11 +16,11 @@ RUN set -x \
     dirmngr=2.4.7-21+deb13u1+b3 \
     gnupg=2.4.7-21+deb13u1 \
     libevent-dev=2.1.12-stable-10+b1 \
-    libssl-dev=3.5.6-1~deb13u1 \
+    libssl-dev=3.5.6-1~deb13u2 \
     libtool-bin=2.5.4-4 \
     make=4.4.1-2 \
     net-tools=2.10-1.3 \
-    openssl=3.5.6-1~deb13u1 \
+    openssl=3.5.6-1~deb13u2 \
     pwgen=2.08-2 \
     wget=1.25.0-2 \
     zlib1g-dev=1:1.3.dfsg+really1.3.1-1+b1 \
@@ -101,8 +101,8 @@ RUN set -x \
     ca-certificates=20250419 \
     libevent-2.1-7t64=2.1.12-stable-10+b1 \
     libtorsocks=2.5.0-1+deb13u1 \
-    libssl-dev=3.5.6-1~deb13u1 \
-    openssl=3.5.6-1~deb13u1 \
+    libssl-dev=3.5.6-1~deb13u2 \
+    openssl=3.5.6-1~deb13u2 \
     torsocks=2.5.0-1+deb13u1 \
     wget=1.25.0-2 \
   && apt-get clean \
