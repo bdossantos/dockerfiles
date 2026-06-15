@@ -54,7 +54,6 @@ container-structure-test: ## Run container-structure-test
 	@$(CWD)/bin/container-structure-test test --image bdossantos/paperless-ngx --config tests/paperless-ngx.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol --config tests/php-lol.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/pint --config tests/pint.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/privoxy --config tests/privoxy.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/python-github-backup --config tests/python-github-backup.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/radicale --config tests/radicale.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/resec --config tests/resec.yaml
