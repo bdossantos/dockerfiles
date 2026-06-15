@@ -36,6 +36,8 @@ ADD --chmod=644 \
   https://raw.githubusercontent.com/memcached/memcached-proxylibs/${MEMCACHED_PROXYLIBS_VERSION}/lib/routelib/routelib.lua \
   /usr/local/lib/memcached/routelib.lua
 
+RUN chmod 755 /usr/local/lib/memcached
+
 EXPOSE 11211
 
 USER 65534:65534

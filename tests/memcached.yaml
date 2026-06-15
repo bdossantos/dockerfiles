@@ -1,6 +1,11 @@
 schemaVersion: '2.0.0'
 
 fileExistenceTests:
+  - name: 'memcached lib directory is traversable'
+    path: '/usr/local/lib/memcached'
+    shouldExist: true
+    permissions: 'drwxr-xr-x'
+
   - name: 'routelib.lua exists'
     path: '/usr/local/lib/memcached/routelib.lua'
     shouldExist: true
