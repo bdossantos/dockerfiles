@@ -58,7 +58,7 @@ ENV \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    curl=8.14.1-2+deb13u2 \
+    curl=8.14.1-2+deb13u3 \
     git=1:2.47.3-0+deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*

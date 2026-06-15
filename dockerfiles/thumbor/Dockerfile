@@ -15,16 +15,16 @@ RUN set -x \
   build-essential=12.12 \
   ca-certificates=20250419 \
   cairosvg=2.7.1-2 \
-  ffmpeg=7:7.1.3-0+deb13u1 \
+  ffmpeg=7:7.1.4-0+deb13u1 \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
   libavif-dev=1.2.1-1.2 \
   libcairo2-dev=1.18.4-1+b1 \
-  libcurl4-openssl-dev=8.14.1-2+deb13u2 \
+  libcurl4-openssl-dev=8.14.1-2+deb13u3 \
   libgraphicsmagick++1-dev=1.4+really1.3.45+hg17696-1 \
   libjpeg-dev=1:2.1.5-4 \
   libopencv-dev=4.10.0+dfsg-5 \
   libpng-dev=1.6.48-1+deb13u5 \
-  libssl-dev=3.5.6-1~deb13u1 \
+  libssl-dev=3.5.6-1~deb13u2 \
   libtiff5-dev=4.7.0-3+deb13u2 \
   webp=1.5.0-0.1 \
   && python -m pip install --upgrade pip \
@@ -82,11 +82,11 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
   ca-certificates=20250419 \
   cairosvg=2.7.1-2 \
-  ffmpeg=7:7.1.3-0+deb13u1 \
+  ffmpeg=7:7.1.4-0+deb13u1 \
   gifsicle=1.96-1 \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
   libavif16=1.2.1-1.2 \
-  libcurl4t64=8.14.1-2+deb13u2 \
+  libcurl4t64=8.14.1-2+deb13u3 \
   libjpeg-turbo-progs=1:2.1.5-4 \
   webp=1.5.0-0.1 \
   && apt-get clean \
