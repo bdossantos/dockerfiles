@@ -1,3 +1,17 @@
+# Build
+FROM debian:12-slim AS build
+
+ENV MEMCACHED_PROXYLIBS_VERSION=e3c024fb0d020fee4b57a8e5a4694e74c05d85c6
+
+RUN mkdir -p /usr/local/lib/memcached \
+  && chmod 755 /usr/local/lib/memcached
+
+ADD --chmod=644 \
+  --checksum=sha256:97aa953893995971dd39b4a15ba2ddc58445d81ea8a40f2ef70e88d2078764e9 \
+  https://raw.githubusercontent.com/memcached/memcached-proxylibs/${MEMCACHED_PROXYLIBS_VERSION}/lib/routelib/routelib.lua \
+  /usr/local/lib/memcached/routelib.lua
+
+# Run
 # hadolint ignore=DL3006
 FROM memcached:1.6.42-trixie@sha256:26983a43c9181d37d0f9b0d2cf49c3ccf02e5b816afb1f8ffff7f825e65bcdad
 
@@ -29,15 +43,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 #   https://docs.memcached.org/features/proxy/install/
 #   https://docs.memcached.org/features/proxy/
 
-ENV MEMCACHED_PROXYLIBS_VERSION=e3c024fb0d020fee4b57a8e5a4694e74c05d85c6
-
-RUN mkdir -p /usr/local/lib/memcached \
-  && chmod 755 /usr/local/lib/memcached
-
-ADD --chmod=644 \
-  --checksum=sha256:97aa953893995971dd39b4a15ba2ddc58445d81ea8a40f2ef70e88d2078764e9 \
-  https://raw.githubusercontent.com/memcached/memcached-proxylibs/${MEMCACHED_PROXYLIBS_VERSION}/lib/routelib/routelib.lua \
-  /usr/local/lib/memcached/routelib.lua
+COPY --from=build --chown=65534:65534 /usr/local/lib/memcached /usr/local/lib/memcached
 
 EXPOSE 11211
 
