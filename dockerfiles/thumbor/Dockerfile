@@ -15,7 +15,7 @@ RUN set -x \
   build-essential=12.12 \
   ca-certificates=20250419 \
   cairosvg=2.7.1-2 \
-  ffmpeg=7:7.1.4-0+deb13u1 \
+  ffmpeg=7:7.1.5-0+deb13u1 \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
   libavif-dev=1.2.1-1.2 \
   libcairo2-dev=1.18.4-1+b1 \
@@ -82,7 +82,7 @@ RUN set -x \
   && apt-get install -y --no-install-recommends \
   ca-certificates=20250419 \
   cairosvg=2.7.1-2 \
-  ffmpeg=7:7.1.4-0+deb13u1 \
+  ffmpeg=7:7.1.5-0+deb13u1 \
   gifsicle=1.96-1 \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
   libavif16=1.2.1-1.2 \
