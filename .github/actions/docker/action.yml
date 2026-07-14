@@ -32,6 +32,9 @@ runs:
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
+        if [[ -f "$(dirname ${{ inputs.dockerfile }})/.rootless" ]]; then
+          tags=${tags},bdossantos/${image_name}:latest-rootless,bdossantos/${image_name}:${version}-rootless,bdossantos/${image_name}:${version%.*}-rootless
+        fi
         cache_image=bdossantos/${image_name}:buildcache
         echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
         echo "cache_image=${cache_image}" >> $GITHUB_OUTPUT
