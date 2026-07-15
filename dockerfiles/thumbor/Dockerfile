@@ -19,7 +19,7 @@ RUN set -x \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
   libavif-dev=1.2.1-1.2 \
   libcairo2-dev=1.18.4-1+b1 \
-  libcurl4-openssl-dev=8.14.1-2+deb13u3 \
+  libcurl4-openssl-dev=8.14.1-2+deb13u4 \
   libgraphicsmagick++1-dev=1.4+really1.3.45+hg17696-1 \
   libjpeg-dev=1:2.1.5-4 \
   libopencv-dev=4.10.0+dfsg-5 \
@@ -86,7 +86,7 @@ RUN set -x \
   gifsicle=1.96-1 \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
   libavif16=1.2.1-1.2 \
-  libcurl4t64=8.14.1-2+deb13u3 \
+  libcurl4t64=8.14.1-2+deb13u4 \
   libjpeg-turbo-progs=1:2.1.5-4 \
   webp=1.5.0-0.1 \
   && apt-get clean \
