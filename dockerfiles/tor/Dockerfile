@@ -13,7 +13,7 @@ RUN set -x \
     automake=1:1.17-4 \
     build-essential=12.12 \
     ca-certificates=20250419 \
-    dirmngr=2.4.7-21+deb13u1+b3 \
+    dirmngr=2.4.7-21+deb13u1+b4 \
     gnupg=2.4.7-21+deb13u1 \
     libevent-dev=2.1.12-stable-10+b1 \
     libssl-dev=3.5.6-1~deb13u2 \
@@ -65,7 +65,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.4.9.8-0+deb13u1 \
+    tor-geoipdb=0.4.9.11-0+deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
