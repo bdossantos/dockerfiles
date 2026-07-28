@@ -53,11 +53,13 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && ./node_modules/.bin/ng build --configuration production \
   && mv /usr/local/src/paperless-ngx/src/* /app/ \
   && uv export --quiet --no-dev --all-extras --format requirements-txt --output-file requirements.txt \
-  && echo '--extra-index-url https://download.pytorch.org/whl/cpu' >> requirements.txt \
   && uv pip install \
   --no-cache-dir \
   --no-python-downloads \
   --prefix="${PYTHONUSERBASE}" \
+  --index https://pypi.org/simple \
+  --index https://download.pytorch.org/whl/cpu \
+  --index-strategy unsafe-best-match \
   --requirements requirements.txt \
   && pushd /app \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
