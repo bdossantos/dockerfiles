@@ -65,8 +65,8 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' stopwords \
   && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' punkt_tab \
-  && python3 manage.py collectstatic --clear --no-input --link \
-  && python3 manage.py compilemessages \
+  && PAPERLESS_SECRET_KEY=build-time-dummy python3 manage.py collectstatic --clear --no-input --link \
+  && PAPERLESS_SECRET_KEY=build-time-dummy python3 manage.py compilemessages \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
