@@ -6,14 +6,46 @@ updates:
     schedule:
       interval: daily
       time: "04:00"
+      timezone: "UTC"
+    target-branch: master
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      docker-dependencies:
+        patterns:
+          - "*"
     open-pull-requests-limit: 10
   - package-ecosystem: pip
     directory: "/"
     schedule:
       interval: daily
       time: "04:00"
+      timezone: "UTC"
+    target-branch: master
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
     open-pull-requests-limit: 10
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: daily
+      time: "04:00"
+      timezone: "UTC"
+    target-branch: master
+    labels:
+      - dependencies
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      github-actions-dependencies:
+        patterns:
+          - "*"
+    open-pull-requests-limit: 10
