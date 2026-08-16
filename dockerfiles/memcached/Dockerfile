@@ -13,12 +13,12 @@ ADD --chmod=644 \
 
 # Run
 # hadolint ignore=DL3006
-FROM memcached:1.6.42-trixie@sha256:26983a43c9181d37d0f9b0d2cf49c3ccf02e5b816afb1f8ffff7f825e65bcdad
+FROM memcached:1.6.45-trixie@sha256:eeb9eaa939ffaa2304899674c9e88a9247ec8e5e40e424a892df7b09914bd2ec
 
 ARG BUILD_DATE
 ARG VCS_REF
 
-ENV VERSION=1.6.42
+ENV VERSION=1.6.45
 
 LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.name="memcached" \
@@ -30,7 +30,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.vendor="memcached" \
   org.label-schema.version="$VERSION"
 
-# This image is based on the official memcached:1.6.42-trixie image which is
+# This image is based on the official memcached:1.6.45-trixie image which is
 # compiled with --enable-proxy support.
 #
 # To boot the image in proxy mode using the embedded routelib:
