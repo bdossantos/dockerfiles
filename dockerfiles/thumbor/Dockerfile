@@ -24,8 +24,8 @@ RUN set -x \
   libjpeg-dev=1:2.1.5-4 \
   libopencv-dev=4.10.0+dfsg-5 \
   libpng-dev=1.6.48-1+deb13u5 \
-  libssl-dev=3.5.6-1~deb13u2 \
-  libtiff5-dev=4.7.0-3+deb13u2 \
+  libssl-dev=3.5.7-1~deb13u2 \
+  libtiff5-dev=4.7.0-3+deb13u3 \
   webp=1.5.0-0.1 \
   && python -m pip install --upgrade pip \
   && pip install \
