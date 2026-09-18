@@ -30,6 +30,13 @@ services:
       dockerfile: Dockerfile.8.4
     image: bdossantos/php-lol
     container_name: php-lol84
+  php-lol85:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.5
+    image: bdossantos/php-lol
+    container_name: php-lol85
   pingdom-exporter:
     <<: *default
     build:
