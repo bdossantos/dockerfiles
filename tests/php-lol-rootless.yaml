@@ -112,7 +112,7 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf']
     expectedOutput:
-      - '0d66730a9658f8c8553e73878b214a5c96084248a406660f593299f8dc8940ab'
+      - '3832a8a0902e318692ddee03be0a1d85d0ec8247388dac04863eff46313fe867'
 
   - name: 'php hardening config checksum'
     command: 'sha256sum'
@@ -155,6 +155,24 @@ commandTests:
     args: ['-g']
     exitCode: 0
     expectedOutput: ['65534']
+
+  - name: 'rootless supervisord can start services'
+    command: 'sh'
+    args:
+      - '-ceu'
+      - |
+        /usr/bin/supervisord -c /etc/supervisor/supervisord.conf &
+        pid=$!
+        trap 'kill "$pid"' EXIT
+        for _ in 1 2 3 4 5; do
+          if /usr/bin/supervisorctl status >/tmp/supervisor-status; then
+            break
+          fi
+          sleep 1
+        done
+        grep -E '^php-fpm\\s+RUNNING' /tmp/supervisor-status
+        grep -E '^nginx\\s+RUNNING' /tmp/supervisor-status
+    exitCode: 0
 
   - name: 'php-fpm config test'
     command: '/usr/local/sbin/php-fpm'
