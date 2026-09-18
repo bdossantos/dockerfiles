@@ -12,7 +12,7 @@ ENV \
   LIBMAXMINDDB_VERSION=1.7.1 \
   MAILPARSE_VERSION=3.2.0 \
   MEMCACHED_VERSION=3.4.0 \
-  MSGPACK_VERSION=3.0.1 \
+  MSGPACK_VERSION=v3.0.1 \
   NGINX_VERSION=1.30.4 \
   NGX_HTTP_GEOIP2_MODULE_VERSION=3.4 \
   REDIS_VERSION=6.3.0 \
@@ -84,7 +84,7 @@ RUN set -eux \
   && make -j"$(nproc)" \
   && make install \
   && popd \
-  && git clone --depth 1 --branch "msgpack-${MSGPACK_VERSION}" \
+  && git clone --depth 1 --branch "${MSGPACK_VERSION}" \
     https://github.com/msgpack/msgpack-php /usr/src/msgpack \
   && pushd /usr/src/msgpack \
   && phpize \
