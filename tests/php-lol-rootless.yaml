@@ -1,0 +1,366 @@
+schemaVersion: '2.0.0'
+
+fileExistenceTests:
+  - name: 'nginx binary exists'
+    path: '/usr/sbin/nginx'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'php binary exists'
+    path: '/usr/local/bin/php'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'php-fpm binary exists'
+    path: '/usr/local/sbin/php-fpm'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'php.ini exists'
+    path: '/usr/local/etc/php/php.ini'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'apcu config exists'
+    path: '/usr/local/etc/php/conf.d/zzz-apcu.ini'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'opcache config exists'
+    path: '/usr/local/etc/php/conf.d/zzz-opcache.ini'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'php-fpm tuning config exists'
+    path: '/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'php hardening config exists'
+    path: '/usr/local/etc/php/conf.d/zzz-php-hardening.ini'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'nginx.conf exists'
+    path: '/etc/nginx/nginx.conf'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'nginx mime.types exists'
+    path: '/etc/nginx/mime.types'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'supervisord.conf exists'
+    path: '/etc/supervisor/supervisord.conf'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'supervisor app.conf exists'
+    path: '/etc/supervisor/conf.d/app.conf'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 0
+    gid: 0
+
+  - name: 'GeoIP.dat exists'
+    path: '/usr/share/GeoIP/GeoIP.dat'
+    shouldExist: true
+    permissions: '-rw-r--r--'
+
+  - name: 'GeoIPv6.dat exists'
+    path: '/usr/share/GeoIP/GeoIPv6.dat'
+    shouldExist: true
+    permissions: '-rw-r--r--'
+
+commandTests:
+  - name: 'apcu config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php/conf.d/zzz-apcu.ini']
+    expectedOutput:
+      - 'db8d511610fd562151560c67707d4712900164b371687e4cb75f15f6fd62a9d6'
+
+  - name: 'opcache config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php/conf.d/zzz-opcache.ini']
+    expectedOutput:
+      - 'f37b923b4f54a8062782cef3cd260ea5cdac5b9f5cfa2a17915168dd17e7a433'
+
+  - name: 'php-fpm tuning config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf']
+    expectedOutput:
+      - '3832a8a0902e318692ddee03be0a1d85d0ec8247388dac04863eff46313fe867'
+
+  - name: 'php hardening config checksum'
+    command: 'sha256sum'
+    args: ['/usr/local/etc/php/conf.d/zzz-php-hardening.ini']
+    expectedOutput:
+      - '489ba97dca079d84e7dc21afb68b0acf7954da8ad150279be70053dce7243f83'
+
+  - name: 'nginx.conf checksum'
+    command: 'sha256sum'
+    args: ['/etc/nginx/nginx.conf']
+    expectedOutput:
+      - '5781e761d4fff195797e1461fb85b3e5381fb6f0eef5e6e7463ec9f3b96f399b'
+
+  - name: 'nginx mime.types checksum'
+    command: 'sha256sum'
+    args: ['/etc/nginx/mime.types']
+    expectedOutput:
+      - 'ac27e1f587ecebc46ded3265479efdc6cb2f711c22e8221dadb00b7b4db55369'
+
+  - name: 'supervisord.conf checksum'
+    command: 'sha256sum'
+    args: ['/etc/supervisor/supervisord.conf']
+    expectedOutput:
+      - '7c1b6af616372d69f9beb279834b4b9bab0deb31ed454a21193b563817bf9304'
+
+  - name: 'supervisor app.conf checksum'
+    command: 'sha256sum'
+    args: ['/etc/supervisor/conf.d/app.conf']
+    expectedOutput:
+      - 'ffaca82839725c81b62f59a5da6fc941f2643eee5e649654725e01c80b28b1b4'
+
+  - name: 'default user uid is nobody'
+    command: 'id'
+    args: ['-u']
+    exitCode: 0
+    expectedOutput: ['65534']
+
+  - name: 'default user gid is nogroup'
+    command: 'id'
+    args: ['-g']
+    exitCode: 0
+    expectedOutput: ['65534']
+
+  - name: 'rootless supervisord can start services'
+    command: 'sh'
+    args:
+      - '-ceu'
+      - |
+        /usr/bin/supervisord -c /etc/supervisor/supervisord.conf &
+        pid=$!
+        trap 'kill "$pid"' EXIT
+        rm -f /dev/shm/supervisor-status
+        started=
+        for _ in 1 2 3 4 5; do
+          if /usr/bin/supervisorctl status >/dev/shm/supervisor-status; then
+            started=1
+            break
+          fi
+          sleep 1
+        done
+        test -n "$started"
+        grep -E '^php-fpm\\s+RUNNING' /dev/shm/supervisor-status
+        grep -E '^nginx\\s+RUNNING' /dev/shm/supervisor-status
+    exitCode: 0
+
+  - name: 'php-fpm config test'
+    command: '/usr/local/sbin/php-fpm'
+    args: ['-t']
+    exitCode: 0
+
+  - name: 'nginx config test'
+    command: '/usr/sbin/nginx'
+    args: ['-t']
+    exitCode: 0
+    expectedError:
+      - 'nginx: the configuration file /etc/nginx/nginx.conf syntax is ok'
+      - 'nginx: configuration file /etc/nginx/nginx.conf test is successful'
+
+  - name: 'amqp extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i amqp']
+    exitCode: 0
+    expectedOutput: ['amqp']
+
+  - name: 'apcu extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i apcu']
+    exitCode: 0
+    expectedOutput: ['apcu']
+
+  - name: 'bcmath extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i bcmath']
+    exitCode: 0
+    expectedOutput: ['bcmath']
+
+  - name: 'bz2 extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i bz2']
+    exitCode: 0
+    expectedOutput: ['bz2']
+
+  - name: 'exif extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i exif']
+    exitCode: 0
+    expectedOutput: ['exif']
+
+  - name: 'gd extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i gd']
+    exitCode: 0
+    expectedOutput: ['gd']
+
+  - name: 'iconv extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i iconv']
+    exitCode: 0
+    expectedOutput: ['iconv']
+
+  - name: 'igbinary extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i igbinary']
+    exitCode: 0
+    expectedOutput: ['igbinary']
+
+  - name: 'imap extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i imap']
+    exitCode: 0
+    expectedOutput: ['imap']
+
+  - name: 'imagick extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i imagick']
+    exitCode: 0
+    expectedOutput: ['imagick']
+
+  - name: 'intl extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i intl']
+    exitCode: 0
+    expectedOutput: ['intl']
+
+  - name: 'lz4 extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i lz4']
+    exitCode: 0
+    expectedOutput: ['lz4']
+
+  - name: 'mailparse extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i mailparse']
+    exitCode: 0
+    expectedOutput: ['mailparse']
+
+  - name: 'mbstring extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i mbstring']
+    exitCode: 0
+    expectedOutput: ['mbstring']
+
+  - name: 'memcached extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i memcached']
+    exitCode: 0
+    expectedOutput: ['memcached']
+
+  - name: 'msgpack extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i msgpack']
+    exitCode: 0
+    expectedOutput: ['msgpack']
+
+  - name: 'pcntl extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i pcntl']
+    exitCode: 0
+    expectedOutput: ['pcntl']
+
+  - name: 'pdo_mysql extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i pdo_mysql']
+    exitCode: 0
+    expectedOutput: ['pdo_mysql']
+
+  - name: 'pdo_pgsql extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i pdo_pgsql']
+    exitCode: 0
+    expectedOutput: ['pdo_pgsql']
+
+  - name: 'pgsql extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i pgsql']
+    exitCode: 0
+    expectedOutput: ['pgsql']
+
+  - name: 'posix extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i posix']
+    exitCode: 0
+    expectedOutput: ['posix']
+
+  - name: 'redis extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i redis']
+    exitCode: 0
+    expectedOutput: ['redis']
+
+  - name: 'soap extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i soap']
+    exitCode: 0
+    expectedOutput: ['soap']
+
+  - name: 'sockets extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i sockets']
+    exitCode: 0
+    expectedOutput: ['sockets']
+
+  - name: 'sodium extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i sodium']
+    exitCode: 0
+    expectedOutput: ['sodium']
+
+  - name: 'tidy extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i tidy']
+    exitCode: 0
+    expectedOutput: ['tidy']
+
+  - name: 'xmlreader extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i xmlreader']
+    exitCode: 0
+    expectedOutput: ['xmlreader']
+
+  - name: 'zip extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i zip']
+    exitCode: 0
+    expectedOutput: ['zip']
+
+  - name: 'zstd extension is installed'
+    command: 'sh'
+    args: ['-c', 'php -m | grep -i zstd']
+    exitCode: 0
+    expectedOutput: ['zstd']

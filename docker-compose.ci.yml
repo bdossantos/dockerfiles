@@ -21,22 +21,46 @@ services:
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.8.3
-    image: bdossantos/php-lol
+    image: bdossantos/php-lol83
     container_name: php-lol83
   php-lol84:
     <<: *default
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.8.4
-    image: bdossantos/php-lol
+    image: bdossantos/php-lol84
     container_name: php-lol84
   php-lol85:
     <<: *default
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.8.5
-    image: bdossantos/php-lol
+    image: bdossantos/php-lol85
     container_name: php-lol85
+  php-lol83-rootless:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.3
+      target: run-rootless
+    image: bdossantos/php-lol83-rootless
+    container_name: php-lol83-rootless
+  php-lol84-rootless:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.4
+      target: run-rootless
+    image: bdossantos/php-lol84-rootless
+    container_name: php-lol84-rootless
+  php-lol85-rootless:
+    <<: *default
+    build:
+      context: dockerfiles/php-lol
+      dockerfile: Dockerfile.8.5
+      target: run-rootless
+    image: bdossantos/php-lol85-rootless
+    container_name: php-lol85-rootless
   pingdom-exporter:
     <<: *default
     build:
