@@ -165,13 +165,13 @@ commandTests:
         pid=$!
         trap 'kill "$pid"' EXIT
         for _ in 1 2 3 4 5; do
-          if /usr/bin/supervisorctl status >/tmp/supervisor-status; then
+          if /usr/bin/supervisorctl status >/dev/shm/supervisor-status; then
             break
           fi
           sleep 1
         done
-        grep -E '^php-fpm\\s+RUNNING' /tmp/supervisor-status
-        grep -E '^nginx\\s+RUNNING' /tmp/supervisor-status
+        grep -E '^php-fpm\\s+RUNNING' /dev/shm/supervisor-status
+        grep -E '^nginx\\s+RUNNING' /dev/shm/supervisor-status
     exitCode: 0
 
   - name: 'php-fpm config test'
