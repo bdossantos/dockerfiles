@@ -71,11 +71,11 @@ RUN set -eux \
   && pickle install igbinary@3.2.16 \
   && echo "--enable-memcached-igbinary --enable-memcached-msgpack" > memcached_options \
   && echo "--enable-redis-igbinary --enable-redis-msgpack" > redis_options \
-  && pickle install msgpack@3.0.0 \
+  && pickle install msgpack@3.0.1 \
   && pickle install --no-interaction --with-configure-options="memcached_options" memcached@3.4.0 \
   && pickle install --no-interaction --with-configure-options="redis_options" redis@6.3.0 \
-  && pickle install mailparse@3.1.8 \
-  && pickle install zstd@0.15.2 \
+  && pickle install mailparse@3.2.0 \
+  && pickle install zstd@0.18.0 \
   && curl -L -o /tmp/lz4.tar.gz https://github.com/kjdev/php-ext-lz4/archive/refs/heads/master.tar.gz \
   && tar -xzf /tmp/lz4.tar.gz -C /usr/src \
   && mv /usr/src/php-ext-lz4-master /usr/src/php-ext-lz4 \
@@ -199,7 +199,7 @@ RUN set -eux \
 VOLUME /etc/nginx/conf.d
 
 # hadolint ignore=DL3022
-COPY --from=composer:2.8 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:2.10 /usr/bin/composer /usr/bin/composer
 COPY app.conf /etc/supervisor/conf.d/app.conf
 COPY entrypoint.sh /entrypoint.sh
 COPY mime.types /etc/nginx/mime.types
