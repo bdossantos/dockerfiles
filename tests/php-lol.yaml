@@ -112,7 +112,7 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf']
     expectedOutput:
-      - 'e3772ca736903a1a4c27a715adae6c2ef35059119b527cefb30bac50af94ffef'
+      - '0d66730a9658f8c8553e73878b214a5c96084248a406660f593299f8dc8940ab'
 
   - name: 'php hardening config checksum'
     command: 'sha256sum'
