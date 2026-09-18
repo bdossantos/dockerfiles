@@ -58,6 +58,24 @@ container-structure-test: ## Run container-structure-test
 	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol83-rootless --config tests/php-lol-rootless.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol84-rootless --config tests/php-lol-rootless.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol85-rootless --config tests/php-lol-rootless.yaml
+	@for image in bdossantos/php-lol83-rootless bdossantos/php-lol84-rootless bdossantos/php-lol85-rootless; do \
+		docker run --rm --read-only --tmpfs /dev/shm --entrypoint sh $$image -ceu '\
+			/usr/bin/supervisord -c /etc/supervisor/supervisord.conf & \
+			pid=$$!; \
+			trap "kill $$pid" EXIT; \
+			rm -f /dev/shm/supervisor-status; \
+			started=; \
+			for _ in 1 2 3 4 5; do \
+				if /usr/bin/supervisorctl status >/dev/shm/supervisor-status; then \
+					started=1; \
+					break; \
+				fi; \
+				sleep 1; \
+			done; \
+			test -n "$$started"; \
+			grep -E "^php-fpm\\s+RUNNING" /dev/shm/supervisor-status; \
+			grep -E "^nginx\\s+RUNNING" /dev/shm/supervisor-status'; \
+	done
 	@$(CWD)/bin/container-structure-test test --image bdossantos/pint --config tests/pint.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/python-github-backup --config tests/python-github-backup.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/radicale --config tests/radicale.yaml

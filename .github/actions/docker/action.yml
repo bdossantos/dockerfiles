@@ -36,7 +36,7 @@ runs:
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
         if [[ -f "$(dirname ${{ inputs.dockerfile }})/.rootless" ]]; then
           rootless=true
-          rootless_tags=bdossantos/${image_name}:${version}-rootless,bdossantos/${image_name}:${version}-${vcs_ref}-rootless,bdossantos/${image_name}:${version%.*}-rootless
+          rootless_tags=bdossantos/${image_name}:latest-rootless,bdossantos/${image_name}:${version}-rootless,bdossantos/${image_name}:${version}-${vcs_ref}-rootless,bdossantos/${image_name}:${version%.*}-rootless
         fi
         cache_image=bdossantos/${image_name}:buildcache
         echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT

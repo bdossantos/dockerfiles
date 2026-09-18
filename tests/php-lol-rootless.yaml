@@ -164,12 +164,16 @@ commandTests:
         /usr/bin/supervisord -c /etc/supervisor/supervisord.conf &
         pid=$!
         trap 'kill "$pid"' EXIT
+        rm -f /dev/shm/supervisor-status
+        started=
         for _ in 1 2 3 4 5; do
           if /usr/bin/supervisorctl status >/dev/shm/supervisor-status; then
+            started=1
             break
           fi
           sleep 1
         done
+        test -n "$started"
         grep -E '^php-fpm\\s+RUNNING' /dev/shm/supervisor-status
         grep -E '^nginx\\s+RUNNING' /dev/shm/supervisor-status
     exitCode: 0
