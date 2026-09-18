@@ -13,9 +13,9 @@ RUN set -x \
     automake=1:1.17-4 \
     build-essential=12.12 \
     ca-certificates=20250419 \
-    dirmngr=2.4.7-21+deb13u1+b4 \
+    dirmngr=2.4.7-21+deb13u1+b5 \
     gnupg=2.4.7-21+deb13u1 \
-    libevent-dev=2.1.12-stable-10+b1 \
+    libevent-dev=2.1.13-stable-1~deb13u1 \
     libssl-dev=3.5.7-1~deb13u2 \
     libtool-bin=2.5.4-4 \
     make=4.4.1-2 \
@@ -65,7 +65,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    tor-geoipdb=0.4.9.11-0+deb13u1 \
+    tor-geoipdb=0.4.9.12-0+deb13u2 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
@@ -99,7 +99,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
     ca-certificates=20250419 \
-    libevent-2.1-7t64=2.1.12-stable-10+b1 \
+    libevent-2.1-7t64=2.1.13-stable-1~deb13u1 \
     libtorsocks=2.5.0-1+deb13u1 \
     libssl-dev=3.5.7-1~deb13u2 \
     openssl=3.5.7-1~deb13u2 \
