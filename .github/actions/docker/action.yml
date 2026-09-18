@@ -31,14 +31,19 @@ runs:
         version=$(grep -E '^\s*(ENV\s+)?VERSION=' '${{ inputs.dockerfile }}' | tail -1 | sed -E 's/^.*VERSION=([^ \\]+).*/\1/')
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
+        rootless=false
+        rootless_tags=
         tags=bdossantos/${image_name}:latest,bdossantos/${image_name}:${version},bdossantos/${image_name}:${version}-${vcs_ref},bdossantos/${image_name}:${version%.*}
         if [[ -f "$(dirname ${{ inputs.dockerfile }})/.rootless" ]]; then
-          tags=${tags},bdossantos/${image_name}:${version}-rootless,bdossantos/${image_name}:${version%.*}-rootless
+          rootless=true
+          rootless_tags=bdossantos/${image_name}:${version}-rootless,bdossantos/${image_name}:${version%.*}-rootless
         fi
         cache_image=bdossantos/${image_name}:buildcache
         echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
         echo "cache_image=${cache_image}" >> $GITHUB_OUTPUT
         echo "path=$(dirname ${{ inputs.dockerfile }})" >> $GITHUB_OUTPUT
+        echo "rootless=${rootless}" >> $GITHUB_OUTPUT
+        echo "rootless_tags=${rootless_tags}" >> $GITHUB_OUTPUT
         echo "tags=${tags}" >> $GITHUB_OUTPUT
         echo "vcs_ref=${vcs_ref}" >> $GITHUB_OUTPUT
 
@@ -55,3 +60,19 @@ runs:
         push: ${{ github.event_name != 'pull_request' }}
         sbom: true
         tags: ${{ steps.context.outputs.tags }}
+
+    - name: Build and push rootless docker image
+      if: steps.context.outputs.rootless == 'true'
+      uses: docker/build-push-action@v6
+      with:
+        build-args: |
+          BUILD_DATE=${{ steps.context.outputs.build_date }}
+          VCS_REF=${{ steps.context.outputs.vcs_ref }}
+        cache-from: type=registry,ref=${{ steps.context.outputs.cache_image }}
+        cache-to: type=registry,ref=${{ steps.context.outputs.cache_image }},mode=max
+        context: ${{ steps.context.outputs.path }}
+        file: ${{ inputs.dockerfile }}
+        push: ${{ github.event_name != 'pull_request' }}
+        sbom: true
+        tags: ${{ steps.context.outputs.rootless_tags }}
+        target: run-rootless

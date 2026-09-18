@@ -52,7 +52,12 @@ container-structure-test: ## Run container-structure-test
 	$(info --> Run container-structure-test)
 	@$(CWD)/bin/container-structure-test test --image bdossantos/dnscrypt-proxy --config tests/dnscrypt-proxy.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/paperless-ngx --config tests/paperless-ngx.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol --config tests/php-lol.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol83 --config tests/php-lol.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol84 --config tests/php-lol.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol85 --config tests/php-lol.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol83-rootless --config tests/php-lol-rootless.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol84-rootless --config tests/php-lol-rootless.yaml
+	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol85-rootless --config tests/php-lol-rootless.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/pint --config tests/pint.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/python-github-backup --config tests/python-github-backup.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/radicale --config tests/radicale.yaml
