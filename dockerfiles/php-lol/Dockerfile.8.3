@@ -222,9 +222,11 @@ RUN chmod 0444 \
   /usr/local/etc/php/php.ini
 
 #
-# Run
+# Runtime
 #
-FROM foundation AS run
+# Shared by the "rootless" and "run" stages, ports are declared per stage.
+#
+FROM foundation AS runtime
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -250,18 +252,13 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 
 WORKDIR /usr/src/app
 
-EXPOSE 80/tcp 443/tcp
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
-
 #
 # Rootless
 #
 # Same as "run", but the whole process tree (supervisord, php-fpm, nginx) runs
 # as 65534:65534 and nginx listens on unprivileged port 8080.
 #
-FROM run AS rootless
+FROM runtime AS rootless
 
 RUN set -eux \
   && sed -i -e '/^user /d' -e 's/listen \[::\]:80 /listen [::]:8080 /' -e 's/listen 80 /listen 8080 /' /etc/nginx/nginx.conf \
@@ -274,3 +271,18 @@ RUN set -eux \
 EXPOSE 8080/tcp
 
 USER 65534:65534
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+#
+# Run
+#
+# Last stage: plain "docker build" keeps producing the port 80 image.
+#
+FROM runtime AS run
+
+EXPOSE 80/tcp 443/tcp
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]

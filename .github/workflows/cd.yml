@@ -60,3 +60,4 @@ jobs:
           registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
           target: rootless
           tag_suffix: -rootless
+          tag_latest: ${{ matrix.dockerfile == 'dockerfiles/php-lol/Dockerfile.8.5' }}

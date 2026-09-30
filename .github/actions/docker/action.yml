@@ -17,6 +17,11 @@ inputs:
     required: false
     default: ""
 
+  tag_latest:
+    description: "Whether to also publish the latest tag"
+    required: false
+    default: "true"
+
 runs:
   using: "composite"
   steps:
@@ -40,7 +45,11 @@ runs:
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
         suffix='${{ inputs.tag_suffix }}'
-        tags=bdossantos/${image_name}:latest${suffix},bdossantos/${image_name}:${version}${suffix},bdossantos/${image_name}:${version}-${vcs_ref}${suffix},bdossantos/${image_name}:${version%.*}${suffix}
+        tags=""
+        if [ '${{ inputs.tag_latest }}' = 'true' ]; then
+          tags=bdossantos/${image_name}:latest${suffix},
+        fi
+        tags=${tags}bdossantos/${image_name}:${version}${suffix},bdossantos/${image_name}:${version}-${vcs_ref}${suffix},bdossantos/${image_name}:${version%.*}${suffix}
         cache_image=bdossantos/${image_name}:buildcache${suffix}
         echo "build_date=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
         echo "cache_image=${cache_image}" >> $GITHUB_OUTPUT
