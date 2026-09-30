@@ -21,6 +21,7 @@ services:
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.8.3
+      target: run
     image: bdossantos/php-lol
     container_name: php-lol83
   php-lol84:
@@ -28,6 +29,7 @@ services:
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.8.4
+      target: run
     image: bdossantos/php-lol
     container_name: php-lol84
   php-lol85:
@@ -35,6 +37,7 @@ services:
     build:
       context: dockerfiles/php-lol
       dockerfile: Dockerfile.8.5
+      target: run
     image: bdossantos/php-lol
     container_name: php-lol85
   pingdom-exporter:
