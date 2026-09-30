@@ -254,3 +254,23 @@ EXPOSE 80/tcp 443/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+#
+# Rootless
+#
+# Same as "run", but the whole process tree (supervisord, php-fpm, nginx) runs
+# as 65534:65534 and nginx listens on unprivileged port 8080.
+#
+FROM run AS rootless
+
+RUN set -eux \
+  && sed -i -e '/^user /d' -e 's/listen \[::\]:80 /listen [::]:8080 /' -e 's/listen 80 /listen 8080 /' /etc/nginx/nginx.conf \
+  && sed -i -e '/^chown = /d' -e '/^user = /d' /etc/supervisor/supervisord.conf \
+  && sed -i -e '/^user = /d' /etc/supervisor/conf.d/app.conf \
+  && chmod 0444 /etc/nginx/nginx.conf /etc/supervisor/supervisord.conf /etc/supervisor/conf.d/app.conf \
+  && mkdir -p /var/cache/nginx /var/log/nginx /var/lib/php/session \
+  && chown -R 65534:65534 /var/cache/nginx /var/log/nginx /var/lib/php/session
+
+EXPOSE 8080/tcp
+
+USER 65534:65534
