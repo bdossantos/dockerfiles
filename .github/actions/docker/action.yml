@@ -9,9 +9,9 @@ inputs:
     description: "Password for image registry"
     required: true
   target:
-    description: "Dockerfile build target"
+    description: "Dockerfile build target (defaults to the last stage)"
     required: false
-    default: "run"
+    default: ""
   tag_suffix:
     description: "Suffix appended to every image tag (e.g. -rootless)"
     required: false
