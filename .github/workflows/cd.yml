@@ -16,13 +16,16 @@ jobs:
       contents: read
     outputs:
       dockerfiles: ${{ steps.discover.outputs.dockerfiles }}
+      rootless: ${{ steps.discover.outputs.rootless }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
       - name: Discover Dockerfiles
         id: discover
         run: |
           dockerfiles=$(find dockerfiles -type f -name 'Dockerfile*' | sort | jq -R -s -c 'split("\n")[:-1]')
+          rootless=$(find dockerfiles/php-lol -type f -name 'Dockerfile*' | sort | jq -R -s -c 'split("\n")[:-1]')
           echo "dockerfiles=${dockerfiles}" >> $GITHUB_OUTPUT
+          echo "rootless=${rootless}" >> $GITHUB_OUTPUT
 
   build:
     runs-on: ubuntu-latest
@@ -39,3 +42,21 @@ jobs:
         with:
           dockerfile: ${{ matrix.dockerfile }}
           registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  build-rootless:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    needs: discover
+    strategy:
+      matrix:
+        dockerfile: ${{ fromJSON(needs.discover.outputs.rootless) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # ratchet:actions/checkout@v7.0.1
+      - name: Build and push rootless variant
+        uses: ./.github/actions/docker
+        with:
+          dockerfile: ${{ matrix.dockerfile }}
+          registry_password: ${{ secrets.DOCKERHUB_TOKEN }}
+          target: rootless
+          tag_suffix: -rootless
