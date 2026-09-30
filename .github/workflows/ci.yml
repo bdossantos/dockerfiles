@@ -69,3 +69,22 @@ jobs:
       - name: Lint and test
         run: |
           make test
+      - name: Test rootless php-lol variants
+        run: |
+          for version in 8.3 8.4 8.5; do
+            image="bdossantos/php-lol:rootless-${version}"
+            docker build --target rootless -f "dockerfiles/php-lol/Dockerfile.${version}" -t "${image}" dockerfiles/php-lol
+            test "$(docker image inspect --format '{{.Config.User}}' "${image}")" = "65534:65534"
+            docker run -d --name "php-lol-rootless-${version}" --read-only --tmpfs /tmp --tmpfs /run --tmpfs /var/log --tmpfs /var/lib/php/session --tmpfs /var/cache/nginx "${image}"
+            ok=false
+            for _ in $(seq 1 30); do
+              if docker exec "php-lol-rootless-${version}" curl -sf http://127.0.0.1:8080/nginx_status >/dev/null; then
+                ok=true
+                break
+              fi
+              sleep 1
+            done
+            docker logs "php-lol-rootless-${version}"
+            docker rm -f "php-lol-rootless-${version}"
+            test "${ok}" = "true"
+          done
