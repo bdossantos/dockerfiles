@@ -252,3 +252,50 @@ EXPOSE 80/tcp 443/tcp
 
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+FROM foundation AS run-rootless
+
+ARG BUILD_DATE
+ARG VCS_REF
+ARG VERSION=8.4.25
+
+LABEL org.label-schema.build-date="$BUILD_DATE" \
+  org.label-schema.name="php-lol" \
+  org.label-schema.schema-version="1.0" \
+  org.label-schema.url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.usage="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vcs-ref="$VCS_REF" \
+  org.label-schema.vcs-url="https://github.com/bdossantos/dockerfiles" \
+  org.label-schema.vendor="PHP" \
+  org.label-schema.version="$VERSION" \
+  org.opencontainers.image.created="$BUILD_DATE" \
+  org.opencontainers.image.documentation="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.revision="$VCS_REF" \
+  org.opencontainers.image.source="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.title="php-lol" \
+  org.opencontainers.image.url="https://github.com/bdossantos/dockerfiles" \
+  org.opencontainers.image.vendor="PHP" \
+  org.opencontainers.image.version="$VERSION"
+
+COPY app.rootless.conf /etc/supervisor/conf.d/app.conf
+COPY nginx.rootless.conf /etc/nginx/nginx.conf
+COPY supervisord.rootless.conf /etc/supervisor/supervisord.conf
+COPY zzz-php-fpm-tuning.rootless.conf /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
+
+RUN chown -R 65534:65534 \
+  /var/cache/nginx \
+  /var/lib/php/session \
+  && chmod 0444 \
+    /etc/nginx/nginx.conf \
+    /etc/supervisor/conf.d/app.conf \
+    /etc/supervisor/supervisord.conf \
+    /usr/local/etc/php-fpm.d/zzz-php-fpm-tuning.conf
+
+WORKDIR /usr/src/app
+
+EXPOSE 8080/tcp
+
+USER 65534:65534
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
