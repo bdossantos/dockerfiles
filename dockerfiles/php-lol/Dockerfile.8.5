@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-FROM php:8.5.10-fpm-bookworm@sha256:8e780a6e59508f418c7729681468322a2ce7d7cfe4266025054f41bbe85e3928 AS foundation
+FROM php:8.5.12-fpm-bookworm@sha256:eb37f58646a901dc7727cf448cae36daaefaba79de33b5058dab79aa4c04aefb AS foundation
 
 ENV \
   AMQP_VERSION=2.2.0 \
@@ -16,7 +16,7 @@ ENV \
   NGINX_VERSION=1.30.4 \
   NGX_HTTP_GEOIP2_MODULE_VERSION=3.4 \
   REDIS_VERSION=6.3.0 \
-  VERSION=8.5.10 \
+  VERSION=8.5.12 \
   ZSTD_VERSION=0.18.0
 
 ENV BUILD_DEPENDENCIES="\
@@ -52,24 +52,24 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -eux \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    acl \
-    bash \
-    geoip-database \
-    git \
-    imagemagick \
-    libaio1 \
-    libfontconfig \
-    libjpeg-turbo-progs \
-    libmagickcore-dev \
-    libmagickwand-dev \
-    libodbc1 \
-    libpq5 \
-    librabbitmq4 \
-    libtool \
-    locales \
-    supervisor \
-    unzip \
-    $BUILD_DEPENDENCIES \
+  acl \
+  bash \
+  geoip-database \
+  git \
+  imagemagick \
+  libaio1 \
+  libfontconfig \
+  libjpeg-turbo-progs \
+  libmagickcore-dev \
+  libmagickwand-dev \
+  libodbc1 \
+  libpq5 \
+  librabbitmq4 \
+  libtool \
+  locales \
+  supervisor \
+  unzip \
+  $BUILD_DEPENDENCIES \
   && docker-php-ext-install -j"$(nproc)" zip \
   && mkdir -p /var/lib/php/session \
   && chown -R www-data.www-data /var/lib/php/session \
@@ -77,7 +77,7 @@ RUN set -eux \
   # compatible with PHP 8.5), so PECL extensions are built from pinned upstream
   # sources with phpize instead.
   && git clone --depth 1 --branch "${IGBINARY_VERSION}" \
-    https://github.com/igbinary/igbinary /usr/src/igbinary \
+  https://github.com/igbinary/igbinary /usr/src/igbinary \
   && pushd /usr/src/igbinary \
   && phpize \
   && ./configure \
@@ -85,7 +85,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "${MSGPACK_VERSION}" \
-    https://github.com/msgpack/msgpack-php /usr/src/msgpack \
+  https://github.com/msgpack/msgpack-php /usr/src/msgpack \
   && pushd /usr/src/msgpack \
   && phpize \
   && ./configure \
@@ -93,7 +93,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "v${APCU_VERSION}" \
-    https://github.com/krakjoe/apcu /usr/src/apcu \
+  https://github.com/krakjoe/apcu /usr/src/apcu \
   && pushd /usr/src/apcu \
   && phpize \
   && ./configure \
@@ -101,7 +101,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "v${AMQP_VERSION}" \
-    https://github.com/php-amqp/php-amqp /usr/src/amqp \
+  https://github.com/php-amqp/php-amqp /usr/src/amqp \
   && pushd /usr/src/amqp \
   && phpize \
   && ./configure \
@@ -109,7 +109,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "${IMAP_VERSION}" \
-    https://github.com/php/pecl-mail-imap /usr/src/imap \
+  https://github.com/php/pecl-mail-imap /usr/src/imap \
   && pushd /usr/src/imap \
   && phpize \
   && ./configure --with-imap --with-imap-ssl --with-kerberos \
@@ -117,7 +117,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "v${MEMCACHED_VERSION}" \
-    https://github.com/php-memcached-dev/php-memcached /usr/src/memcached \
+  https://github.com/php-memcached-dev/php-memcached /usr/src/memcached \
   && pushd /usr/src/memcached \
   && phpize \
   && ./configure --enable-memcached-igbinary --enable-memcached-msgpack \
@@ -125,7 +125,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "${REDIS_VERSION}" \
-    https://github.com/phpredis/phpredis /usr/src/redis \
+  https://github.com/phpredis/phpredis /usr/src/redis \
   && pushd /usr/src/redis \
   && phpize \
   && ./configure --enable-redis-igbinary --enable-redis-msgpack \
@@ -133,7 +133,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --branch "v${MAILPARSE_VERSION}" \
-    https://github.com/php/pecl-mail-mailparse /usr/src/mailparse \
+  https://github.com/php/pecl-mail-mailparse /usr/src/mailparse \
   && pushd /usr/src/mailparse \
   && phpize \
   && ./configure \
@@ -141,7 +141,7 @@ RUN set -eux \
   && make install \
   && popd \
   && git clone --depth 1 --recurse-submodules --branch "${ZSTD_VERSION}" \
-    https://github.com/kjdev/php-ext-zstd /usr/src/php-ext-zstd \
+  https://github.com/kjdev/php-ext-zstd /usr/src/php-ext-zstd \
   && pushd /usr/src/php-ext-zstd \
   && phpize \
   && ./configure \
@@ -158,20 +158,20 @@ RUN set -eux \
   && make install \
   && popd \
   && docker-php-ext-install \
-    bcmath \
-    bz2 \
-    exif \
-    ftp \
-    gd \
-    intl \
-    pcntl \
-    pdo_mysql \
-    pdo_pgsql \
-    pgsql \
-    soap \
-    sockets \
-    tidy \
-    zip \
+  bcmath \
+  bz2 \
+  exif \
+  ftp \
+  gd \
+  intl \
+  pcntl \
+  pdo_mysql \
+  pdo_pgsql \
+  pgsql \
+  soap \
+  sockets \
+  tidy \
+  zip \
   # Temporarily building for PHP 8.0: https://github.com/Imagick/imagick/issues/358
   && git clone --depth 1 https://github.com/Imagick/imagick /usr/src/imagick \
   && pushd /usr/src/imagick \
@@ -182,23 +182,23 @@ RUN set -eux \
   && popd \
   && mv /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini \
   && docker-php-ext-enable \
-    amqp \
-    apcu \
-    igbinary \
-    imagick \
-    imap \
-    lz4 \
-    mailparse \
-    memcached \
-    msgpack \
-    redis \
-    zstd \
+  amqp \
+  apcu \
+  igbinary \
+  imagick \
+  imap \
+  lz4 \
+  mailparse \
+  memcached \
+  msgpack \
+  redis \
+  zstd \
   && git clone --depth 1 --branch "${NGX_HTTP_GEOIP2_MODULE_VERSION}" \
-    https://github.com/leev/ngx_http_geoip2_module.git \
-    /usr/src/ngx_http_geoip2_module \
+  https://github.com/leev/ngx_http_geoip2_module.git \
+  /usr/src/ngx_http_geoip2_module \
   && mkdir -p /usr/src/libmaxminddb \
   && curl -sSL "https://github.com/maxmind/libmaxminddb/releases/download/${LIBMAXMINDDB_VERSION}/libmaxminddb-${LIBMAXMINDDB_VERSION}.tar.gz" \
-    | tar -xzf - --strip-components 1 -C /usr/src/libmaxminddb \
+  | tar -xzf - --strip-components 1 -C /usr/src/libmaxminddb \
   && cd /usr/src/libmaxminddb \
   && ./configure \
   && make \
@@ -207,43 +207,43 @@ RUN set -eux \
   && ldconfig \
   && mkdir -p /usr/src/nginx \
   && curl -sSL "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" \
-    | tar -xzf - --strip-components 1 -C /usr/src/nginx \
+  | tar -xzf - --strip-components 1 -C /usr/src/nginx \
   && cd /usr/src/nginx \
   && ./configure \
-    --add-module=/usr/src/ngx_http_geoip2_module \
-    --conf-path=/etc/nginx/nginx.conf \
-    --error-log-path=/dev/stderr \
-    --group=www-data \
-    --http-client-body-temp-path=/var/cache/nginx/client_temp \
-    --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
-    --http-log-path=/var/log/nginx/access.log \
-    --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
-    --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
-    --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
-    --lock-path=/var/run/nginx.lock \
-    --pid-path=/var/run/nginx.pid \
-    --prefix=/etc/nginx \
-    --sbin-path=/usr/sbin/nginx \
-    --user=www-data \
-    --with-file-aio \
-    --with-http_mp4_module \
-    --with-http_addition_module \
-    --with-http_auth_request_module \
-    --with-http_flv_module \
-    --with-http_gunzip_module \
-    --with-http_gzip_static_module \
-    --with-http_random_index_module \
-    --with-http_realip_module \
-    --with-http_secure_link_module \
-    --with-http_slice_module \
-    --with-http_ssl_module \
-    --with-http_stub_status_module \
-    --with-http_sub_module \
-    --with-http_v2_module \
-    --with-stream \
-    --with-stream_realip_module \
-    --with-stream_ssl_module \
-    --with-threads \
+  --add-module=/usr/src/ngx_http_geoip2_module \
+  --conf-path=/etc/nginx/nginx.conf \
+  --error-log-path=/dev/stderr \
+  --group=www-data \
+  --http-client-body-temp-path=/var/cache/nginx/client_temp \
+  --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+  --http-log-path=/var/log/nginx/access.log \
+  --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
+  --http-scgi-temp-path=/var/cache/nginx/scgi_temp \
+  --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
+  --lock-path=/var/run/nginx.lock \
+  --pid-path=/var/run/nginx.pid \
+  --prefix=/etc/nginx \
+  --sbin-path=/usr/sbin/nginx \
+  --user=www-data \
+  --with-file-aio \
+  --with-http_mp4_module \
+  --with-http_addition_module \
+  --with-http_auth_request_module \
+  --with-http_flv_module \
+  --with-http_gunzip_module \
+  --with-http_gzip_static_module \
+  --with-http_random_index_module \
+  --with-http_realip_module \
+  --with-http_secure_link_module \
+  --with-http_slice_module \
+  --with-http_ssl_module \
+  --with-http_stub_status_module \
+  --with-http_sub_module \
+  --with-http_v2_module \
+  --with-stream \
+  --with-stream_realip_module \
+  --with-stream_ssl_module \
+  --with-threads \
   && make \
   && make install \
   && mkdir -p /var/cache/nginx \
@@ -253,12 +253,12 @@ RUN set -eux \
   && docker-php-source delete \
   && apt-get clean \
   && rm -rf \
-    /tmp/* \
-    /usr/src/* \
-    /var/cache/debconf \
-    /var/lib/apt/lists/* \
+  /tmp/* \
+  /usr/src/* \
+  /var/cache/debconf \
+  /var/lib/apt/lists/* \
   && find /var/log -type f -print0 \
-    | xargs -0 rm -f
+  | xargs -0 rm -f
 
 VOLUME /etc/nginx/conf.d
 
@@ -294,7 +294,7 @@ FROM foundation AS runtime
 
 ARG BUILD_DATE
 ARG VCS_REF
-ARG VERSION=8.5.10
+ARG VERSION=8.5.12
 
 LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.name="php-lol" \
