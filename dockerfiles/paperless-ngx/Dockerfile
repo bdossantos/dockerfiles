@@ -62,9 +62,6 @@ RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
   --index-strategy unsafe-best-match \
   --requirements requirements.txt \
   && pushd /app \
-  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' snowball_data \
-  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' stopwords \
-  && python3 -W ignore::RuntimeWarning -m nltk.downloader -d '/tmp/nltk_data' punkt_tab \
   && PAPERLESS_SECRET_KEY=build-time-dummy python3 manage.py collectstatic --clear --no-input --link \
   && PAPERLESS_SECRET_KEY=build-time-dummy python3 manage.py compilemessages \
   && apt-get clean \
@@ -184,7 +181,6 @@ COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/
-COPY --from=build /tmp/nltk_data /usr/share/nltk_data
 COPY --from=build /usr/local/src/paperless-ngx/docker/rootfs/etc/ImageMagick-6/paperless-policy.xml /etc/ImageMagick-6/policy.xml
 COPY entrypoint.sh /entrypoint.sh
 COPY copy-to-consumption-dir /app/copy-to-consumption-dir
