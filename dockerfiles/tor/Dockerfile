@@ -12,7 +12,7 @@ RUN set -x \
     autoconf=2.72-3.1 \
     automake=1:1.17-4 \
     build-essential=12.12 \
-    ca-certificates=20250419 \
+    ca-certificates=20250419+deb13u1 \
     dirmngr=2.4.7-21+deb13u1+b5 \
     gnupg=2.4.7-21+deb13u1 \
     libevent-dev=2.1.13-stable-1~deb13u1 \
@@ -98,7 +98,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20250419 \
+    ca-certificates=20250419+deb13u1 \
     libevent-2.1-7t64=2.1.13-stable-1~deb13u1 \
     libtorsocks=2.5.0-1+deb13u1 \
     libssl-dev=3.5.7-1~deb13u3 \

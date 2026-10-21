@@ -18,16 +18,16 @@ COPY domains-allowlist.txt .
 
 RUN set -x \
   && python3 /go/dnscrypt-proxy//utils/generate-domains-blocklist/generate-domains-blocklist.py \
-    --config /tmp/domains-blocklist.conf \
-    --allowlist /tmp/domains-allowlist.txt \
-    --time-restricted /tmp/domains-time-restricted.txt \
-    --timeout 120 \
-    --output-file /etc/dnscrypt-proxy-blocklist.txt \
+  --config /tmp/domains-blocklist.conf \
+  --allowlist /tmp/domains-allowlist.txt \
+  --time-restricted /tmp/domains-time-restricted.txt \
+  --timeout 120 \
+  --output-file /etc/dnscrypt-proxy-blocklist.txt \
   && wget -q https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-gambling/hosts \
-    -O /etc/hosts.tmp
+  -O /etc/hosts.tmp
 
 # Run
-FROM debian:12-slim
+FROM debian:13-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -55,8 +55,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20250419~deb12u1 \
-    dnsutils=1:9.18.49-1~deb12u2 \
+  ca-certificates=20250419+deb13u1 \
+  bind9-dnsutils=1:9.20.29-1~deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
