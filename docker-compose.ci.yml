@@ -1,18 +1,12 @@
 ---
 version: "3"
 services:
-  dnscrypt-proxy: &default
+  paperless-ngx: &default
     build:
-      context: dockerfiles/dnscrypt-proxy
+      context: dockerfiles/paperless-ngx
       args:
         BUILD_DATE: ${BUILD_DATE}
         VCS_REF: ${VCS_REF}
-    image: bdossantos/dnscrypt-proxy
-    container_name: dnscrypt-proxy
-  paperless-ngx:
-    <<: *default
-    build:
-      context: dockerfiles/paperless-ngx
       dockerfile: Dockerfile
     image: bdossantos/paperless-ngx
     container_name: paperless-ngx
