@@ -50,7 +50,6 @@ pre-commit: ## Run pre-commit tests
 
 container-structure-test: ## Run container-structure-test
 	$(info --> Run container-structure-test)
-	@$(CWD)/bin/container-structure-test test --image bdossantos/dnscrypt-proxy --config tests/dnscrypt-proxy.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/paperless-ngx --config tests/paperless-ngx.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol --config tests/php-lol.yaml
 	@$(CWD)/bin/container-structure-test test --image bdossantos/pint --config tests/pint.yaml
