@@ -1,7 +1,7 @@
 # Build
-FROM golang:1.20-bookworm AS builder
+FROM golang:1.27-trixie AS builder
 
-ENV VERSION=v0.22.2
+ENV VERSION=v0.89.3
 
 # hadolint ignore=DL3003
 RUN set -x \
@@ -11,7 +11,7 @@ RUN set -x \
   && make
 
 # Run
-FROM debian:12-slim
+FROM debian:13-slim
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -39,7 +39,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20250419~deb12u1 \
+  ca-certificates=20250419+deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 

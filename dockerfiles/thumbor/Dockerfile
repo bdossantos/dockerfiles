@@ -13,7 +13,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
   build-essential=12.12 \
-  ca-certificates=20250419 \
+  ca-certificates=20250419+deb13u1 \
   cairosvg=2.7.1-2 \
   ffmpeg=7:7.1.5-0+deb13u1 \
   graphicsmagick=1.4+really1.3.45+hg17696-1 \
@@ -80,7 +80,7 @@ LABEL org.label-schema.build-date="$BUILD_DATE" \
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-  ca-certificates=20250419 \
+  ca-certificates=20250419+deb13u1 \
   cairosvg=2.7.1-2 \
   ffmpeg=7:7.1.5-0+deb13u1 \
   gifsicle=1.96-1 \

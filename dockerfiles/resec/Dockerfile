@@ -39,7 +39,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN set -x \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
-    ca-certificates=20250419 \
+    ca-certificates=20250419+deb13u1 \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
