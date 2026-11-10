@@ -1,15 +1,19 @@
+# Shared across stages so the version only needs to be bumped in one place
+ARG VERSION=3.4.1
+
 # uv
 FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim@sha256:c32d0376532c87fc99725529f3fff54f599f52cc0a38f4e7a19fa2f1d3533c5e AS uv
 
 # Build
 FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
 
+ARG VERSION
+
 ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
   PYTHONUSERBASE=/app \
-  PYTHONDONTWRITEBYTECODE=1 \
-  VERSION=3.4.1
+  PYTHONDONTWRITEBYTECODE=1
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
@@ -19,8 +23,7 @@ COPY --from=node:22-bookworm-slim /usr/local/ /usr/local/
 COPY --from=uv /usr/local/bin/uv /usr/local/bin/uv
 
 # hadolint ignore=DL3008,DL3013,DL3042
-RUN --mount=type=cache,target=/root/.cache/uv,id=pip-cache \
-  set -x \
+RUN set -x \
   && mkdir "$PYTHONUSERBASE" \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
@@ -86,10 +89,13 @@ ENV \
   PAPERLESS_THREADS_PER_WORKER=1 \
   PAPERLESS_TIME_ZONE=Europe/Paris \
   PATH=/app/bin/:/app/.venv/bin/:$PATH \
+  PYTHONDONTWRITEBYTECODE=1 \
+  PYTHONUNBUFFERED=1 \
   PYTHONUSERBASE=/app
 
 ARG BUILD_DATE
 ARG VCS_REF
+ARG VERSION
 
 # Packages need for running
 ARG RUNTIME_PACKAGES="\
@@ -188,7 +194,7 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 VOLUME ["/app/data", "/app/media","/app/consume", "/app/export", "/app/watch"]
 
 HEALTHCHECK --interval=10s --timeout=5s --start-period=300s \
-  CMD curl -s --fail http://127.0.0.1:8000 &>/dev/null || exit 1
+  CMD curl -s --fail --max-time 5 http://127.0.0.1:8000 &>/dev/null || exit 1
 
 WORKDIR /app
 
