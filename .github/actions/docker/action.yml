@@ -41,7 +41,11 @@ runs:
       shell: bash
       id: context
       run: |
-        version=$(grep -E '^\s*(ENV\s+)?VERSION=' '${{ inputs.dockerfile }}' | tail -1 | sed -E 's/^.*VERSION=([^ \\]+).*/\1/')
+        version=$(grep -E \
+          '^\s*((ARG|ENV)\s+)?VERSION=' \
+          '${{ inputs.dockerfile }}' \
+          | tail -1 \
+          | sed -E 's/^.*VERSION=([^ \\]+).*/\1/')
         vcs_ref=$(git rev-parse --short HEAD)
         image_name=$(cd $(dirname ${{ inputs.dockerfile }}) && echo "${PWD##*/}")
         suffix='${{ inputs.tag_suffix }}'
