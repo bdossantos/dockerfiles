@@ -2,10 +2,10 @@
 ARG VERSION=3.4.2
 
 # uv
-FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim@sha256:c32d0376532c87fc99725529f3fff54f599f52cc0a38f4e7a19fa2f1d3533c5e AS uv
+FROM ghcr.io/astral-sh/uv:python3.14-trixie-slim@sha256:81a1340fea1e72ad4a8e9a016128b0c61041cf182ea49fd788023e52842bc147 AS uv
 
 # Build
-FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
+FROM python:3.14-trixie@sha256:1cef1664561971647b94fedf437145415991d4feeda09c81df12acfad8829cde AS build
 
 ARG VERSION
 
@@ -71,7 +71,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853
+FROM python:3.14-trixie@sha256:1cef1664561971647b94fedf437145415991d4feeda09c81df12acfad8829cde
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
