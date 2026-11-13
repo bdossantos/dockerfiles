@@ -1,5 +1,5 @@
 # Build
-FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853 AS build
+FROM python:3.14-trixie@sha256:1cef1664561971647b94fedf437145415991d4feeda09c81df12acfad8829cde AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
@@ -31,13 +31,13 @@ RUN set -x \
   && pip install \
   --no-cache-dir \
   --prefix="${PYTHONUSERBASE}" \
-  cairosvg==2.7.1 \
-  numpy==1.26.4 \
-  opencv-python-headless==4.11.0.86 \
-  pillow==10.4.0 \
-  pillow-avif-plugin==1.5.2 \
-  pycurl==7.45.6 \
-  remotecv==5.1.9 \
+  cairosvg==2.9.1 \
+  numpy==2.5.4 \
+  opencv-python-headless==4.13.0.92 \
+  pillow==12.3.0 \
+  pillow-avif-plugin==1.6.0 \
+  pycurl==7.49.0 \
+  remotecv==5.2.0 \
   tc_prometheus==4.0.0 \
   thumbor-plugins-gifv==0.1.5 \
   thumbor-plugins==0.2.4 \
@@ -49,7 +49,7 @@ RUN set -x \
   && rm -rf /var/lib/apt/lists/*
 
 # Run
-FROM python:3.13-trixie@sha256:a7394c629de7c2a0d1cebf36149724fcaf4d71929f69432f1e18520c95af7853
+FROM python:3.14-trixie@sha256:1cef1664561971647b94fedf437145415991d4feeda09c81df12acfad8829cde
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
