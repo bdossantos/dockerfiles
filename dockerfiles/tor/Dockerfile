@@ -3,7 +3,7 @@ FROM debian:13-slim AS build
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  VERSION=0.4.9.5
+  VERSION=0.4.9.15
 
 # hadolint ignore=DL3008
 RUN set -x \

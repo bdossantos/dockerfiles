@@ -1,5 +1,5 @@
 # Shared across stages so the version only needs to be bumped in one place
-ARG VERSION=3.4.1
+ARG VERSION=3.4.2
 
 # uv
 FROM ghcr.io/astral-sh/uv:python3.13-trixie-slim@sha256:c32d0376532c87fc99725529f3fff54f599f52cc0a38f4e7a19fa2f1d3533c5e AS uv
