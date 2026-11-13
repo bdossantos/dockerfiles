@@ -5,7 +5,7 @@ ENV \
   DEBIAN_FRONTEND=noninteractive \
   PATH=$PATH:/app/bin/ \
   PYTHONUSERBASE=/app \
-  VERSION=25.9.2
+  VERSION=26.9.4
 
 # hadolint ignore=DL3013
 RUN set -x \
