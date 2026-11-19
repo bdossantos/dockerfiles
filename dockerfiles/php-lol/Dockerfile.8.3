@@ -1,14 +1,14 @@
 #
 # Foundation
 #
-FROM php:8.3.36-fpm-bookworm@sha256:d7677e2a3c1579fbe52848cc446bc24860187c876c383a43b7d4b8e06dce537e AS foundation
+FROM php:8.3.37-fpm-bookworm@sha256:ff3db7724750bf02a3c7d65be2790feb63f6173c2fb201328eb0a2295ca32041 AS foundation
 
 ENV \
   APP_DIR=/usr/src/app \
   LIBMAXMINDDB_VERSION=1.7.1 \
   NGINX_VERSION=1.30.7 \
   NGX_HTTP_GEOIP2_MODULE_VERSION=3.4 \
-  VERSION=8.3.36
+  VERSION=8.3.37
 
 ENV BUILD_DEPENDENCIES="\
   automake \
@@ -230,7 +230,7 @@ FROM foundation AS runtime
 
 ARG BUILD_DATE
 ARG VCS_REF
-ARG VERSION=8.3.36
+ARG VERSION=8.3.37
 
 LABEL org.label-schema.build-date="$BUILD_DATE" \
   org.label-schema.name="php-lol" \
