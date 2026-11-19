@@ -64,6 +64,7 @@ RUN set -x \
   --index https://download.pytorch.org/whl/cpu \
   --index-strategy unsafe-best-match \
   --requirements requirements.txt \
+  && python3 -c "import nltk; nltk.download(['stopwords', 'punkt_tab'], download_dir='/usr/share/nltk_data', raise_on_error=True)" \
   && pushd /app \
   && PAPERLESS_SECRET_KEY=build-time-dummy python3 manage.py collectstatic --clear --no-input --link \
   && PAPERLESS_SECRET_KEY=build-time-dummy python3 manage.py compilemessages \
@@ -184,6 +185,7 @@ RUN set -x \
   && usermod --home /dev/shm nobody
 
 COPY --from=build "$PYTHONUSERBASE" "$PYTHONUSERBASE"
+COPY --from=build /usr/share/nltk_data /usr/share/nltk_data
 COPY --from=build /tmp/jbig2enc/src/*.h /usr/local/include/
 COPY --from=build /tmp/jbig2enc/src/.libs/libjbig2enc* /usr/local/lib/
 COPY --from=build /tmp/jbig2enc/src/jbig2 /usr/local/bin/

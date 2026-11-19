@@ -19,6 +19,12 @@ fileExistenceTests:
     shouldExist: true
 
 commandTests:
+  - name: 'nltk resources are usable'
+    command: 'python3'
+    args:
+      - '-c'
+      - "from nltk.corpus import stopwords; from nltk.tokenize import word_tokenize; assert 'the' in stopwords.words('english'); assert word_tokenize('Hello world.') == ['Hello', 'world', '.']"
+    exitCode: 0
   - name: 'ImageMagick loads the distro policy'
     command: 'convert'
     args: ['-list', 'policy']
