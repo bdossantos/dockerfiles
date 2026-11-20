@@ -5,7 +5,9 @@ FROM php:8.3.37-fpm-bookworm@sha256:ff3db7724750bf02a3c7d65be2790feb63f6173c2fb2
 
 ENV \
   APP_DIR=/usr/src/app \
+  IMAGICK_VERSION=3.8.1 \
   LIBMAXMINDDB_VERSION=1.7.1 \
+  LZ4_VERSION=0.8.0 \
   NGINX_VERSION=1.30.7 \
   NGX_HTTP_GEOIP2_MODULE_VERSION=3.4 \
   VERSION=8.3.37
@@ -76,9 +78,8 @@ RUN set -eux \
   && pickle install --no-interaction --with-configure-options="redis_options" redis@6.3.0 \
   && pickle install mailparse@3.2.0 \
   && pickle install zstd@0.18.0 \
-  && curl -L -o /tmp/lz4.tar.gz https://github.com/kjdev/php-ext-lz4/archive/refs/heads/master.tar.gz \
-  && tar -xzf /tmp/lz4.tar.gz -C /usr/src \
-  && mv /usr/src/php-ext-lz4-master /usr/src/php-ext-lz4 \
+  && git clone --depth 1 --branch "${LZ4_VERSION}" \
+  https://github.com/kjdev/php-ext-lz4 /usr/src/php-ext-lz4 \
   && pushd /usr/src/php-ext-lz4 \
   && phpize \
   && ./configure --with-lz4-includedir=/usr \
@@ -109,8 +110,8 @@ RUN set -eux \
   tidy \
   zip \
   && CFLAGS="-I/usr/src/php" docker-php-ext-install xmlreader \
-  # Temporarily building for PHP 8.0: https://github.com/Imagick/imagick/issues/358
-  && git clone --depth 1 https://github.com/Imagick/imagick /usr/src/imagick \
+  && git clone --depth 1 --branch "${IMAGICK_VERSION}" \
+  https://github.com/Imagick/imagick /usr/src/imagick \
   && pushd /usr/src/imagick \
   && phpize \
   && ./configure \
