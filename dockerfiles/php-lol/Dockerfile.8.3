@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-FROM php:8.3.37-fpm-bookworm@sha256:ff3db7724750bf02a3c7d65be2790feb63f6173c2fb201328eb0a2295ca32041 AS foundation
+FROM php:8.3.37-fpm-trixie@sha256:91e22c46bcaec4bec0228ead6cfb66f9e9286adeea37eb7982336bdb104bd104 AS foundation
 
 ENV \
   APP_DIR=/usr/src/app \
@@ -27,7 +27,7 @@ ENV BUILD_DEPENDENCIES="\
   libkrb5-dev \
   liblz4-dev \
   libmemcached-dev \
-  libpcre3-dev \
+  libpcre2-dev \
   libpng-dev \
   libpq-dev \
   librabbitmq-dev \
@@ -50,12 +50,12 @@ RUN set -eux \
   geoip-database \
   git \
   imagemagick \
-  libaio1 \
-  libfontconfig \
+  libaio1t64 \
+  libfontconfig1 \
   libjpeg-turbo-progs \
   libmagickcore-dev \
   libmagickwand-dev \
-  libodbc1 \
+  libodbc2 \
   libpq5 \
   librabbitmq4 \
   libtool \
