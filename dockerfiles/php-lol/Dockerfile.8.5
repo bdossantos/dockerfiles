@@ -1,7 +1,7 @@
 #
 # Foundation
 #
-FROM php:8.5.13-fpm-bookworm@sha256:bad1d3498eaa489efe88c1d532e47e2f4111304c3f0b19fbc428842c39ec155c AS foundation
+FROM php:8.5.13-fpm-trixie@sha256:7fd2766bd3bb6efcfb49591e4bf014e123c18f01149093bd508525c6bdf0cf9f AS foundation
 
 ENV \
   AMQP_VERSION=2.2.0 \
@@ -36,7 +36,7 @@ ENV BUILD_DEPENDENCIES="\
   libkrb5-dev \
   liblz4-dev \
   libmemcached-dev \
-  libpcre3-dev \
+  libpcre2-dev \
   libpng-dev \
   libpq-dev \
   librabbitmq-dev \
@@ -59,12 +59,12 @@ RUN set -eux \
   geoip-database \
   git \
   imagemagick \
-  libaio1 \
-  libfontconfig \
+  libaio1t64 \
+  libfontconfig1 \
   libjpeg-turbo-progs \
   libmagickcore-dev \
   libmagickwand-dev \
-  libodbc1 \
+  libodbc2 \
   libpq5 \
   librabbitmq4 \
   libtool \
