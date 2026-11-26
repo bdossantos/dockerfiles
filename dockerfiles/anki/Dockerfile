@@ -70,7 +70,7 @@ COPY --from=build --chown=65534:65534 /data /data
 VOLUME /data
 
 #HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
-#  CMD curl -s --fail http://127.0.0.1:5232/.web/ &>/dev/null || exit 1
+#  CMD curl -s --fail http://127.0.0.1:5232/.web/ >/dev/null 2>&1 || exit 1
 
 USER 65534:65534
 
