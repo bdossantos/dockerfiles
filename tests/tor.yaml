@@ -26,13 +26,13 @@ commandTests:
     command: 'sha256sum'
     args: ['/usr/local/bin/tor']
     expectedOutput:
-      - 'TBD'
+      - '2fa1222d148b917e5c4b6896f0d88eb01d3eabc5836d4f6017304be3d79051a2'
 
   - name: 'torrc.sample checksum'
     command: 'sha256sum'
     args: ['/usr/local/etc/tor/torrc.sample']
     expectedOutput:
-      - 'TBD'
+      - '816e99c4a5e071bf2cbfa13c2beeeb09af811c02d99a18e80cc7e6506f5602c9'
 
   - name: 'torrc checksum'
     command: 'sha256sum'
