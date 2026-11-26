@@ -26,7 +26,7 @@ RUN set -x \
   libjpeg-turbo-progs=1:2.1.5-4 \
   libopencv-dev=4.10.0+dfsg-5 \
   libpng-dev=1.6.48-1+deb13u6 \
-  libssl-dev=3.5.7-1~deb13u3 \
+  libssl-dev=3.5.9-1~deb13u1 \
   libtiff5-dev=4.7.0-3+deb13u3 \
   python3=3.13.5-1 \
   python3-dev=3.13.5-1 \
