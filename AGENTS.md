@@ -118,7 +118,7 @@ Include HEALTHCHECK directives where applicable:
 
 ```dockerfile
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
-  CMD curl -s --fail http://127.0.0.1:<port>/<path> &>/dev/null || exit 1
+  CMD curl -s --fail http://127.0.0.1:<port>/<path> >/dev/null 2>&1 || exit 1
 ```
 
 ## Testing
