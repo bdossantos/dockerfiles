@@ -193,6 +193,8 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 
 VOLUME ["/app/data", "/app/media","/app/consume", "/app/export", "/app/watch"]
 
+# Shell form on purpose: the check relies on shell operators.
+# hadolint ignore=DL3025
 HEALTHCHECK --interval=10s --timeout=5s --start-period=300s \
   CMD curl -s --fail --max-time 5 http://127.0.0.1:8000 >/dev/null 2>&1 || exit 1
 

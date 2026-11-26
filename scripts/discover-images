@@ -1,0 +1,94 @@
+#!/usr/bin/env bash
+#
+# Print the GitHub Actions build matrix (JSON) of the images to build.
+#
+# Usage: discover-images [<base-ref>]
+#
+# With a base ref, only images whose dockerfiles/<svc>/ or tests/<svc>*.yaml
+# changed since <base-ref> are selected. Without a base ref, with an unknown
+# one, or when shared CI files changed (.github/, scripts/, Makefile), every
+# image is selected.
+#
+# One entry per dockerfiles/<svc>/Dockerfile*, plus one "-rootless" entry for
+# Dockerfiles that define a "rootless" stage. Conventions:
+#   - the last Dockerfile of a directory (version sort) gets the latest tag;
+#   - test config: tests/<svc>-<variant>.yaml, else tests/<svc>.yaml for the
+#     latest Dockerfile;
+#   - smoke test: executable scripts/test-<svc>[-rootless], called with the
+#     image name.
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+cd "$(dirname "$0")/.."
+
+base=${1:-}
+all=1
+changed=''
+
+if [[ -n $base ]] && git rev-parse -q --verify "${base}^{commit}" >/dev/null; then
+  all=0
+  changed=$(git diff --name-only "${base}...HEAD")
+  if grep -qE '^(\.github/|scripts/|Makefile$)' <<<"$changed"; then
+    all=1
+  fi
+fi
+
+selected() {
+  local svc=$1
+  [[ $all -eq 1 ]] && return 0
+  grep -qE "^(dockerfiles/${svc}/|tests/${svc}(-[^/]+)?\.yaml$)" <<<"$changed"
+}
+
+entry() {
+  local svc=$1 dockerfile=$2 variant=$3 target=$4 suffix=$5 latest=$6 test=$7
+  local smoke="scripts/test-${svc}${suffix}"
+  [[ -x $smoke ]] || smoke=''
+  jq -n -c \
+    --arg name "${svc}${variant:+-$variant}${suffix}" \
+    --arg service "$svc" \
+    --arg variant "$variant" \
+    --arg dockerfile "$dockerfile" \
+    --arg context "$(dirname "$dockerfile")" \
+    --arg target "$target" \
+    --arg suffix "$suffix" \
+    --argjson latest "$latest" \
+    --arg test "$test" \
+    --arg smoke "$smoke" \
+    '$ARGS.named'
+}
+
+for dir in dockerfiles/*/; do
+  dir=${dir%/}
+  svc=$(basename "$dir")
+  selected "$svc" || continue
+
+  dockerfiles=$(find "$dir" -maxdepth 1 -type f -name 'Dockerfile*' | sort -V)
+  last=$(tail -1 <<<"$dockerfiles")
+
+  while read -r dockerfile; do
+    [[ -n $dockerfile ]] || continue
+    variant=''
+    [[ $(basename "$dockerfile") == Dockerfile.* ]] && variant=${dockerfile##*/Dockerfile.}
+
+    latest=false
+    [[ $dockerfile == "$last" ]] && latest=true
+
+    test=''
+    if [[ -n $variant && -f "tests/${svc}-${variant}.yaml" ]]; then
+      test="tests/${svc}-${variant}.yaml"
+    elif [[ $latest == true && -f "tests/${svc}.yaml" ]]; then
+      test="tests/${svc}.yaml"
+    fi
+
+    entry "$svc" "$dockerfile" "$variant" '' '' "$latest" "$test"
+
+    if grep -qiE '^FROM[[:space:]].*[[:space:]]AS[[:space:]]+rootless[[:space:]]*$' "$dockerfile"; then
+      entry "$svc" "$dockerfile" "$variant" rootless -rootless "$latest" ''
+    fi
+  done <<<"$dockerfiles"
+done | jq -s -c '{include: .}'

@@ -1,7 +1,6 @@
 # Dockerfiles
 
-[![CI](https://github.com/bdossantos/dockerfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/bdossantos/dockerfiles/actions/workflows/ci.yml)
-[![CD](https://github.com/bdossantos/dockerfiles/actions/workflows/cd.yml/badge.svg)](https://github.com/bdossantos/dockerfiles/actions/workflows/cd.yml)
+[![CI/CD](https://github.com/bdossantos/dockerfiles/actions/workflows/ci.yml/badge.svg)](https://github.com/bdossantos/dockerfiles/actions/workflows/ci.yml)
 
 A collection of production-ready, security-hardened Dockerfiles using
 multi-stage builds, pinned dependencies, and non-root users.
@@ -88,10 +87,12 @@ Test a single image:
 ├── scripts/
 │   ├── changelog                        # changelog generator
 │   ├── container-structure-test-install  # install test framework
+│   ├── discover-images                  # CI build matrix (changed images)
 │   ├── dive                             # dive analyzer
-│   └── dockerfile-lint                  # hadolint wrapper
+│   ├── dockerfile-lint                  # hadolint wrapper
+│   └── test-<service>[-rootless]        # optional per-image smoke tests
 ├── docker-compose.yml                   # development composition
-├── docker-compose.ci.yml                # CI composition
+├── docker-compose.ci.yml                # local build of every image
 └── Makefile                             # build automation
 ```
 

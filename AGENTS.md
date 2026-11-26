@@ -264,18 +264,37 @@ dockerfiles/
 │   ├── dockerfile-lint         # Linting script
 │   ├── changelog               # Changelog generator
 │   ├── dive                    # Dive analyzer script
+│   ├── discover-images         # CI build matrix (changed images)
+│   ├── test-<service>[-rootless]  # Optional per-image smoke test
 │   └── container-structure-test-install  # Install container-structure-test
 ├── docker-compose.yml          # Development composition
-├── docker-compose.ci.yml       # CI composition
+├── docker-compose.ci.yml       # Local build of every image (make docker-build)
 └── Makefile                    # Build automation
 ```
 
 ## CI/CD
 
-- GitHub Actions workflows in `.github/workflows/`
-- `ci.yml`: Continuous Integration - runs tests on PRs
-- `cd.yml`: Continuous Deployment - builds and publishes images
-- Dependabot keeps dependencies updated
+A single workflow, `.github/workflows/ci.yml`, runs on PRs, pushes to
+`master`, every Monday (full rebuild), and on manual dispatch:
+
+1. `lint`: pre-commit, shellcheck, hadolint. Fails fast, before any build.
+2. `discover`: `scripts/discover-images` builds the matrix. PRs and pushes
+   only build images whose `dockerfiles/<service>/` or `tests/<service>*.yaml`
+   changed; changes to `.github/`, `scripts/` or `Makefile`, scheduled and
+   manual runs build every image.
+3. `image` (one job per Dockerfile, plus `-rootless` for Dockerfiles with a
+   `rootless` stage): build, container-structure-test, smoke test, dive, then
+   push to Docker Hub only on `master` once all checks passed.
+
+Matrix conventions:
+
+- The last `Dockerfile*` of a directory (version sort) gets the `latest` tag.
+- Test config: `tests/<service>-<variant>.yaml`, else `tests/<service>.yaml`
+  for the latest Dockerfile. Images without tests get a CI warning.
+- Smoke test: executable `scripts/test-<service>[-rootless] <image>`.
+
+Dependabot keeps base images (`dockerfiles/*`), pip and GitHub Actions
+dependencies updated.
 
 ## Best Practices Summary
 
