@@ -6,7 +6,7 @@ schemaVersion: '2.0.0'
 metadataTest:
   user: '65534:65534'
   exposedPorts: ['8000', '8888']
-  entrypoint: ['/usr/bin/python3', '/app/bin/thumbor']
+  entrypoint: ['/app/bin/python', '/app/bin/thumbor']
 
 fileExistenceTests:
   - name: 'thumbor binary exists'
@@ -54,14 +54,14 @@ fileExistenceTests:
 
 commandTests:
   - name: 'thumbor and its native extensions can be imported'
-    command: '/usr/bin/python3'
+    command: '/app/bin/python'
     args:
       - '-c'
       - 'import thumbor, cv2, numpy, PIL, pillow_avif, pycurl, cairosvg, tc_prometheus, thumbor_plugins'
     exitCode: 0
 
   - name: 'thumbor-doctor runs successfully'
-    command: '/usr/bin/python3'
+    command: '/app/bin/python'
     args: ['/app/bin/thumbor-doctor']
     exitCode: 0
 

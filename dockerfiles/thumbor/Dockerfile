@@ -5,13 +5,16 @@ FROM debian:trixie-slim@sha256:8aa5a7bf5a1955bddbe7d74fcdd0b91ab30e74362a8b73af6
 
 ENV \
   DEBIAN_FRONTEND=noninteractive \
-  PATH=$PATH:/app/bin/ \
-  PYTHONPATH=/app/lib/python3.13/site-packages \
+  PATH=/app/bin:$PATH \
   VERSION=7.8.0
 
+# A virtualenv gives a predictable /app/lib/python3.13/site-packages layout
+# (Debian patches the --prefix install scheme). It is created from the
+# versioned interpreter so /app/bin/python links to /usr/bin/python3.13,
+# which exists in the distroless runtime.
 # hadolint ignore=DL3013,DL3042
 RUN set -x \
-  && mkdir /app /etc/thumbor \
+  && mkdir /etc/thumbor \
   && apt-get update \
   && apt-get install -y --no-install-recommends \
   build-essential=12.12 \
@@ -30,12 +33,10 @@ RUN set -x \
   libtiff5-dev=4.7.0-3+deb13u3 \
   python3=3.13.5-1 \
   python3-dev=3.13.5-1 \
-  python3-pip=25.1.1+dfsg-1 \
-  && pip install \
-  --break-system-packages \
-  --ignore-installed \
+  python3-venv=3.13.5-1 \
+  && python3.13 -m venv /app \
+  && /app/bin/pip install \
   --no-cache-dir \
-  --prefix=/app \
   cairosvg==2.9.1 \
   numpy==2.5.4 \
   opencv-python-headless==4.13.0.92 \
@@ -47,7 +48,8 @@ RUN set -x \
   thumbor-plugins-gifv==0.1.5 \
   thumbor-plugins==0.2.4 \
   thumbor=="${VERSION}" \
-  && test -d "$PYTHONPATH" \
+  && test -d /app/lib/python3.13/site-packages \
+  && test "$(readlink -f /app/bin/python)" = /usr/bin/python3.13 \
   && thumbor-config > /etc/thumbor/thumbor.conf \
   && chown 65534:65534 /etc/thumbor/thumbor.conf \
   && chmod 0444 /etc/thumbor/thumbor.conf \
@@ -80,9 +82,7 @@ RUN set -x \
 # Run
 FROM gcr.io/distroless/python3-debian13:nonroot@sha256:72de1dda9d4c52c370e2ef2d93c28e3e1a8193c92058b7dfa42bace38a83d114
 
-ENV \
-  PYTHONPATH=/app/lib/python3.13/site-packages \
-  PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONDONTWRITEBYTECODE=1
 
 ARG BUILD_DATE
 ARG VCS_REF
@@ -113,4 +113,4 @@ USER 65534:65534
 
 EXPOSE 8000/tcp 8888/tcp
 
-ENTRYPOINT ["/usr/bin/python3", "/app/bin/thumbor"]
+ENTRYPOINT ["/app/bin/python", "/app/bin/thumbor"]
