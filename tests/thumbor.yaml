@@ -1,5 +1,13 @@
 schemaVersion: '2.0.0'
 
+# The image is distroless: no shell, no sha256sum, no dpkg. Tests therefore
+# only use exec-form commands and file checks.
+
+metadataTest:
+  user: '65534:65534'
+  exposedPorts: ['8000', '8888']
+  entrypoint: ['/app/bin/python', '/app/bin/thumbor']
+
 fileExistenceTests:
   - name: 'thumbor binary exists'
     path: '/app/bin/thumbor'
@@ -8,6 +16,13 @@ fileExistenceTests:
     uid: 0
     gid: 0
 
+  - name: 'thumbor config exists'
+    path: '/etc/thumbor/thumbor.conf'
+    shouldExist: true
+    permissions: '-r--r--r--'
+    uid: 65534
+    gid: 65534
+
   - name: 'jpegtran binary exists'
     path: '/usr/bin/jpegtran'
     shouldExist: true
@@ -15,49 +30,54 @@ fileExistenceTests:
     uid: 0
     gid: 0
 
-commandTests:
-  - name: 'thumbor binary checksum'
-    command: 'sha256sum'
-    args: ['/app/bin/thumbor']
-    expectedOutput:
-      - '866f217ee2bfeae5dbad0245d93fbbf64391cc8c5c172dea7ca2bd81eb57136f'
+  - name: 'gifsicle binary exists'
+    path: '/usr/bin/gifsicle'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
 
-  - name: 'jpegtran binary checksum'
-    command: 'sha256sum'
-    args: ['/usr/bin/jpegtran']
-    expectedOutput:
-      - '9531fb8d7da7b9f9dcbf46451a4977d3d7ac6eda933d8931cd870c73fb7dfcab'
+  - name: 'ffmpeg binary exists'
+    path: '/usr/bin/ffmpeg'
+    shouldExist: true
+    permissions: '-rwxr-xr-x'
+    uid: 0
+    gid: 0
+
+  - name: 'no shell in the image'
+    path: '/bin/sh'
+    shouldExist: false
+
+  - name: 'no apt in the image'
+    path: '/usr/bin/apt-get'
+    shouldExist: false
+
+commandTests:
+  - name: 'thumbor and its native extensions can be imported'
+    command: '/app/bin/python'
+    args:
+      - '-c'
+      - 'import thumbor, cv2, numpy, PIL, pillow_avif, pycurl, cairosvg, tc_prometheus, thumbor_plugins'
+    exitCode: 0
 
   - name: 'thumbor-doctor runs successfully'
-    command: '/app/bin/thumbor-doctor'
+    command: '/app/bin/python'
+    args: ['/app/bin/thumbor-doctor']
     exitCode: 0
 
-  - name: 'ca-certificates package is installed'
-    command: 'dpkg'
-    args: ['-s', 'ca-certificates']
+  - name: 'jpegtran runs'
+    command: '/usr/bin/jpegtran'
+    args: ['-version']
     exitCode: 0
 
-  - name: 'ffmpeg package is installed'
-    command: 'dpkg'
-    args: ['-s', 'ffmpeg']
+  - name: 'gifsicle runs'
+    command: '/usr/bin/gifsicle'
+    args: ['--version']
     exitCode: 0
+    expectedOutput: ['LCDF Gifsicle']
 
-  - name: 'gifsicle package is installed'
-    command: 'dpkg'
-    args: ['-s', 'gifsicle']
+  - name: 'ffmpeg runs'
+    command: '/usr/bin/ffmpeg'
+    args: ['-version']
     exitCode: 0
-
-  - name: 'graphicsmagick package is installed'
-    command: 'dpkg'
-    args: ['-s', 'graphicsmagick']
-    exitCode: 0
-
-  - name: 'libjpeg-turbo-progs package is installed'
-    command: 'dpkg'
-    args: ['-s', 'libjpeg-turbo-progs']
-    exitCode: 0
-
-  - name: 'webp package is installed'
-    command: 'dpkg'
-    args: ['-s', 'webp']
-    exitCode: 0
+    expectedOutput: ['ffmpeg version']
