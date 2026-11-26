@@ -60,13 +60,16 @@ RUN set -x \
 # out to (jpegtran, gifsicle, ffmpeg) and every shared library they, the
 # compiled Python extensions and libcairo (dlopen'ed by cairocffi) need into
 # /rootfs. glibc itself is excluded, the distroless base provides it.
+# Libraries vendored by auditwheel in "<pkg>.libs/" dirs are skipped as ldd
+# inputs: they only resolve their siblings through the RPATH of the extension
+# module loading them, and ldd on that module already lists them transitively.
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN set -x \
   && mkdir /rootfs \
   && { \
   printf '%s\n' /usr/bin/ffmpeg /usr/bin/gifsicle /usr/bin/jpegtran; \
   find /usr/lib -name 'libcairo.so.2' -print; \
-  find /app -type f -name '*.so*' -print; \
+  find /app -type f -name '*.so*' -not -path '*.libs/*' -print; \
   } > /tmp/elf.list \
   && { xargs -a /tmp/elf.list ldd > /tmp/ldd.out 2>/dev/null || true; } \
   && ! grep 'not found' /tmp/ldd.out \
@@ -74,9 +77,11 @@ RUN set -x \
   | sed 's#^/lib/#/usr/lib/#' \
   | grep -Ev '^/app/|/(ld-linux[^/]*|libc|libm|libdl|libpthread|librt|libresolv|libutil|libnsl|libnss_[a-z]+)\.so' \
   | sort -u > /tmp/libs.list \
-  && cat /tmp/libs.list /usr/bin/ffmpeg /usr/bin/gifsicle /usr/bin/jpegtran /etc/fonts/fonts.conf 2>/dev/null \
-  | grep '^/' \
-  | xargs -I{} cp -L --parents {} /rootfs/ \
+  && { \
+  cat /tmp/libs.list; \
+  printf '%s\n' /usr/bin/ffmpeg /usr/bin/gifsicle /usr/bin/jpegtran; \
+  if [ -f /etc/fonts/fonts.conf ]; then echo /etc/fonts/fonts.conf; fi; \
+  } | xargs -I{} cp -L --parents {} /rootfs/ \
   && test -x /rootfs/usr/bin/jpegtran
 
 # Run
