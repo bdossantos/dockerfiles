@@ -113,10 +113,10 @@ jobs:
           } >> "$GITHUB_OUTPUT"
           echo "tags: ${tags}"
 
-      - uses: docker/setup-buildx-action@8d2750c68a42422c14e847fe6c8ac0403b4cbd6f # ratchet:docker/setup-buildx-action@v3.12.0
+      - uses: docker/setup-buildx-action@f87e5991a6d7451dcb8d9637bfbc97413f497069 # ratchet:docker/setup-buildx-action@v4.4.1
 
       - name: Build
-        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # ratchet:docker/build-push-action@v6.19.2
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # ratchet:docker/build-push-action@v7.4.0
         with:
           build-args: |
             BUILD_DATE=${{ steps.meta.outputs.build_date }}
@@ -167,14 +167,14 @@ jobs:
       # push build reuses the builder cache, so the layers are the ones tested.
       - name: Login to Docker Hub
         if: env.PUBLISH == 'true'
-        uses: docker/login-action@c94ce9fb468520275223c153574b00df6fe4bcc9 # ratchet:docker/login-action@v3.7.0
+        uses: docker/login-action@8aa5831fb8d48d8f76594c7ddde61ae58019f550 # ratchet:docker/login-action@v4.8.0
         with:
           username: bdossantos
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push
         if: env.PUBLISH == 'true'
-        uses: docker/build-push-action@10e90e3645eae34f1e60eeb005ba3a3d33f178e8 # ratchet:docker/build-push-action@v6.19.2
+        uses: docker/build-push-action@c3c9e263c25d99ce0380d002d59b67737d91b0dc # ratchet:docker/build-push-action@v7.4.0
         with:
           build-args: |
             BUILD_DATE=${{ steps.meta.outputs.build_date }}
