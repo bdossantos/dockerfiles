@@ -117,6 +117,8 @@ COPY --from=geoip /usr/share/tor/geoip6 /usr/share/tor/geoip6
 
 EXPOSE 9050/tcp 9053/udp
 
+# Shell form on purpose: the check relies on shell operators.
+# hadolint ignore=DL3025
 HEALTHCHECK --interval=30s --timeout=5s --start-period=30s \
   CMD torify wget -q -O - https://check.torproject.org/ \
     | grep -q 'Congratulations. This browser is configured to use Tor.'

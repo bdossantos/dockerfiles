@@ -2,7 +2,9 @@
 version: 2
 updates:
   - package-ecosystem: docker
-    directory: "/"
+    # Dockerfiles live in dockerfiles/<service>/, not at the repository root
+    directories:
+      - "/dockerfiles/*"
     schedule:
       interval: daily
       time: "04:00"

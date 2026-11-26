@@ -23,7 +23,8 @@ changelog: ## Generate CHANGELOG.md
 dive: ## Run dive
 	$(info --> Run `dive`)
 	@awk '/image:/ { print $$2 }' docker-compose.ci.yml \
-		| xargs -I % -n 1 -P 1 env CI=true dive %
+		| sort -u \
+		| xargs -I % -n 1 -P 1 env CI=true $(CWD)/scripts/dive %
 
 docker-build: ## Build all Dockerfiles
 	$(info --> Run docker-build)
@@ -48,17 +49,11 @@ pre-commit: ## Run pre-commit tests
 	$(info --> Run pre-commit)
 	@source $(VIRTUALENV_DIR)/bin/activate && pre-commit run --all-files
 
-container-structure-test: ## Run container-structure-test
+container-structure-test: ## Run container-structure-test (tests/<service>.yaml against bdossantos/<service>)
 	$(info --> Run container-structure-test)
-	@$(CWD)/bin/container-structure-test test --image bdossantos/paperless-ngx --config tests/paperless-ngx.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/php-lol --config tests/php-lol.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/pint --config tests/pint.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/python-github-backup --config tests/python-github-backup.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/radicale --config tests/radicale.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/resec --config tests/resec.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/thumbor --config tests/thumbor.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/tor --config tests/tor.yaml
-	@$(CWD)/bin/container-structure-test test --image bdossantos/memcached --config tests/memcached.yaml
+	@for config in $(CWD)/tests/*.yaml; do \
+		$(CWD)/bin/container-structure-test test --image "bdossantos/$$(basename "$$config" .yaml)" --config "$$config" || exit 1; \
+	done
 
 shellcheck: ## Run shellcheck on /scripts directory
 	$(info --> Run shellsheck)

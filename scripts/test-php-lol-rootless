@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+#
+# Smoke test a php-lol rootless image: runs as 65534:65534 on a read-only
+# root filesystem and nginx answers on :8080.
+#
+# Usage: test-php-lol-rootless <image>
+
+set -o errexit
+set -o pipefail
+set -o nounset
+
+DEBUG=${DEBUG:=0}
+[[ $DEBUG -eq 1 ]] && set -o xtrace
+
+image=${1:?usage: $0 <image>}
+name="php-lol-rootless-$$"
+
+user=$(docker image inspect --format '{{.Config.User}}' "$image")
+if [[ $user != '65534:65534' ]]; then
+  echo "--> ${image} runs as '${user}', expected '65534:65534'" >&2
+  exit 1
+fi
+
+docker run -d --name "$name" \
+  --read-only \
+  --tmpfs /tmp \
+  --tmpfs /run \
+  --tmpfs /var/log \
+  --tmpfs /var/lib/php/session \
+  --tmpfs /var/cache/nginx \
+  "$image" >/dev/null
+
+trap 'docker logs "$name" || true; docker rm -f "$name" >/dev/null || true' EXIT
+
+for _ in $(seq 1 30); do
+  if docker exec "$name" curl -sf http://127.0.0.1:8080/nginx_status >/dev/null; then
+    echo "--> ${image} is healthy"
+    exit 0
+  fi
+  sleep 1
+done
+
+echo "--> ${image} did not become healthy within 30s" >&2
+exit 1

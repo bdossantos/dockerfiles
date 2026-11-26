@@ -75,6 +75,8 @@ COPY --from=build --chown=65534:65534 /data /data
 
 VOLUME /data
 
+# Shell form on purpose: the check relies on shell operators.
+# hadolint ignore=DL3025
 HEALTHCHECK --interval=10s --timeout=5s --start-period=30s \
   CMD curl -s --fail http://127.0.0.1:5232/.web/ >/dev/null 2>&1 || exit 1
 
