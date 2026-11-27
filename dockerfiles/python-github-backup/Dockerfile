@@ -1,5 +1,5 @@
 # build
-FROM python:3.10-slim-bookworm@sha256:eae406f018dd9c05687bdd6c13fe47443945c78e7c3320d57a5b3dfecc5d08b2 AS build
+FROM python:3.10-slim-bookworm@sha256:5be5aaecb962a41567bc8041f1e9e3432cb085b037fe057f9a562630b2e4b370 AS build
 
 ENV \
   PATH=$PATH:/app/bin/ \
@@ -14,7 +14,7 @@ RUN set -x \
   && mkdir -p /data
 
 # Run
-FROM python:3.10-slim-bookworm@sha256:eae406f018dd9c05687bdd6c13fe47443945c78e7c3320d57a5b3dfecc5d08b2
+FROM python:3.10-slim-bookworm@sha256:5be5aaecb962a41567bc8041f1e9e3432cb085b037fe057f9a562630b2e4b370
 
 ENV \
   PATH=$PATH:/app/bin/ \
